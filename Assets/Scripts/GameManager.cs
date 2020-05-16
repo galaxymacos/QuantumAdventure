@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region Serialized Field
 
     [Tooltip("The prefab to use for representing the player")]
-    public GameObject Maria;
-    public GameObject Soldier;
+    public GameObject p1CharacterPrefab;
+    public GameObject p2CharacterPrefab;
 
     [SerializeField] public LayerMask whatIsGround;
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (Maria == null)
+        if (p1CharacterPrefab == null)
         {
             Debug.LogError("player prefab reference. Please set it up in GameObject 'Game Manager'");
         }
@@ -46,10 +46,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                 switch (PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     case 1:
-                        PhotonNetwork.Instantiate(Maria.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        PhotonNetwork.Instantiate(p1CharacterPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
                         break;
                     case 2:
-                        PhotonNetwork.Instantiate(Soldier.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
+                        PhotonNetwork.Instantiate(p2CharacterPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
                         break;
 
                 }

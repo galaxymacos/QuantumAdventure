@@ -16,20 +16,24 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     [Tooltip("The Player's UI GameObject Prefab")]
     [SerializeField] public GameObject PlayerUiPrefab;
     [SerializeField] public GameObject PlayerCombatUIPrefab;
+    [SerializeField] public GameObject DialogueUiPrefab;
     
     [SerializeField] public GameObject virtualCamera;
+    
+    
 
     #endregion
 
     #region Property
 
     public static GameObject LocalPlayerInstance;
+    public bool isDialogueBoxOpen { get; set; }
 
     #endregion
 
     #region Private Field
 
-
+    private GameObject dialogueUI;
 
     #endregion
 
@@ -62,6 +66,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             GameObject _uiGo = Instantiate(PlayerUiPrefab);
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
+        print("Instantiate dialogue ui prefab");
+        dialogueUI = Instantiate(DialogueUiPrefab);
+        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
     }
 
     private void Update()
@@ -101,7 +108,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
 
-        
+        dialogueUI = Instantiate(DialogueUiPrefab);
+        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
+
+
     }
 
     public override void OnDisable()
@@ -138,5 +149,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             Health = (float) stream.ReceiveNext();
         }
+    }
+    
+    [PunRPC]
+    private void DisplayMessage(string message)
+    {
+        dialogueUI.GetComponent<DialogueTest>().ShowMessage(message);
     }
 }

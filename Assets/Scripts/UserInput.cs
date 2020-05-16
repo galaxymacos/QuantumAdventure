@@ -12,15 +12,19 @@ public class UserInput : MonoBehaviour
     public static float cameraVerticalMouseValue;
     public static bool Skill1Pressed;
     public static bool Skill2Pressed;
+    public static bool runPressed;
     public static bool leftMouseButtonPressed;
     public static bool rightMouseButtonPressed;
     public static bool interactKeyPressed;
+    public static bool returnButtonPressed;
 
-    public static event Action skill1JustPressed;
-    public static event Action skill2JustPressed;
-    public static event Action LeftMouseButtonJustPressed;
-    public static event Action RightMouseButtonJustPressed;
-    public static event Action interactButtonJustPressed;
+    public static event Action onSkill1Pressed;
+    public static event Action onSkill2Pressed;
+    public static event Action onLeftMouseButtonPressed;
+    public static event Action onRightMouseButtonPressed;
+    public static event Action onReturnButtonPressed;
+    public static event Action onInteractButtonPressed;
+    public static event Action onRunPressed;
 
     #region Serialized Field
 
@@ -58,33 +62,45 @@ public class UserInput : MonoBehaviour
         interactKeyPressed = player.GetButton("Interact"); 
         leftMouseButtonPressed = player.GetButton("Left Mouse Button");
         rightMouseButtonPressed = player.GetButton("Right Mouse Button");
+        runPressed = player.GetButton("Run");
 
 
         if (player.GetButtonDown("Skill1"))
         {
-            skill1JustPressed?.Invoke();
+            onSkill1Pressed?.Invoke();
         }
 
         if (player.GetButtonDown("Skill2"))
         {
-            skill2JustPressed?.Invoke();
+            onSkill2Pressed?.Invoke();
         }
 
         if (player.GetButtonDown("Left Mouse Button"))
         {
             print("Left Mouse Button Pressed");
-            LeftMouseButtonJustPressed?.Invoke();
+            onLeftMouseButtonPressed?.Invoke();
         }
 
         if (player.GetButtonDown("Right Mouse Button"))
         {
-            RightMouseButtonJustPressed?.Invoke();
+            onRightMouseButtonPressed?.Invoke();
         }
         
         if (player.GetButtonDown("Interact"))
         {
-            interactButtonJustPressed?.Invoke();
+            onInteractButtonPressed?.Invoke();
         }
+
+        if (player.GetButtonDown("Run"))
+        {
+            onRunPressed?.Invoke();
+        }
+
+        if (player.GetButtonDown("Confirm"))
+        {
+            onReturnButtonPressed?.Invoke();
+        }
+
     }
 
     #endregion

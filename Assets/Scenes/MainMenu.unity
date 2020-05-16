@@ -1708,6 +1708,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8968498492611232224, guid: ac54054355938ed44a2fbc0096cb4cb1,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1957736494542007316, guid: ac54054355938ed44a2fbc0096cb4cb1,
         type: 3}
       propertyPath: _userData.actions.Array.data[2]._name

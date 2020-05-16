@@ -14,10 +14,12 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
     [SerializeField] private float camMaxHeight = 3f;
     [SerializeField] private float camMinHeight = 0.5f;
     [SerializeField] private Transform camTransfrom;
+    [SerializeField] private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
     
     
     [SerializeField] public float mouseSentivity = 20;
-    [SerializeField] public float moveSpeed = 10f;
+    [SerializeField] public float runSpeed = 10f;
+    [SerializeField] public float walkSpeed = 5f;
     [SerializeField] private Transform camLookTarget;
     
     [SerializeField] public Animator anim;
@@ -31,6 +33,7 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
 
     #region Property
 
+    public float moveSpeed;
     public bool isGrounded => Physics.OverlapSphere(groundCheck.position, 0.05f, whatIsGround).Length>0;
 
     #endregion
@@ -61,6 +64,11 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
     private void Update()
     {
         RotateCharacter();
+
+        if (!isGrounded)
+        {
+            characterController.Move(gravity*Time.deltaTime);
+        }
     }
 
     #endregion
@@ -79,8 +87,8 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
             Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
             Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
             movementVector.Normalize();
-            characterController.SimpleMove(movementVector * moveSpeed);
-
+            characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+            
         }
     }
 
