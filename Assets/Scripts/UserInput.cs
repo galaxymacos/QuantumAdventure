@@ -77,7 +77,6 @@ public class UserInput : MonoBehaviour
 
         if (player.GetButtonDown("Left Mouse Button"))
         {
-            print("Left Mouse Button Pressed");
             onLeftMouseButtonPressed?.Invoke();
         }
 

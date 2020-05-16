@@ -84,7 +84,9 @@ public class DialogueTest : MonoBehaviourPun
         else
         {
             dialogueObject.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(dialogueObject);
+            dialogueInputField.Select();
+            dialogueInputField.ActivateInputField();
+            // EventSystem.current.SetSelectedGameObject(dialogueObject);
         }
     }
 
