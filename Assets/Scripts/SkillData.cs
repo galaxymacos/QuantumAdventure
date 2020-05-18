@@ -3,6 +3,6 @@
 [CreateAssetMenu(menuName = "Data/SkillDamage", fileName = "SkillDamage")]
 public class SkillData: ScriptableObject
 {
-    public MariaSkill type;
+    public string skillName;
     public float damage;
 }

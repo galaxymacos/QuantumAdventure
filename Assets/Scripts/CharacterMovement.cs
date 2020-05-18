@@ -99,6 +99,7 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
             transform.Rotate(Vector3.up, UserInput.cameraHorizontalMouseValue*Time.deltaTime*mouseSentivity);
             camTransfrom.Translate(Vector3.up * -UserInput.cameraVerticalMouseValue*Time.deltaTime*2);
             float camTransfromY = camTransfrom.localPosition.y;
+            print($"{camTransfromY}, Min: {camMinHeight}, Max: {camMaxHeight}");
             camTransfromY = Mathf.Clamp(camTransfromY, camMinHeight, camMaxHeight);
             camTransfrom.localPosition.Set(camTransfrom.localPosition.x, camTransfromY, camTransfrom.localPosition.z);
         }

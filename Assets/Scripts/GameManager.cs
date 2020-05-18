@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Tooltip("The prefab to use for representing the player")]
     public GameObject p1CharacterPrefab;
     public GameObject p2CharacterPrefab;
+    
+    
 
     [SerializeField] public LayerMask whatIsGround;
 

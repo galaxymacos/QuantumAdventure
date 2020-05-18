@@ -20,8 +20,8 @@ public class Maria : MonoBehaviour
 
     #region Property
 
-    public MariaSkill currentSkill;
-    public SkillData CurrentSkillData => skillDamage.FirstOrDefault(skill => skill.type == currentSkill);
+    public string currentSkill;
+    public SkillData CurrentSkillData => skillDamage.FirstOrDefault(skill => skill.skillName == currentSkill);
 
     #endregion
 

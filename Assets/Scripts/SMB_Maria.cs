@@ -6,7 +6,7 @@ public class SMB_Maria: StateMachineBehaviour
     protected CharacterMovement characterMovement;
     protected PlayerManager playerManager;
     protected Maria maria;
-    public MariaSkill mariaSkill;
+    public string mariaSkill;
     
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

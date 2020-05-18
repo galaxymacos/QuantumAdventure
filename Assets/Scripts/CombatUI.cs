@@ -42,7 +42,7 @@ public class CombatUI : MonoBehaviour
             return;
         }
 
-        playerHealthText.text = target.Health.ToString(CultureInfo.InvariantCulture);
+        playerHealthText.text = target.healthComponent.HealthPoint.ToString(CultureInfo.InvariantCulture);
         playerNicknameText.text = target.photonView.Owner.NickName;
 
 

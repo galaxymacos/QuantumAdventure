@@ -5,13 +5,13 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
 
     #region Serialized Field
 
-    [Tooltip("The current health of our player")]
-    [SerializeField] public float Health = 100f;
+    [Tooltip("The health component of our player")] [SerializeField]
+    public HealthComponent healthComponent;
 
     [Tooltip("The Player's UI GameObject Prefab")]
     [SerializeField] public GameObject PlayerUiPrefab;
@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private void Update()
     {
 
-        if (Health <= 0f)
+        if (healthComponent.HealthPoint <= 0f)
         {
             GameManager.Instance.LeaveRoom();
         }
@@ -137,19 +137,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     #endregion
-
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(Health);
-        }
-        else
-        {
-            Health = (float) stream.ReceiveNext();
-        }
-    }
+    
     
     [PunRPC]
     private void DisplayMessage(string message)

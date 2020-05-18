@@ -2333,9 +2333,11 @@ GameObject:
   - component: {fileID: 8060885742207913569}
   - component: {fileID: 8060885742207913574}
   - component: {fileID: 6990846712197885941}
+  - component: {fileID: 9114994293722558929}
+  - component: {fileID: 9138002704756438573}
   m_Layer: 0
   m_Name: Maria
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2427,8 +2429,8 @@ MonoBehaviour:
   camTransfrom: {fileID: 5274477031111377601}
   gravity: {x: 0, y: -9.8, z: 0}
   mouseSentivity: 20
-  runSpeed: 10
-  walkSpeed: 5
+  runSpeed: 4
+  walkSpeed: 2
   camLookTarget: {fileID: 7069598064336380250}
   anim: {fileID: 6069684241761971236}
   whatIsGround:
@@ -2452,6 +2454,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoint: 150
+  onHealthReachZero:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8060885742207913571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2503,7 +2508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4328aaccffe9c488e8c278b79f2da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100
+  healthComponent: {fileID: 0}
   PlayerUiPrefab: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
     type: 3}
   PlayerCombatUIPrefab: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b,
@@ -2558,11 +2563,90 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Slash
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Run
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!136 &9114994293722558929
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060885742207913579}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.14
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &9138002704756438573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060885742207913579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d789aca7cb140b08a549e643f9b6b1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: skillsDamage
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
+        mscorlib]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Kick
+    - Name: $v
+      Entry: 3
+      Data: 25
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Slash
+    - Name: $v
+      Entry: 3
+      Data: 15
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &8302619963570560872
 GameObject:
   m_ObjectHideFlags: 0
