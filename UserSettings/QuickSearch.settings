@@ -15,7 +15,7 @@ filters = {
 	asset = true
 }
 scopes = {
-	"last_search.AB59B443" = "GameManag"
+	"last_search.AB59B443" = "Bullet"
 }
 providers = {
 	asset = {

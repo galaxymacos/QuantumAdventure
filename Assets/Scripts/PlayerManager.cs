@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     #region Serialized Field
 
-    [Tooltip("The health component of our player")] [SerializeField]
+    [HideInInspector]
     public HealthComponent healthComponent;
 
     [Tooltip("The Player's UI GameObject Prefab")]
@@ -49,6 +49,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        healthComponent = GetComponent<HealthComponent>();
     }
 
     private void Start()
@@ -71,14 +73,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
     }
 
-    private void Update()
+    public void LeaveRoom()
     {
+        GameManager.Instance.LeaveRoom();
 
-        if (healthComponent.HealthPoint <= 0f)
-        {
-            GameManager.Instance.LeaveRoom();
-        }
-        
     }
 
     void OnLevelWasLoaded(int level)

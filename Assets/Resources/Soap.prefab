@@ -735,6 +735,13 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
     LensShift: {x: 0, y: 0}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2742,7 +2749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4328aaccffe9c488e8c278b79f2da6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthComponent: {fileID: 0}
+  healthComponent: {fileID: 4012463380183923321}
   PlayerUiPrefab: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
     type: 3}
   PlayerCombatUIPrefab: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b,
@@ -2762,7 +2769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8feffaea05ea7154bb6d4f307b55969f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6715304469801491708, guid: 841debd9857569c40b3e4a4aaf2bb794,
+  projectilePrefab: {fileID: 7617120599919420531, guid: 841debd9857569c40b3e4a4aaf2bb794,
     type: 3}
   projectileSpawnTransform: {fileID: 2543779222707278803}
 --- !u!114 &115636245026685649
@@ -2792,7 +2799,18 @@ MonoBehaviour:
   healthPoint: 100
   onHealthReachZero:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8561364467978998429}
+        m_MethodName: LeaveRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &6874586454129314846
 CapsuleCollider:
   m_ObjectHideFlags: 0
