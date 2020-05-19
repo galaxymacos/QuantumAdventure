@@ -64,19 +64,19 @@ public class ShootBullet : MonoBehaviourPun
         var protectile = PhotonNetwork.Instantiate(projectilePrefab.name, projectileSpawnTransform.position,
             Quaternion.identity);
         Vector3 bulletDirection = Vector3.zero;
-        if (Physics.Raycast(ray,out RaycastHit hitinfo,400, GameManager.Instance.whatIsGround))
+        if (Physics.Raycast(ray,out RaycastHit hitinfo,400))
         {
             print("spawn projectile");
-            
-            bulletDirection = hitinfo.point - projectileSpawnTransform.position;
+
+            bulletDirection = (hitinfo.point - projectileSpawnTransform.position).normalized;
         }
         else
         {
             var point = ray.GetPoint(400);
-            bulletDirection = point - projectileSpawnTransform.position;
+            bulletDirection = (point - projectileSpawnTransform.position).normalized;
 
         }
-        protectile.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 2, firingRange = 400, damage = 10});
+        protectile.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 200, firingRange = 400, damage = 10});
 
     }
 

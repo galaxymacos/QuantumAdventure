@@ -14,9 +14,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public HealthComponent healthComponent;
 
     [Tooltip("The Player's UI GameObject Prefab")]
-    [SerializeField] public GameObject PlayerUiPrefab;
-    [SerializeField] public GameObject PlayerCombatUIPrefab;
-    [SerializeField] public GameObject DialogueUiPrefab;
+    [SerializeField] public GameObject otherPlayerUI;
+    [SerializeField] public GameObject hostUI;
+
+    [SerializeField] public GameObject[] playerUiPrefabs;
+    
     
     [SerializeField] public GameObject virtualCamera;
     
@@ -55,33 +57,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
-        if (photonView.IsMine)
-        {
-            print("Instantiate combat UI");
-            GameObject _uiGo = Instantiate(PlayerCombatUIPrefab);
-            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        }
-        else
-        {
-            print("Instantiate player UI");
-            GameObject _uiGo = Instantiate(PlayerUiPrefab);
-            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        }
-        print("Instantiate dialogue ui prefab");
-        dialogueUI = Instantiate(DialogueUiPrefab);
-        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        InstantiateUi();
     }
 
-    public void LeaveRoom()
-    {
-        GameManager.Instance.LeaveRoom();
-    }
+    
 
-    public void GameOver()
-    {
-        GetComponent<Animator>().SetTrigger("Dead");
-    }
+    
 
     void OnLevelWasLoaded(int level)
     {
@@ -97,25 +78,10 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
         transform.position = new Vector3(0f, 5f, 0f);
 
-        if (photonView.IsMine)
-        {
-            print("Instantiate combat UI");
-            GameObject _uiGo = Instantiate(PlayerCombatUIPrefab);
-            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        }
-        else
-        {
-            print("Instantiate player UI");
-            GameObject _uiGo = Instantiate(PlayerUiPrefab);
-            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-        }
-
-        dialogueUI = Instantiate(DialogueUiPrefab);
-        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-
-
-
+        InstantiateUi();
     }
+
+    
 
     public override void OnDisable()
     {
@@ -127,7 +93,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     #region Public Methods
 
-
+    public void LeaveRoom()
+    {
+        GameManager.Instance.LeaveRoom();
+    }
+    public void GameOver()
+    {
+        GetComponent<Animator>().SetTrigger("Dead");
+    }
 
     #endregion
 
@@ -138,7 +111,29 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         this.CalledOnLevelWasLoaded(scene.buildIndex);
     }
 
-    #endregion
+    
+    private void InstantiateUi()
+    {
+        if (photonView.IsMine)
+        {
+            print("Instantiate combat UI");
+            GameObject _uiGo = Instantiate(hostUI);
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            foreach (GameObject playerUiPrefab in playerUiPrefabs)
+            {
+                var playerUi = Instantiate(playerUiPrefab);
+                playerUi.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
+        }
+        else
+        {
+            print("Instantiate player UI");
+            GameObject _uiGo = Instantiate(otherPlayerUI);
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        }
+
+        
+    }
     
     
     [PunRPC]
@@ -146,4 +141,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         dialogueUI.GetComponent<DialogueTest>().ShowMessage(message);
     }
+    
+    #endregion
+
 }

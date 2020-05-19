@@ -2584,12 +2584,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
-  PlayerUiPrefab: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
+  otherPlayerUI: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
     type: 3}
-  PlayerCombatUIPrefab: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b,
-    type: 3}
-  DialogueUiPrefab: {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722,
-    type: 3}
+  hostUI: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b, type: 3}
+  playerUiPrefabs:
+  - {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722, type: 3}
+  - {fileID: 3885778899857331368, guid: 3ac75696622f3d34fab5aa2984969e88, type: 3}
   virtualCamera: {fileID: 5355760280915330209}
 --- !u!114 &8060885742207913574
 MonoBehaviour:
