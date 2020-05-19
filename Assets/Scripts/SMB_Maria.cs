@@ -6,7 +6,9 @@ public class SMB_Maria: StateMachineBehaviour
     protected CharacterMovement characterMovement;
     protected PlayerManager playerManager;
     protected Maria maria;
-    public string mariaSkill;
+    protected HitBoxDealDamage hitBoxDealDamage;
+    [Tooltip("The skill name represented by this animation")]
+    public string skillName;
     
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -14,7 +16,8 @@ public class SMB_Maria: StateMachineBehaviour
         anim = animator;
         characterMovement = animator.GetComponent<CharacterMovement>();
         maria = animator.GetComponent<Maria>();
-        maria.currentSkill = mariaSkill;
+        hitBoxDealDamage = animator.GetComponent<HitBoxDealDamage>();
+        hitBoxDealDamage.currentSkill = skillName;
         playerManager = animator.GetComponent<PlayerManager>();
     }
 

@@ -52,7 +52,7 @@ public class PlayerUI : MonoBehaviour
     {
         if (playerHealthSlider != null)
         {
-            playerHealthSlider.value = target.healthComponent.HealthPoint;
+            playerHealthSlider.value = target.healthComponent.healthPercentage;
         }
 
         if (target == null)

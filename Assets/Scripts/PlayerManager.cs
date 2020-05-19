@@ -76,7 +76,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     public void LeaveRoom()
     {
         GameManager.Instance.LeaveRoom();
+    }
 
+    public void GameOver()
+    {
+        LeaveRoom();
+        Destroy(gameObject);
     }
 
     void OnLevelWasLoaded(int level)

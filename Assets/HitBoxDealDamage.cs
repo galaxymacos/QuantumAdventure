@@ -85,7 +85,6 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             foreach (var takeDamageComponent in takeDamageParts)
             {
                 takeDamageComponent.TakeDamage(new DamageArgs(skillDamage.GetSkillDamage(currentSkill)));
-
             }
         }
     }

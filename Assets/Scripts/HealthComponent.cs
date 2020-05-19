@@ -5,41 +5,55 @@ using UnityEngine.Events;
 
 public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObservable
 {
-    [SerializeField] private float healthPoint = 150;
+    [SerializeField] private float hpMax = 150;
     
 
     #region Properties
 
-    public float HealthPoint => healthPoint;
+    public float healthPercentage => HpCurrent / HpMax;
+    public float HpMax => hpMax;
+    public float HpCurrent => hpCurrent;
+
     public UnityEvent onHealthReachZero;
+    
+    #endregion
+
+    #region Private Fields
+
+    private float hpCurrent;
 
     #endregion
-    
+
+    private void Awake()
+    {
+        hpCurrent = hpMax;
+    }
+
     public void TakeDamage(DamageArgs args)
     {
-        healthPoint -= args.damageAmount;
-        if (healthPoint <= 0)
+        hpCurrent -= args.damageAmount;
+        print($"{gameObject.name}'s health is {hpCurrent}");
+        if (hpCurrent <= 0)
         {
             print($"{gameObject.name} is dead");
             onHealthReachZero?.Invoke();
-            // PhotonNetwork.LeaveRoom();
         }
     }
 
     public void Heal(HealArgs args)
     {
-        healthPoint += args.healAmount;
+        hpCurrent += args.healAmount;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(healthPoint);
+            stream.SendNext(hpCurrent);
         }
         else
         {
-            healthPoint = (float) stream.ReceiveNext();
+            hpCurrent = (float) stream.ReceiveNext();
         }
     }
 }
