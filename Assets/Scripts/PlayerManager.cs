@@ -80,8 +80,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
 
     public void GameOver()
     {
-        LeaveRoom();
-        Destroy(gameObject);
+        GetComponent<Animator>().SetTrigger("Dead");
     }
 
     void OnLevelWasLoaded(int level)
