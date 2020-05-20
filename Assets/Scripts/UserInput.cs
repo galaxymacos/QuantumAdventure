@@ -17,6 +17,8 @@ public class UserInput : MonoBehaviour
     public static bool rightMouseButtonPressed;
     public static bool interactKeyPressed;
     public static bool returnButtonPressed;
+    public static bool mouseWheelScrollUp;
+    public static bool mouseWheelScrollDown;
 
     public static event Action onSkill1Pressed;
     public static event Action onSkill2Pressed;
@@ -25,6 +27,8 @@ public class UserInput : MonoBehaviour
     public static event Action onReturnButtonPressed;
     public static event Action onInteractButtonPressed;
     public static event Action onRunPressed;
+    public static event Action onMouseWheelScrollUp;
+    public static event Action onMouseWheelScrollDown;
 
     #region Serialized Field
 
@@ -62,6 +66,8 @@ public class UserInput : MonoBehaviour
         interactKeyPressed = player.GetButton("Interact"); 
         leftMouseButtonPressed = player.GetButton("Left Mouse Button");
         rightMouseButtonPressed = player.GetButton("Right Mouse Button");
+        mouseWheelScrollUp = player.GetButton("Wheel Scroll Up");
+        mouseWheelScrollDown = player.GetButton("Wheel Scroll Down");
         runPressed = player.GetButton("Run");
 
 
@@ -101,6 +107,15 @@ public class UserInput : MonoBehaviour
             onReturnButtonPressed?.Invoke();
         }
 
+        if (player.GetButtonDown("Wheel Scroll Up"))
+        {
+            onMouseWheelScrollUp?.Invoke();
+        }
+
+        if (player.GetButtonDown("Wheel Scroll Down"))
+        {
+            onMouseWheelScrollDown?.Invoke();
+        }
     }
 
     #endregion

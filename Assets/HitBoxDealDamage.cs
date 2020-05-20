@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -17,13 +20,14 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
     #endregion
 
     #region Property
-    
-    
+
+
 
     #endregion
 
     #region Private Field
 
+    private PlayerManager owner;
 
 
     #endregion
@@ -32,21 +36,30 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     private void Awake()
     {
-        foreach (var element in hitboxs.Values)
+        if (GetComponent<PlayerManager>().photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            element.onHit += DealDamage;
+            foreach (var element in hitboxs.Values)
+            {
+                element.onHit += DealDamage;
+            }
         }
+
+        owner = GetComponent<PlayerManager>();
+
     }
 
     private void OnDestroy()
     {
-        foreach (var element in hitboxs.Values)
+        if (GetComponent<PlayerManager>().photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            element.onHit -= DealDamage;
+            foreach (var element in hitboxs.Values)
+            {
+                element.onHit -= DealDamage;
+            }
         }
     }
 
-    
+
 
     #endregion
 
@@ -59,6 +72,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             Debug.LogError($"Can't find hit box with name {hitBoxName} under {gameObject.name}");
             return;
         }
+
         hitboxs[hitBoxName].ActiveHitbox();
     }
 
@@ -68,6 +82,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
         {
             Debug.LogError($"Can't find hit box with name {hitBoxName} under {gameObject.name}");
         }
+
         hitboxs[hitBoxName].DeactivateHitbox();
 
     }
@@ -78,15 +93,19 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     private void DealDamage(object sender, HitEventArgs e)
     {
-        Debug.Log("try to deal damage");
-        var takeDamageParts = e.hitCollider.GetComponents<ITakeDamage>();
-        if (takeDamageParts != null && takeDamageParts.Length > 0)
+        if (owner.photonView.IsMine)
         {
-            foreach (var takeDamageComponent in takeDamageParts)
+            print($"{gameObject.name} try to deal damage to {e.hitCollider.gameObject.name}");
+            var takeDamagePart = e.hitCollider.GetComponent<ITakeDamage>();
+            if (takeDamagePart != null)
             {
-                takeDamageComponent.TakeDamage(new DamageArgs(skillDamage.GetSkillDamage(currentSkill)));
+                if (e.hitCollider.GetComponent<PlayerManager>() == null) return;
+                NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill), e.hitCollider.gameObject.GetComponent<PlayerManager>().playerName);
             }
         }
+
+
+
     }
 
     #endregion

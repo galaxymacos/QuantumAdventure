@@ -21,7 +21,7 @@ public class SkillDamage: SerializedMonoBehaviour
         }
     }
 
-    public int GetSkillDamage(string skillName)
+    public float GetSkillDamage(string skillName)
     {
         if (skillsDamage.ContainsKey(skillName))
         {

@@ -116,6 +116,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 7617120599919420424}
+  - {fileID: 7617120599919420425}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -146,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 189b0fb9d322f0e419774af1e6f062ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMine: 0
 --- !u!54 &7617120599919420534
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -161,4 +163,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1

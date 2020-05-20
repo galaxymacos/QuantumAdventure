@@ -2578,11 +2578,12 @@ GameObject:
   - component: {fileID: 8296172668371274437}
   - component: {fileID: 8296172668371274438}
   - component: {fileID: 8561364467978998429}
-  - component: {fileID: 3354739228365496149}
   - component: {fileID: 115636245026685649}
   - component: {fileID: 4012463380183923321}
   - component: {fileID: 6874586454129314846}
   - component: {fileID: 2148751929197022254}
+  - component: {fileID: 4036666278827928884}
+  - component: {fileID: 3354739228365496149}
   m_Layer: 0
   m_Name: Soap
   m_TagString: Player
@@ -2665,8 +2666,8 @@ MonoBehaviour:
   camTransfrom: {fileID: 2804810412733235624}
   gravity: {x: 0, y: -9.8, z: 0}
   mouseSentivity: 20
-  runSpeed: 4
-  walkSpeed: 1.5
+  runSpeed: 2
+  walkSpeed: 0.3
   camLookTarget: {fileID: 991430889426575923}
   anim: {fileID: 2752528588903948869}
   whatIsGround:
@@ -2758,25 +2759,12 @@ MonoBehaviour:
   otherPlayerUI: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
     type: 3}
   hostUI: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b, type: 3}
+  dialogueUIPrefab: {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722,
+    type: 3}
   playerUiPrefabs:
   - {fileID: 3700077630826408245, guid: 67204533ac79a5f4aaa4dee617afec69, type: 3}
-  - {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722, type: 3}
+  playerName: Soap
   virtualCamera: {fileID: 2705958893368575944}
---- !u!114 &3354739228365496149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9143336602372177196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8feffaea05ea7154bb6d4f307b55969f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 7617120599919420531, guid: 841debd9857569c40b3e4a4aaf2bb794,
-    type: 3}
-  projectileSpawnTransform: {fileID: 2543779222707278803}
 --- !u!114 &115636245026685649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2883,3 +2871,33 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+--- !u!114 &4036666278827928884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143336602372177196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5f50ee069f48398925d4bd48665727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunParts:
+  - {fileID: 3354739228365496149}
+  currentGunPartIndex: 0
+--- !u!114 &3354739228365496149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143336602372177196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8feffaea05ea7154bb6d4f307b55969f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 7617120599919420531, guid: 841debd9857569c40b3e4a4aaf2bb794,
+    type: 3}
+  projectileSpawnTransform: {fileID: 2543779222707278803}

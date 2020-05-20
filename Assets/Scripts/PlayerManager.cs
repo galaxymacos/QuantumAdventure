@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerManager : MonoBehaviourPunCallbacks
+public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 {
-
     #region Serialized Field
 
-    [HideInInspector]
-    public HealthComponent healthComponent;
+    [HideInInspector] public HealthComponent healthComponent;
 
-    [Tooltip("The Player's UI GameObject Prefab")]
-    [SerializeField] public GameObject otherPlayerUI;
+    [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
+    public GameObject otherPlayerUI;
+
     [SerializeField] public GameObject hostUI;
+    [SerializeField] public GameObject dialogueUIPrefab;
+    
 
     [SerializeField] public GameObject[] playerUiPrefabs;
-    
-    
+    [SerializeField] public string playerName;
+
     [SerializeField] public GameObject virtualCamera;
-    
-    
 
     #endregion
 
@@ -47,11 +48,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         {
             LocalPlayerInstance = gameObject;
             virtualCamera.SetActive(true);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-        
+
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
         healthComponent = GetComponent<HealthComponent>();
     }
 
@@ -60,9 +63,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         InstantiateUi();
     }
 
-    
+    public override void OnEnable()
+    {
+        base.OnEnable();
+        PhotonNetwork.AddCallbackTarget(this);
+    }
 
     
+
 
     void OnLevelWasLoaded(int level)
     {
@@ -81,11 +89,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         InstantiateUi();
     }
 
-    
 
     public override void OnDisable()
     {
         base.OnDisable();
+        PhotonNetwork.RemoveCallbackTarget(this);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -97,6 +105,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks
     {
         GameManager.Instance.LeaveRoom();
     }
+
     public void GameOver()
     {
         GetComponent<Animator>().SetTrigger("Dead");
@@ -111,9 +120,15 @@ public class PlayerManager : MonoBehaviourPunCallbacks
         this.CalledOnLevelWasLoaded(scene.buildIndex);
     }
 
-    
+
     private void InstantiateUi()
     {
+        if (!PhotonNetwork.IsConnected)
+        {
+            print("Doesn't instantiate UI before player is not connected to photon");
+            return;
+        }
+
         if (photonView.IsMine)
         {
             print("Instantiate combat UI");
@@ -132,16 +147,38 @@ public class PlayerManager : MonoBehaviourPunCallbacks
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
 
-        
+        dialogueUI = Instantiate(dialogueUIPrefab);
+        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
     }
-    
-    
+
+
     [PunRPC]
-    private void DisplayMessage(string message)
+    public void DisplayMessage(string message)
     {
-        dialogueUI.GetComponent<DialogueTest>().ShowMessage(message);
+        if (photonView.IsMine)
+        {
+            dialogueUI.GetComponent<DialogueTest>().ShowMessage(message);
+        }
     }
-    
+
     #endregion
 
+    public void OnEvent(EventData photonEvent)
+    {
+        if (photonEvent.Code == 1)
+        {
+            object[] data = (object[]) photonEvent.CustomData;
+            float damage = (float) data[0];
+            string takeDamageObjectName = (string) data[1];
+            if (takeDamageObjectName == playerName)
+            {
+                print($"Deal damage to {playerName}");
+                GetComponent<HealthComponent>().TakeDamage(damage);
+            }
+            else
+            {
+                print($"Don't deal damage to {playerName}");
+            }
+        }
+    }
 }

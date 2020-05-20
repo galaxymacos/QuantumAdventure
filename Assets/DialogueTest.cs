@@ -71,6 +71,9 @@ public class DialogueTest : MonoBehaviourPun
 
     private void ToggleDialogueBox()
     {
+        float damage = 10f;
+        target.photonView.RPC("TakeDamage", RpcTarget.Others, damage);
+
         if (dialogueObject.activeSelf)
         {
             if (dialogueInputField.text != "")
@@ -86,9 +89,9 @@ public class DialogueTest : MonoBehaviourPun
             dialogueObject.SetActive(true);
             dialogueInputField.Select();
             dialogueInputField.ActivateInputField();
-            // EventSystem.current.SetSelectedGameObject(dialogueObject);
         }
     }
+
 
     public void ShowMessage(string message)
     {

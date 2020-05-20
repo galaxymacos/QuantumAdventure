@@ -1,25 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using BehaviorDesigner.Runtime.Tasks.Unity.UnityGameObject;
 using UnityEngine;
 
-public class EnemyTest : MonoBehaviour,ITakeDamage
+public class RoleTag : MonoBehaviour
 {
+
     #region Serialized Field
 
-    
+    [SerializeField] private string roleName;
 
     #endregion
 
     #region Property
-    
-    
+
+    public string RoleName => roleName;
 
     #endregion
 
     #region Private Field
 
-    [SerializeField] private float healthPoint = 100f;
+
 
     #endregion
 
@@ -42,12 +42,4 @@ public class EnemyTest : MonoBehaviour,ITakeDamage
     #endregion
 
 
-    public void TakeDamage(float damage)
-    {
-        healthPoint -= damage;
-        if (healthPoint <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 }

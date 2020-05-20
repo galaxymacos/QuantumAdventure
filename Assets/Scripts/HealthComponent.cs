@@ -29,10 +29,10 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
         hpCurrent = hpMax;
     }
 
-    public void TakeDamage(DamageArgs args)
+    public void TakeDamage(float damage)
     {
-        hpCurrent -= args.damageAmount;
-        print($"{gameObject.name}'s health is {hpCurrent}");
+        hpCurrent -= damage;
+        print($"{gameObject.name} takes damage");
         if (hpCurrent <= 0)
         {
             print($"{gameObject.name} is dead");
@@ -53,7 +53,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
         }
         else
         {
-            hpCurrent = (float) stream.ReceiveNext();
+            this.hpCurrent = (float) stream.ReceiveNext();
         }
     }
 }
