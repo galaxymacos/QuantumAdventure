@@ -138,6 +138,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 var playerUi = Instantiate(playerUiPrefab);
                 playerUi.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
+            
         }
         else
         {
@@ -145,18 +146,20 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             GameObject _uiGo = Instantiate(otherPlayerUI);
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
-
         dialogueUI = Instantiate(dialogueUIPrefab);
         dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
+        
     }
 
 
     [PunRPC]
-    public void DisplayMessage(string message)
+    public void DisplayMessage(string message, string speakerName)
     {
         if (photonView.IsMine)
         {
-            dialogueUI.GetComponent<DialogueTest>().ShowMessage(message);
+            print("Receive RPC to display message");
+            dialogueUI.GetComponent<DialogueTest>().ShowMessage(message, speakerName);
         }
     }
 

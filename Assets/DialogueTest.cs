@@ -15,6 +15,7 @@ public class DialogueTest : MonoBehaviourPun
 
     [SerializeField] private GameObject dialogueDisplayBox;
     [SerializeField] private TMP_Text dialogueDisplayText;
+    [SerializeField] private TMP_Text speakerText;
     
     
 
@@ -41,6 +42,7 @@ public class DialogueTest : MonoBehaviourPun
     private void Update()
     {
         target.isDialogueBoxOpen = dialogueObject.activeSelf;
+
     }
 
     private void OnDestroy()
@@ -62,8 +64,9 @@ public class DialogueTest : MonoBehaviourPun
         target = _target;
 
         
-        
     }
+    
+    
 
     #endregion
 
@@ -71,14 +74,13 @@ public class DialogueTest : MonoBehaviourPun
 
     private void ToggleDialogueBox()
     {
-        float damage = 10f;
-        target.photonView.RPC("TakeDamage", RpcTarget.Others, damage);
 
         if (dialogueObject.activeSelf)
         {
             if (dialogueInputField.text != "")
             {
-                target.photonView.RPC("DisplayMessage", RpcTarget.Others, dialogueInputField.text);
+                target.photonView.RPC("DisplayMessage", RpcTarget.Others, dialogueInputField.text, target.GetComponent<RoleTag>().RoleName);
+                print("send rpc from "+target.GetComponent<RoleTag>().RoleName);
                 dialogueInputField.text = "";
             }
 
@@ -93,12 +95,13 @@ public class DialogueTest : MonoBehaviourPun
     }
 
 
-    public void ShowMessage(string message)
+    public void ShowMessage(string message, string speakerName)
     {
         if (!dialogueDisplayBox.activeSelf)
         {
             dialogueDisplayBox.SetActive(true);
             dialogueDisplayText.text = message;
+            speakerText.text = speakerName;
             StopAllCoroutines();
             StartCoroutine(CloseDialogueDisplayBoxRoutine());
         }
