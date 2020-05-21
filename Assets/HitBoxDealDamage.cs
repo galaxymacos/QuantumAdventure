@@ -16,6 +16,8 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     #region Serialized Field
 
+    [SerializeField] private bool controlByPlayer;
+
     #endregion
 
     #region Property
@@ -24,7 +26,6 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     #region Private Field
 
-    private PlayerManager owner;
 
     #endregion
 
@@ -45,7 +46,6 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
         }
 
 
-        owner = GetComponent<PlayerManager>();
     }
 
     private void RegisterHitBox()
@@ -95,7 +95,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     private void DealDamage(object sender, HitEventArgs e)
     {
-        if (owner.photonView.IsMine)
+        if (!controlByPlayer || GetComponent<PlayerManager>().photonView.IsMine)
         {
             print($"{gameObject.name} try to deal damage to {e.hitCollider.gameObject.name}");
             var takeDamagePart = e.hitCollider.GetComponent<ITakeDamage>();

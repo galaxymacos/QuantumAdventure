@@ -13,7 +13,6 @@ public class HitBoxPart : MonoBehaviour
 
     #region Property
 
-    public PlayerManager owner;
     public event EventHandler<HitEventArgs> onHit;
 
     public bool IsHitBoxActive => isHitBoxActive;
@@ -29,14 +28,8 @@ public class HitBoxPart : MonoBehaviour
 
     #region MonoBehavior Callback
 
-    private void Awake()
-    {
-        owner = transform.root.GetComponent<PlayerManager>();
-    }
-
     private void OnTriggerStay(Collider other)
     {
-        if (!owner.photonView.IsMine) return;
         
         if (isHitBoxActive)
         {
