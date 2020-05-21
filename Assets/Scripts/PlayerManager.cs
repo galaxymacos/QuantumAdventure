@@ -138,7 +138,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
                 var playerUi = Instantiate(playerUiPrefab);
                 playerUi.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
-            
+            dialogueUI = Instantiate(dialogueUIPrefab);
+            dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
         else
         {
@@ -146,8 +147,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             GameObject _uiGo = Instantiate(otherPlayerUI);
             _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
-        dialogueUI = Instantiate(dialogueUIPrefab);
-        dialogueUI.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+        
 
         
     }
@@ -176,6 +176,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             {
                 print($"Deal damage to {roleTag.RoleName}");
                 GetComponent<HealthComponent>().TakeDamage(damage);
+            }
+            else
+            {
+                print($"Don't deal damage to {roleTag.RoleName}");
+            }
+        }
+
+        // 
+        if (photonEvent.Code == 2)
+        {
+            object[] data = (object[]) photonEvent.CustomData;
+            string speakerName = (string) data[0];
+            string message = (string) data[1];
+            string targetName = (string) data[2];
+            if (targetName == roleTag.RoleName)
+            {
+                DisplayMessage(message, speakerName);
             }
             else
             {

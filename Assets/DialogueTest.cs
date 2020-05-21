@@ -79,8 +79,9 @@ public class DialogueTest : MonoBehaviourPun
         {
             if (dialogueInputField.text != "")
             {
-                target.photonView.RPC("DisplayMessage", RpcTarget.Others, dialogueInputField.text, target.GetComponent<RoleTag>().RoleName);
-                print("send rpc from "+target.GetComponent<RoleTag>().RoleName);
+                // target.photonView.RPC("DisplayMessage", RpcTarget.Others, dialogueInputField.text, target.GetComponent<RoleTag>().RoleName);
+                NetworkEventFirer.ShowMessage(target.GetComponent<RoleTag>().RoleName,dialogueInputField.text,target.GetComponent<RoleTag>().RoleName == "Maria"?"Soap":"Maria");
+                // print("send rpc from "+target.GetComponent<RoleTag>().RoleName);
                 dialogueInputField.text = "";
             }
 
