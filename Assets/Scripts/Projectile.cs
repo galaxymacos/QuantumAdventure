@@ -6,7 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class Projectile : MonoBehaviourPun
+public class Projectile : MonoBehaviourPun, IPunObservable
 {
     #region Serialized Field
 
@@ -84,36 +84,33 @@ public class Projectile : MonoBehaviourPun
             var takeDamagePart = other.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                if (other.GetComponent<PlayerManager>() == null) return;
-                 
+                
                 NetworkEventFirer.DealDamage(damage, other.gameObject.GetComponent<RoleTag>().RoleName);
             }
         }
-        //
-        print("Destroy bullet because it collides with "+other.gameObject);
         PhotonNetwork.Destroy(gameObject);
     }
 
     #endregion
 
-    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    // {
-    //     // if (stream.IsWriting)
-    //     // {
-    //         // stream.SendNext(rb.position);
-    //         // stream.SendNext(rb.rotation);
-    //         // stream.SendNext(rb.velocity);
-    //     // }
-    //     // else
-    //     // {
-    //         // rb.position = (Vector3) stream.ReceiveNext();
-    //         // rb.rotation = (Quaternion) stream.ReceiveNext();
-    //         // rb.velocity =(Vector3) stream.ReceiveNext();
-    //         
-    //         // float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
-    //         // rb.position += rb.velocity * lag;
-    //     // }
-    // }
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(rb.position);
+            stream.SendNext(rb.rotation);
+            stream.SendNext(rb.velocity);
+        }
+        else
+        {
+            rb.position = (Vector3) stream.ReceiveNext();
+            rb.rotation = (Quaternion) stream.ReceiveNext();
+            rb.velocity =(Vector3) stream.ReceiveNext();
+            
+            float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
+            rb.position += rb.velocity * lag;
+        }
+    }
 }
 
 public class ProjectileArgs

@@ -74,7 +74,6 @@ public class BeanGun : GunPart
 
             }
             protectile.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 50, firingRange = 400, damage = 10, owner = gameObject}, SendMessageOptions.RequireReceiver);
-            print("shoot");
         }
         
     }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BehaviorDesigner.Runtime;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -55,6 +56,11 @@ public class Vampire : MonoBehaviour
     public void Punch()
     {
         anim.SetTrigger("Punch");
+    }
+
+    public void Destroy()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 
     #endregion

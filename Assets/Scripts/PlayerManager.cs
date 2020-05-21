@@ -167,24 +167,22 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     public void OnEvent(EventData photonEvent)
     {
-        if (photonEvent.Code == 1)
+        if (photonEvent.Code == NetworkEventFirer.EventCode_DealDamage)
         {
             object[] data = (object[]) photonEvent.CustomData;
             float damage = (float) data[0];
             string takeDamageObjectName = (string) data[1];
             if (takeDamageObjectName == roleTag.RoleName)
             {
-                print($"Deal damage to {roleTag.RoleName}");
                 GetComponent<HealthComponent>().TakeDamage(damage);
             }
             else
             {
-                print($"Don't deal damage to {roleTag.RoleName}");
             }
         }
 
         // 
-        if (photonEvent.Code == 2)
+        if (photonEvent.Code == NetworkEventFirer.EventCode_ShowMessage)
         {
             object[] data = (object[]) photonEvent.CustomData;
             string speakerName = (string) data[0];
@@ -196,7 +194,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             }
             else
             {
-                print($"Don't deal damage to {roleTag.RoleName}");
             }
         }
     }

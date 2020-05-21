@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerUI : MonoBehaviour
+public class HealthBarUI : MonoBehaviour
 {
 
     #region Serialized Field
