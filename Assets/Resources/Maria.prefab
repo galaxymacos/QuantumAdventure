@@ -2342,6 +2342,7 @@ GameObject:
   - component: {fileID: 6990846712197885941}
   - component: {fileID: 9114994293722558929}
   - component: {fileID: 9138002704756438573}
+  - component: {fileID: -5547451185112403516}
   m_Layer: 0
   m_Name: Maria
   m_TagString: Player
@@ -2591,7 +2592,6 @@ MonoBehaviour:
     type: 3}
   playerUiPrefabs:
   - {fileID: 3885778899857331368, guid: 3ac75696622f3d34fab5aa2984969e88, type: 3}
-  playerName: Maria
   virtualCamera: {fileID: 5355760280915330209}
 --- !u!114 &8060885742207913574
 MonoBehaviour:
@@ -2721,6 +2721,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+--- !u!114 &-5547451185112403516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060885742207913579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07213796a7393d42a880170b7301680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roleName: Maria
 --- !u!1 &8302619963570560872
 GameObject:
   m_ObjectHideFlags: 0

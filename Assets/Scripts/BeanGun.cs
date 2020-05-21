@@ -60,7 +60,6 @@ public class BeanGun : GunPart
         if (Camera.main != null)
         {
             Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f));
-            ray.GetPoint(400);
             GameObject protectile = PhotonNetwork.Instantiate(projectilePrefab.name, projectileSpawnTransform.position,
                 Quaternion.identity);
             Vector3 bulletDirection = Vector3.zero;
@@ -75,6 +74,7 @@ public class BeanGun : GunPart
 
             }
             protectile.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 50, firingRange = 400, damage = 10, owner = gameObject}, SendMessageOptions.RequireReceiver);
+            print("shoot");
         }
         
     }
@@ -82,4 +82,24 @@ public class BeanGun : GunPart
     #endregion
 
 
+}
+
+public class HitscanGun: GunPart
+{
+    public float damage;
+    public float firingRange = 400f;
+    public override void Shoot()
+    {
+        if (Camera.main != null)
+        {
+            Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f));
+            if (Physics.Raycast(ray,out RaycastHit hitinfo,firingRange))
+            {
+                if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
+                {
+                    NetworkEventFirer.DealDamage(damage,hitinfo.collider.GetComponent<RoleTag>().RoleName);
+                }
+            }
+        }
+    }
 }

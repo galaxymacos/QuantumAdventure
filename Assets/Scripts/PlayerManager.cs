@@ -18,11 +18,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     [SerializeField] public GameObject hostUI;
     [SerializeField] public GameObject dialogueUIPrefab;
-    
-
     [SerializeField] public GameObject[] playerUiPrefabs;
-    [SerializeField] public string playerName;
-
     [SerializeField] public GameObject virtualCamera;
 
     #endregion
@@ -35,6 +31,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     #endregion
 
     #region Private Field
+
+    private RoleTag roleTag;
 
     private GameObject dialogueUI;
 
@@ -52,6 +50,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             Cursor.lockState = CursorLockMode.Locked;
         }
 
+        roleTag = GetComponent<RoleTag>();
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -170,14 +169,14 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             object[] data = (object[]) photonEvent.CustomData;
             float damage = (float) data[0];
             string takeDamageObjectName = (string) data[1];
-            if (takeDamageObjectName == playerName)
+            if (takeDamageObjectName == roleTag.RoleName)
             {
-                print($"Deal damage to {playerName}");
+                print($"Deal damage to {roleTag.RoleName}");
                 GetComponent<HealthComponent>().TakeDamage(damage);
             }
             else
             {
-                print($"Don't deal damage to {playerName}");
+                print($"Don't deal damage to {roleTag.RoleName}");
             }
         }
     }

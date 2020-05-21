@@ -2584,6 +2584,7 @@ GameObject:
   - component: {fileID: 2148751929197022254}
   - component: {fileID: 4036666278827928884}
   - component: {fileID: 3354739228365496149}
+  - component: {fileID: 6084640523046683988}
   m_Layer: 0
   m_Name: Soap
   m_TagString: Player
@@ -2763,7 +2764,6 @@ MonoBehaviour:
     type: 3}
   playerUiPrefabs:
   - {fileID: 3700077630826408245, guid: 67204533ac79a5f4aaa4dee617afec69, type: 3}
-  playerName: Soap
   virtualCamera: {fileID: 2705958893368575944}
 --- !u!114 &115636245026685649
 MonoBehaviour:
@@ -2901,3 +2901,16 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7617120599919420531, guid: 841debd9857569c40b3e4a4aaf2bb794,
     type: 3}
   projectileSpawnTransform: {fileID: 2543779222707278803}
+--- !u!114 &6084640523046683988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143336602372177196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a07213796a7393d42a880170b7301680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roleName: Soap

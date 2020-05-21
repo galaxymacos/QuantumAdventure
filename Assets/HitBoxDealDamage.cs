@@ -13,15 +13,12 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
     public string currentSkill;
     public SkillDamage skillDamage;
 
+
     #region Serialized Field
-
-
 
     #endregion
 
     #region Property
-
-
 
     #endregion
 
@@ -29,37 +26,43 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     private PlayerManager owner;
 
-
     #endregion
 
     #region MonoBehavior Callback
 
     private void Awake()
     {
-        if (GetComponent<PlayerManager>().photonView.IsMine || !PhotonNetwork.IsConnected)
+        if (GetComponent<PlayerManager>() != null)
         {
-            foreach (var element in hitboxs.Values)
+            if (GetComponent<PlayerManager>().photonView.IsMine || !PhotonNetwork.IsConnected)
             {
-                element.onHit += DealDamage;
+                RegisterHitBox();
             }
         }
+        else
+        {
+            RegisterHitBox();
+        }
+
 
         owner = GetComponent<PlayerManager>();
+    }
 
+    private void RegisterHitBox()
+    {
+        foreach (var element in hitboxs.Values)
+        {
+            element.onHit += DealDamage;
+        }
     }
 
     private void OnDestroy()
     {
-        if (GetComponent<PlayerManager>().photonView.IsMine || !PhotonNetwork.IsConnected)
+        foreach (var element in hitboxs.Values)
         {
-            foreach (var element in hitboxs.Values)
-            {
-                element.onHit -= DealDamage;
-            }
+            element.onHit -= DealDamage;
         }
     }
-
-
 
     #endregion
 
@@ -84,7 +87,6 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
         }
 
         hitboxs[hitBoxName].DeactivateHitbox();
-
     }
 
     #endregion
@@ -100,16 +102,11 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             if (takeDamagePart != null)
             {
                 if (e.hitCollider.GetComponent<PlayerManager>() == null) return;
-                NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill), e.hitCollider.gameObject.GetComponent<PlayerManager>().playerName);
+                NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill),
+                    e.hitCollider.gameObject.GetComponent<RoleTag>().RoleName);
             }
         }
-
-
-
     }
 
     #endregion
-
-
 }
-

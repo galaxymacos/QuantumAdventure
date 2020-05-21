@@ -6,7 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 
-public class Projectile : MonoBehaviourPun, IPunObservable
+public class Projectile : MonoBehaviourPun
 {
     #region Serialized Field
 
@@ -78,41 +78,42 @@ public class Projectile : MonoBehaviourPun, IPunObservable
     private void OnTriggerEnter(Collider other)
     {
         if (!isMine) return;
-        if (other.gameObject == owner) return;
-            if (owner.GetComponent<PlayerManager>().photonView.IsMine)
+        if (other.transform.root.gameObject == owner || other.CompareTag("Bullet")) return;
+        if (owner.GetComponent<PlayerManager>().photonView.IsMine)
+        {
+            var takeDamagePart = other.GetComponent<ITakeDamage>();
+            if (takeDamagePart != null)
             {
-                var takeDamagePart = other.GetComponent<ITakeDamage>();
-                if (takeDamagePart != null)
-                {
-                    if (other.GetComponent<PlayerManager>() == null) return;
-                
-                    NetworkEventFirer.DealDamage(damage, other.gameObject.GetComponent<PlayerManager>().playerName);
-                }
+                if (other.GetComponent<PlayerManager>() == null) return;
+                 
+                NetworkEventFirer.DealDamage(damage, other.gameObject.GetComponent<RoleTag>().RoleName);
             }
-
+        }
+        //
+        print("Destroy bullet because it collides with "+other.gameObject);
         PhotonNetwork.Destroy(gameObject);
     }
 
     #endregion
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(rb.position);
-            stream.SendNext(rb.rotation);
-            stream.SendNext(rb.velocity);
-        }
-        else
-        {
-            rb.position = (Vector3) stream.ReceiveNext();
-            rb.rotation = (Quaternion) stream.ReceiveNext();
-            rb.velocity =(Vector3) stream.ReceiveNext();
-            
-            float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
-            rb.position += rb.velocity * lag;
-        }
-    }
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     // if (stream.IsWriting)
+    //     // {
+    //         // stream.SendNext(rb.position);
+    //         // stream.SendNext(rb.rotation);
+    //         // stream.SendNext(rb.velocity);
+    //     // }
+    //     // else
+    //     // {
+    //         // rb.position = (Vector3) stream.ReceiveNext();
+    //         // rb.rotation = (Quaternion) stream.ReceiveNext();
+    //         // rb.velocity =(Vector3) stream.ReceiveNext();
+    //         
+    //         // float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
+    //         // rb.position += rb.velocity * lag;
+    //     // }
+    // }
 }
 
 public class ProjectileArgs
