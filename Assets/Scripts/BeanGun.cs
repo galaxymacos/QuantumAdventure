@@ -96,7 +96,7 @@ public class HitscanGun: GunPart
             {
                 if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
                 {
-                    NetworkEventFirer.DealDamage(damage,hitinfo.collider.GetComponent<RoleTag>().RoleName);
+                    NetworkEventFirer.DealDamage(damage,hitinfo.collider.GetComponent<PhotonView>().ViewID);
                 }
             }
         }

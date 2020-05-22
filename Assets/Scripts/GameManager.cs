@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Tooltip("The prefab to use for representing the player")]
     public GameObject p1CharacterPrefab;
     public GameObject p2CharacterPrefab;
+    public List<PlayerManager> players;
     
     
 
@@ -45,13 +46,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (PlayerManager.LocalPlayerInstance == null)
             {
+                GameObject newPlayer;
                 switch (PhotonNetwork.CurrentRoom.PlayerCount)
                 {
                     case 1:
-                        PhotonNetwork.Instantiate(p1CharacterPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        newPlayer = PhotonNetwork.Instantiate(p1CharacterPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                        players.Add(newPlayer.GetComponent<PlayerManager>());
                         break;
                     case 2:
-                        PhotonNetwork.Instantiate(p2CharacterPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
+                        newPlayer = PhotonNetwork.Instantiate(p2CharacterPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
+                        players.Add(newPlayer.GetComponent<PlayerManager>());
+
                         break;
 
                 }

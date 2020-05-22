@@ -43,16 +43,19 @@ public class EnemyUI: MonoBehaviour
 
     private void Update()
     {
+        if (target == null)
+        {
+            print("destroy enemy UI");
+            Destroy(gameObject);
+            return;
+        }
+        
         if (healthBar != null)
         {
             healthBar.fillAmount = target.GetComponent<HealthComponent>().healthPercentage;
         }
 
-        if (target == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        
     }
 
     private void LateUpdate()

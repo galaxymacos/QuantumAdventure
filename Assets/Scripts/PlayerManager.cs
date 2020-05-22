@@ -171,8 +171,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         {
             object[] data = (object[]) photonEvent.CustomData;
             float damage = (float) data[0];
-            string takeDamageObjectName = (string) data[1];
-            if (takeDamageObjectName == roleTag.RoleName)
+            int targetID = (int) data[1];
+            if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);
             }

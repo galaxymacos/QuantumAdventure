@@ -103,7 +103,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             {
                 if (e.hitCollider.GetComponent<PlayerManager>() == null) return;
                 NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill),
-                    e.hitCollider.gameObject.GetComponent<RoleTag>().RoleName);
+                    e.hitCollider.GetComponent<PhotonView>().ViewID);
             }
         }
     }

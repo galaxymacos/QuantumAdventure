@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class RoleTag : MonoBehaviour
@@ -7,6 +9,7 @@ public class RoleTag : MonoBehaviour
 
     #region Serialized Field
 
+    [SerializeField] private bool randomTag;
     [SerializeField] private string roleName;
 
     #endregion
@@ -25,7 +28,10 @@ public class RoleTag : MonoBehaviour
 
     #region MonoBehavior Callback
 
-
+    private void Awake()
+    {
+        print(gameObject.name +" has the view id: "+GetComponent<PhotonView>().ViewID);
+    }
 
     #endregion
 

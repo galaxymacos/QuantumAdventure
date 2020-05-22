@@ -12,7 +12,22 @@ using UnityEngine;
 public class Enemy : MonoBehaviourPun, IOnEventCallback
 {
     public GameObject worldHealthBarPrefab;
+    public PlayerManager targetPlayer;
+    public int targetPlayerAnger => playerAngerValues[targetPlayer];
+    public Dictionary<PlayerManager, int> playerAngerValues;
 
+    #region Event
+
+    public event Action<PlayerManager, PlayerManager> onTargetPlayerChanged;
+
+    #endregion
+    
+    #region Private fields
+
+    
+
+    #endregion
+    
     private void OnEnable()
     {
         PhotonNetwork.AddCallbackTarget(this);
@@ -36,6 +51,11 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
 
         var worldHealthBar = Instantiate(worldHealthBarPrefab, transform.position, Quaternion.identity);
         worldHealthBar.SendMessage("SetTarget", this);
+
+        foreach (var player in GameManager.Instance.players)
+        {
+            playerAngerValues.Add(player,0);
+        }
     }
     
 
@@ -46,14 +66,30 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
         {
             object[] data = (object[]) photonEvent.CustomData;
             float damage = (float) data[0];
-            string takeDamageObjectName = (string) data[1];
-            if (takeDamageObjectName == GetComponent<RoleTag>().RoleName)
+            int targetID = (int) data[1];
+            if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);
             }
             else
             {
-                print($"Don't deal damage to {GetComponent<RoleTag>().RoleName}");
+                print($"Don't deal damage to {targetID == photonView.ViewID}");
+            }
+        }
+    }
+
+    public void IncreaseAngerTowards(PlayerManager playerManager, int anger)
+    {
+        PlayerManager currentTargetPlayer = targetPlayer;
+        playerAngerValues[playerManager] += anger;
+        int largestAnger = targetPlayerAnger;
+        foreach (var player in playerAngerValues.Keys)
+        {
+            if (playerAngerValues[player] > largestAnger)
+            {
+                largestAnger = playerAngerValues[player];
+                targetPlayer = player;
+                onTargetPlayerChanged?.Invoke(currentTargetPlayer, player);
             }
         }
     }

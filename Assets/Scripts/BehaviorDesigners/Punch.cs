@@ -9,6 +9,7 @@ namespace BehaviorDesigners
     {
         public SharedFloat waitTime;
         private float waitTimeCounter;
+        
         public override void OnStart()
         {
             GetComponent<Vampire>().Punch();
