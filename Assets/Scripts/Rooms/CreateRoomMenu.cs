@@ -8,15 +8,27 @@ namespace Rooms
 {
     public class CreateRoomMenu : MonoBehaviourPunCallbacks
     {
-        public TextMeshProUGUI _roomName;
 
-        public RoomCanvases roomCanvases;
+        #region Private field
+        
+        [SerializeField] private TextMeshProUGUI _roomName;
+        private RoomCanvases roomCanvases;
+
+        #endregion
+
+        #region Property
+
+        public RoomCanvases RoomCanvases => roomCanvases;
+
+        #endregion
+
+        #region Public method
 
         public void FirstInitialize(RoomCanvases _roomCanvases)
         {
             roomCanvases = _roomCanvases;
         }
-        
+
         public void OnClick_CreateRoom()
         {
             if (!PhotonNetwork.IsConnected)
@@ -25,10 +37,13 @@ namespace Rooms
             }
             // Create Room
             // Join or create room
-            RoomOptions options = new RoomOptions();
-            options.MaxPlayers = 2;
+            RoomOptions options = new RoomOptions {MaxPlayers = 2};
             PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
         }
+
+        #endregion
+
+        #region Callback
 
         public override void OnCreatedRoom()
         {
@@ -40,5 +55,7 @@ namespace Rooms
         {
             print("Room creation failed");
         }
+
+        #endregion
     }
 }

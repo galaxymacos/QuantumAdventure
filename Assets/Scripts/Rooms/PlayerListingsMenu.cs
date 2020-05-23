@@ -9,16 +9,22 @@ namespace Rooms
 {
     public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
+        #region Private field
+
         private RoomCanvases _roomCanvases;
-
-        [SerializeField]
-        private Transform _content;
-
+        [SerializeField] private Transform _content;
         [SerializeField] private GameObject _playerListingPrefab;
-
         [SerializeField] private List<PlayerListing> listings;
 
-        #region Callbacks
+        #endregion
+
+        #region Property
+
+        public RoomCanvases RoomCanvases => _roomCanvases;
+
+        #endregion
+
+        #region Callback
 
         public override void OnEnable()
         {
@@ -32,7 +38,7 @@ namespace Rooms
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            int indexToRemove = listings.FindIndex(x => x.Player == otherPlayer);
+            int indexToRemove = listings.FindIndex(x => Equals(x.Player, otherPlayer));
             if (indexToRemove != -1)
             {
                 Destroy(listings[indexToRemove].gameObject);
@@ -48,10 +54,7 @@ namespace Rooms
         {
             _roomCanvases = roomCanvases;
         }
-
-
         
-
         public void GetCurrentRoomPlayers()
         {
             foreach (KeyValuePair<int,Player> playerInfo in PhotonNetwork.CurrentRoom.Players)

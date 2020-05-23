@@ -6,15 +6,23 @@ using UnityEngine;
 
 public class RoomCanvases : MonoBehaviour
 {
-    [SerializeField]
-    private CreateOrJoinRoomCanvas _createOrJoinRoomCanvas;
+    #region Private field
+
+    // Reference of child canvas
+    [SerializeField] private CreateOrJoinRoomCanvas _createOrJoinRoomCanvas;
+    [SerializeField] private CurrentRoomCanvas _currentRoomCanvas;
+
+    #endregion
+
+    #region Property
 
     public CreateOrJoinRoomCanvas createOrJoinRoomCanvas => _createOrJoinRoomCanvas;
-
-    [SerializeField]
-    private CurrentRoomCanvas _currentRoomCanvas;
-
     public CurrentRoomCanvas currentRoomCanvas => _currentRoomCanvas;
+
+    #endregion
+
+
+    
 
     private void Awake()
     {
@@ -27,4 +35,3 @@ public class RoomCanvases : MonoBehaviour
         _currentRoomCanvas.FirstInitialize(this);
     }
 }
-

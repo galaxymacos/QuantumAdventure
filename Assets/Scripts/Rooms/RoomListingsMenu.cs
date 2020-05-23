@@ -8,18 +8,32 @@ namespace Rooms
 {
     public class RoomListingsMenu: MonoBehaviourPunCallbacks
     {
-        [SerializeField] private Transform _content;
-        public GameObject roomListingPrefab;
+        #region Private field
 
-        public RoomCanvases _roomCanvases;
-        
+        [SerializeField] private Transform _content;
+        [SerializeField] private GameObject roomListingPrefab;
+        private RoomCanvases _roomCanvases;
+
+        #endregion
+
+        #region Property
+
+        public RoomCanvases RoomCanvases => _roomCanvases;
         public List<RoomListing> _listings = new List<RoomListing>();
+
+        #endregion
+
+        #region Public method
 
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
             _roomCanvases = roomCanvases;
         }
-        
+
+        #endregion
+
+        #region Callback
+
         public override void OnJoinedRoom()
         {
             _roomCanvases.currentRoomCanvas.Show();
@@ -69,5 +83,7 @@ namespace Rooms
                 
             }
         }
+
+        #endregion
     }
 }

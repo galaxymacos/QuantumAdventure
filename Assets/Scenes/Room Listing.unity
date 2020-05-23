@@ -2252,9 +2252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c517b8ec1a9151842b06a468ada00d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomCanavases: {fileID: 0}
   _createRoomMenu: {fileID: 620470570}
-  roomListingsMenu: {fileID: 1227384}
+  _roomListingsMenu: {fileID: 1227384}
 --- !u!1 &871499986
 GameObject:
   m_ObjectHideFlags: 0

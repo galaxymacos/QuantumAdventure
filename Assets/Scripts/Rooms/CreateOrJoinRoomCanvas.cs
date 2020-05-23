@@ -4,16 +4,27 @@ namespace Rooms
 {
     public class CreateOrJoinRoomCanvas : MonoBehaviour
     {
-        public RoomCanvases roomCanavases;
+        #region Private field
 
+        // Ref to parent
+        private RoomCanvases roomCanavases;
+
+        // Ref to children
         [SerializeField] private CreateRoomMenu _createRoomMenu;
-        [SerializeField] private RoomListingsMenu roomListingsMenu;
+        [SerializeField] private RoomListingsMenu _roomListingsMenu;
+
+        #endregion
+
+
+        #region Public method
 
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
             roomCanavases = roomCanvases;
             _createRoomMenu.FirstInitialize(roomCanvases);
-            roomListingsMenu.FirstInitialize(roomCanvases);
+            _roomListingsMenu.FirstInitialize(roomCanvases);
         }
+
+        #endregion
     }
 }

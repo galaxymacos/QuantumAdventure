@@ -4,15 +4,32 @@ namespace Rooms
 {
     public class CurrentRoomCanvas : MonoBehaviour
     {
-        public RoomCanvases roomCanavases;
-        
-        public PlayerListingsMenu playerListingsMenu;
+        #region Private method
 
+        private RoomCanvases _roomCanavases;
+        [SerializeField] private PlayerListingsMenu playerListingsMenu;
         [SerializeField] private LeaveRoomMenu _leaveRoomMenu;
+
+
+        #endregion
+
+        #region Property
+
+        // parent ref
+        public RoomCanvases RoomCanavases => _roomCanavases;
+        
+        // child ref
+        public LeaveRoomMenu LeaveRoomMenu => _leaveRoomMenu;
+        public PlayerListingsMenu PlayerListingsMenu => playerListingsMenu;
+
+        #endregion
+
+
+        #region Public method
 
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
-            roomCanavases = roomCanvases;
+            _roomCanavases = roomCanvases;
             playerListingsMenu.FirstInitialize(roomCanvases);
             _leaveRoomMenu.FirstInitialize(roomCanvases);
         }
@@ -26,5 +43,7 @@ namespace Rooms
         {
             gameObject.SetActive(false);
         }
+
+        #endregion
     }
 }
