@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Helpers;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 using UnityEngine;
 
 namespace Rooms
@@ -14,7 +15,10 @@ namespace Rooms
         private RoomCanvases _roomCanvases;
         [SerializeField] private Transform _content;
         [SerializeField] private GameObject _playerListingPrefab;
-        [SerializeField] private List<PlayerListing> listings;
+        [SerializeField] private List<PlayerListing> _listings;
+        [SerializeField] private TextMeshProUGUI readyText;
+
+        private bool _ready = false;
 
         #endregion
 
@@ -26,20 +30,26 @@ namespace Rooms
 
         #region Callback
 
+        private void Awake()
+        {
+            GetCurrentRoomPlayers();
+            
+        }
+
         public override void OnEnable()
         {
             base.OnEnable();
-            GetCurrentRoomPlayers();
+            SetReadyUp(false);
         }
 
         public override void OnDisable()
         {
             base.OnDisable();
-            foreach (var playerListing in listings)
+            foreach (var playerListing in _listings)
             {
                 Destroy(playerListing.gameObject);
             }
-            listings.Clear();
+            _listings.Clear();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -49,12 +59,17 @@ namespace Rooms
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            int indexToRemove = listings.FindIndex(x => Equals(x.Player, otherPlayer));
+            int indexToRemove = _listings.FindIndex(x => Equals(x.Player, otherPlayer));
             if (indexToRemove != -1)
             {
-                Destroy(listings[indexToRemove].gameObject);
-                listings.RemoveAt(indexToRemove);
+                Destroy(_listings[indexToRemove].gameObject);
+                _listings.RemoveAt(indexToRemove);
             }
+        }
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
+        {
+            _roomCanvases.currentRoomCanvas.LeaveRoomMenu.OnClick_LeaveRoom();
         }
 
         #endregion
@@ -64,6 +79,20 @@ namespace Rooms
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
             _roomCanvases = roomCanvases;
+        }
+
+        public void SetReadyUp(bool state)
+        {
+            _ready = state;
+
+            if (_ready)
+            {
+                readyText.text = "R";
+            }
+            else
+            {
+                readyText.text = "N";
+            }
         }
         
         public void GetCurrentRoomPlayers()
@@ -86,10 +115,10 @@ namespace Rooms
 
         public void AddPlayerListing(Player player)
         {
-            int index = listings.FindIndex(x => Equals(x.Player, player));
+            int index = _listings.FindIndex(x => Equals(x.Player, player));
             if (index != -1)
             {
-                listings[index].SetPlayerInfo(player);
+                _listings[index].SetPlayerInfo(player);
             }
             else
             {
@@ -98,7 +127,7 @@ namespace Rooms
                 if (listing != null)
                 {
                     listing.SetPlayerInfo(player);
-                    listings.Add(listing);
+                    _listings.Add(listing);
 
                 }
                 else
@@ -114,15 +143,48 @@ namespace Rooms
         {
             if (PhotonNetwork.IsMasterClient)
             {
+                foreach (var playerListing in _listings)
+                {
+                    if (!Equals(playerListing.Player, PhotonNetwork.LocalPlayer))
+                    {
+                        if (!playerListing.Ready)
+                        {
+                            return;
+                        }
+                    }
+                }
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.CurrentRoom.IsVisible = false;
                 PhotonNetwork.LoadLevel("Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
             }
         }
 
+        public void OnClick_ReadyUp()
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                SetReadyUp(!_ready);
+                base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer, _ready);
+            }
+        }
+
         #endregion
+
+        [PunRPC]
+        private void RPC_ChangeReadyState(Player player, bool ready)
+        {
+            int index = _listings.FindIndex(x => Equals(x.Player, player));
+            if (index != -1)
+            {
+                _listings[index].Ready = ready;
+            }
+        }
+
+        #region RPC
+        
         
 
+        #endregion
         
         
     }
