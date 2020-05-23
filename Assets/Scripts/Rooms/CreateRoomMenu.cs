@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System;
+using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
@@ -9,6 +10,13 @@ namespace Rooms
     {
         public TextMeshProUGUI _roomName;
 
+        public RoomCanvases roomCanvases;
+
+        public void FirstInitialize(RoomCanvases _roomCanvases)
+        {
+            roomCanvases = _roomCanvases;
+        }
+        
         public void OnClick_CreateRoom()
         {
             if (!PhotonNetwork.IsConnected)
@@ -25,6 +33,7 @@ namespace Rooms
         public override void OnCreatedRoom()
         {
             print("Create room successfully");
+            roomCanvases.currentRoomCanvas.Show();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
