@@ -17,6 +17,8 @@ namespace Rooms
         {
             PhotonNetwork.NickName = nickName.text;
             PhotonNetwork.GameVersion = "0.1";
+            PhotonNetwork.AutomaticallySyncScene = true;
+
             PhotonNetwork.ConnectUsingSettings();
         }
 

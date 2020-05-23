@@ -15,7 +15,7 @@ filters = {
 	asset = true
 }
 scopes = {
-	"last_search.AB59B443" = "RoomList"
+	"last_search.AB59B443" = ""
 }
 providers = {
 	asset = {

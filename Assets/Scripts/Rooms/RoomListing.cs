@@ -11,7 +11,9 @@ namespace Rooms
         
 
         public RoomInfo RoomInfo { get; private set; }
-        
+
+        #region Public method
+
         public void SetRoomInfo(RoomInfo _roomInfo)
         {
             RoomInfo = _roomInfo;
@@ -23,5 +25,6 @@ namespace Rooms
             PhotonNetwork.JoinRoom(RoomInfo.Name);
         }
 
+        #endregion
     }
 }

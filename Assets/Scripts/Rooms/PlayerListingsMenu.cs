@@ -28,9 +28,20 @@ namespace Rooms
 
         public override void OnEnable()
         {
+            base.OnEnable();
             GetCurrentRoomPlayers();
         }
-        
+
+        public override void OnDisable()
+        {
+            base.OnDisable();
+            foreach (var playerListing in listings)
+            {
+                Destroy(playerListing.gameObject);
+            }
+            listings.Clear();
+        }
+
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
             AddPlayerListing(newPlayer);
@@ -57,6 +68,16 @@ namespace Rooms
         
         public void GetCurrentRoomPlayers()
         {
+            if (!PhotonNetwork.IsConnected)
+            {
+                return;
+            }
+
+            if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Players == null)
+            {
+                return;
+            }
+
             foreach (KeyValuePair<int,Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
             {
                 AddPlayerListing(playerInfo.Value);
@@ -87,6 +108,16 @@ namespace Rooms
             }
             
 
+        }
+
+        public void OnClick_StartGame()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = false;
+                PhotonNetwork.LoadLevel("Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+            }
         }
 
         #endregion
