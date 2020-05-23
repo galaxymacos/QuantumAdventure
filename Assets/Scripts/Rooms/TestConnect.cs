@@ -24,7 +24,10 @@ namespace Rooms
         {
             print($"{PhotonNetwork.LocalPlayer.NickName} connect to Photon.");
 
-            PhotonNetwork.JoinLobby();
+            if (!PhotonNetwork.InLobby)
+            {
+                PhotonNetwork.JoinLobby();
+            }
 
         }
 
@@ -32,6 +35,8 @@ namespace Rooms
         {
             print($"Failed to connect to photon: {cause}");
         }
+        
+        
 
         public override void OnJoinedLobby()
         {

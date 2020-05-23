@@ -1280,6 +1280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldHealthBarPrefab: {fileID: 3802218675474385049, guid: 9ffc2ce78a90371418ad3e9c874ee1f7,
     type: 3}
+  targetPlayer: {fileID: 0}
 --- !u!114 &5296866372964994267
 MonoBehaviour:
   m_ObjectHideFlags: 0

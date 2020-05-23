@@ -6,12 +6,15 @@ namespace Rooms
     {
         public RoomCanvases roomCanavases;
         
-        public PlayerListingMenu playerListingMenu;
+        public PlayerListingsMenu playerListingsMenu;
+
+        [SerializeField] private LeaveRoomMenu _leaveRoomMenu;
 
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
             roomCanavases = roomCanvases;
-            playerListingMenu.FirstInitialize(roomCanvases);
+            playerListingsMenu.FirstInitialize(roomCanvases);
+            _leaveRoomMenu.FirstInitialize(roomCanvases);
         }
 
         public void Show()
@@ -19,7 +22,7 @@ namespace Rooms
             gameObject.SetActive(true);
         }
 
-        private void Hide()
+        public void Hide()
         {
             gameObject.SetActive(false);
         }

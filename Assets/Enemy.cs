@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
     public GameObject worldHealthBarPrefab;
     public PlayerManager targetPlayer;
     public int targetPlayerAnger => playerAngerValues[targetPlayer];
-    public Dictionary<PlayerManager, int> playerAngerValues;
+    public Dictionary<PlayerManager, int> playerAngerValues = new Dictionary<PlayerManager, int>();
 
     #region Event
 
@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
         var worldHealthBar = Instantiate(worldHealthBarPrefab, transform.position, Quaternion.identity);
         worldHealthBar.SendMessage("SetTarget", this);
 
+        
         foreach (var player in GameManager.Instance.players)
         {
             playerAngerValues.Add(player,0);

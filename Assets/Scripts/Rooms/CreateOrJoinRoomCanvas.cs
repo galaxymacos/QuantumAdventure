@@ -6,12 +6,14 @@ namespace Rooms
     {
         public RoomCanvases roomCanavases;
 
-        public CreateRoomMenu createRoomMenu;
+        [SerializeField] private CreateRoomMenu _createRoomMenu;
+        [SerializeField] private RoomListingsMenu roomListingsMenu;
 
-        public void FirstInitialize(RoomCanvases _roomCanvases)
+        public void FirstInitialize(RoomCanvases roomCanvases)
         {
-            roomCanavases = _roomCanvases;
-            createRoomMenu.FirstInitialize(_roomCanvases);
+            roomCanavases = roomCanvases;
+            _createRoomMenu.FirstInitialize(roomCanvases);
+            roomListingsMenu.FirstInitialize(roomCanvases);
         }
     }
 }
