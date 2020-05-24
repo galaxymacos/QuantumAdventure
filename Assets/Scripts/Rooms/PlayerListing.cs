@@ -37,10 +37,10 @@ namespace Rooms
 
         private void SetPlayerText(Player player)
         {
-            int result = -1;
+            string result = "";
             if (player.CustomProperties.ContainsKey("RandomNumber"))
             {
-                result = (int)player.CustomProperties["RandomNumber"];
+                result = (string)player.CustomProperties["RandomNumber"];
             }
             _text.text = result+", "+player.NickName;
         }

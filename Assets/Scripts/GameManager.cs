@@ -47,18 +47,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 GameObject newPlayer;
-                switch (PhotonNetwork.CurrentRoom.PlayerCount)
+                if ((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Maria")
                 {
-                    case 1:
-                        newPlayer = PhotonNetwork.Instantiate(p1CharacterPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                    newPlayer = PhotonNetwork.Instantiate(p1CharacterPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                    players.Add(newPlayer.GetComponent<PlayerManager>());
+                }
+                else if((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Soap"){
+                    newPlayer = PhotonNetwork.Instantiate(p2CharacterPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
                         players.Add(newPlayer.GetComponent<PlayerManager>());
-                        break;
-                    case 2:
-                        newPlayer = PhotonNetwork.Instantiate(p2CharacterPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
-                        players.Add(newPlayer.GetComponent<PlayerManager>());
-
-                        break;
-
                 }
             }
             

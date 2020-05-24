@@ -164,11 +164,13 @@ namespace Rooms
             if (!PhotonNetwork.IsMasterClient)
             {
                 SetReadyUp(!_ready);
-                base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer, _ready);
+                photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer, _ready);
             }
         }
 
         #endregion
+
+        #region RPC
 
         [PunRPC]
         private void RPC_ChangeReadyState(Player player, bool ready)
@@ -179,10 +181,6 @@ namespace Rooms
                 _listings[index].Ready = ready;
             }
         }
-
-        #region RPC
-        
-        
 
         #endregion
         
