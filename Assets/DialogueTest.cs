@@ -79,7 +79,7 @@ public class DialogueTest : MonoBehaviourPun
         {
             if (dialogueInputField.text != "")
             {
-                NetworkEventFirer.ShowMessage(target.GetComponent<PlayerManager>().characterName.ToString(),dialogueInputField.text,target.GetComponent<RoleTag>().RoleName == "Maria"?"Soap":"Maria");
+                NetworkEventFirer.ShowMessage(target.characterName.ToString(),dialogueInputField.text,target.characterName.ToString() == "Maria"?"Soap":"Maria");
                 dialogueInputField.text = "";
             }
 

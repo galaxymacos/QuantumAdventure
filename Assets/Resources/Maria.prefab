@@ -2592,6 +2592,7 @@ MonoBehaviour:
   playerUiPrefabs:
   - {fileID: 3885778899857331368, guid: 3ac75696622f3d34fab5aa2984969e88, type: 3}
   virtualCamera: {fileID: 5355760280915330209}
+  characterName: 0
 --- !u!114 &8060885742207913574
 MonoBehaviour:
   m_ObjectHideFlags: 0
