@@ -20,6 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] public GameObject dialogueUIPrefab;
     [SerializeField] public GameObject[] playerUiPrefabs;
     [SerializeField] public GameObject virtualCamera;
+    [SerializeField] public CharacterSelection characterName;
 
     #endregion
 
@@ -31,8 +32,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     #endregion
 
     #region Private Field
-
-    private RoleTag roleTag;
 
     private GameObject dialogueUI;
 
@@ -50,7 +49,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        roleTag = GetComponent<RoleTag>();
         DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -188,7 +186,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             string speakerName = (string) data[0];
             string message = (string) data[1];
             string targetName = (string) data[2];
-            if (targetName == roleTag.RoleName)
+            if (targetName == characterName.ToString())
             {
                 DisplayMessage(message, speakerName);
             }

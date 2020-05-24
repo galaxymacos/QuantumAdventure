@@ -29,17 +29,14 @@ namespace Rooms
         #endregion
 
         #region Callback
-
-        private void Awake()
-        {
-            GetCurrentRoomPlayers();
-            
-        }
+        
 
         public override void OnEnable()
         {
             base.OnEnable();
             SetReadyUp(false);
+            GetCurrentRoomPlayers();
+
         }
 
         public override void OnDisable()
