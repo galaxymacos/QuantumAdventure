@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class SMB_Run_Maria : SMB_Maria
@@ -16,7 +17,12 @@ public class SMB_Run_Maria : SMB_Maria
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         
-        if (!playerManager.photonView.IsMine || playerManager.isDialogueBoxOpen)
+        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
+        if (playerManager.isDialogueBoxOpen)
         {
             return;
         }
@@ -38,22 +44,5 @@ public class SMB_Run_Maria : SMB_Maria
             characterMovement.SetTriggerAnimation("Slash");
         }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
+    
 }

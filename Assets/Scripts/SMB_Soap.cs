@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
+using UnityEngine.Animations;
 
 public class SMB_Soap: StateMachineBehaviour
 {
@@ -6,10 +8,17 @@ public class SMB_Soap: StateMachineBehaviour
     protected CharacterMovement characterMovement;
     protected PlayerManager playerManager;
 
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         anim = animator;
         characterMovement = animator.GetComponent<CharacterMovement>();
         playerManager = animator.GetComponent<PlayerManager>();
+        
+        if (!playerManager.photonView.IsMine)
+        {
+            return;
+        }
     }
 }

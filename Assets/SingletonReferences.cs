@@ -6,4 +6,6 @@ using UnityEngine;
 public class SingletonReferences : MonoBehaviour
 {
     public MasterManager masterManager;
+    
+    
 }

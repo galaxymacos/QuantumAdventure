@@ -1,11 +1,74 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using Photon.Pun;
+using UnityEditor;
 using UnityEngine;
 
 namespace Rooms
 {
     [CreateAssetMenu(menuName = "ScriptableObject/MasterManager", fileName = "MasterManager")]
-    public class MasterManager: ScriptableObject
+    public class MasterManager: SingletonScriptableObject<MasterManager>
     {
-        public GameSettings gameSettings;
+        [SerializeField] private GameSettings _gameSettings;
+
+        // public static GameSettings GameSettings => _gameSettings;
+
+        private List<NetworkedPrefab> networkPrefabs = new List<NetworkedPrefab>();
+        
+        public static GameObject NetworkInstantiate(GameObject obj, Vector3 position, Quaternion rotation)
+        {
+            foreach (var networkedPrefab in Instance.networkPrefabs)
+            {
+                if (networkedPrefab.Prefab == obj)
+                {
+                    
+                    if (networkedPrefab.Path != string.Empty)
+                    {
+                        Debug.Log("Try to instantiate gameobject from "+networkedPrefab.Path);
+                        GameObject result = PhotonNetwork.Instantiate(networkedPrefab.Path, position, rotation);
+                        return result;
+                    }
+                    else
+                    {
+                        Debug.LogError("Path is empty for gameobject name "+networkedPrefab.Prefab);
+                        return null;
+                    }
+                }
+            }
+
+            Debug.LogError("Can't find network prefab " + obj);
+
+            return null;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void PopulateNetworkedPrefabs()
+        {
+            if (!Application.isEditor)
+            {
+                return;
+            }
+            
+            Instance.networkPrefabs.Clear();
+
+            GameObject[] results = Resources.LoadAll<GameObject>("");
+            for (int i = 0; i < results.Length; i++)
+            {
+                if (results[i].GetComponent<PhotonView>() != null)
+                {
+                    string path = AssetDatabase.GetAssetPath(results[i]);
+                    Instance.networkPrefabs.Add(new NetworkedPrefab(results[i], path));
+                }
+            }
+
+            foreach (NetworkedPrefab networkPrefab in Instance.networkPrefabs)
+            {
+                Debug.Log($"{networkPrefab.Prefab} at {networkPrefab.Path}");
+            }
+        }
     }
+    
+    
+    
+    
 }

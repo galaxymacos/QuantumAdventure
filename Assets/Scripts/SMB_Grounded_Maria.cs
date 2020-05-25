@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class SMB_Grounded_Maria : SMB_Maria
@@ -17,7 +18,12 @@ public class SMB_Grounded_Maria : SMB_Maria
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-        if (!playerManager.photonView.IsMine || playerManager.isDialogueBoxOpen)
+        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        {
+            return;
+        }
+
+        if (playerManager.isDialogueBoxOpen)
         {
             return;
         }

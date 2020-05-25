@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 public class SMB_Maria: StateMachineBehaviour
 {
     protected Animator anim;
-    protected CharacterMovement characterMovement;
+    protected MariaMovement characterMovement;
     protected PlayerManager playerManager;
     protected Maria maria;
     protected HitBoxDealDamage hitBoxDealDamage;
@@ -14,7 +15,7 @@ public class SMB_Maria: StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         anim = animator;
-        characterMovement = animator.GetComponent<CharacterMovement>();
+        characterMovement = animator.GetComponent<MariaMovement>();
         maria = animator.GetComponent<Maria>();
         hitBoxDealDamage = animator.GetComponent<HitBoxDealDamage>();
         hitBoxDealDamage.currentSkill = skillName;
@@ -25,7 +26,7 @@ public class SMB_Maria: StateMachineBehaviour
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         
-        if (!playerManager.photonView.IsMine)
+        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
         }

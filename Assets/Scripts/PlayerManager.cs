@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
     [SerializeField] public GameObject dialogueUIPrefab;
     [SerializeField] public GameObject[] playerUiPrefabs;
     [SerializeField] public GameObject virtualCamera;
-    [SerializeField] public CharacterSelection characterName;
+    [SerializeField] public CharacterPick characterName;
 
     #endregion
 
@@ -84,6 +84,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         transform.position = new Vector3(0f, 5f, 0f);
 
         InstantiateUi();
+        
     }
 
 

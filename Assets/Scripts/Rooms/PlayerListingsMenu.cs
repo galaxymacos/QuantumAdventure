@@ -91,53 +91,11 @@ namespace Rooms
                 readyText.text = "N";
             }
         }
-        
-        public void GetCurrentRoomPlayers()
-        {
-            if (!PhotonNetwork.IsConnected)
-            {
-                return;
-            }
-
-            if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Players == null)
-            {
-                return;
-            }
-
-            foreach (KeyValuePair<int,Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
-            {
-                AddPlayerListing(playerInfo.Value);
-            }
-        }
-
-        public void AddPlayerListing(Player player)
-        {
-            int index = _listings.FindIndex(x => Equals(x.Player, player));
-            if (index != -1)
-            {
-                _listings[index].SetPlayerInfo(player);
-            }
-            else
-            {
-                GameObject listingObject = Instantiate(_playerListingPrefab, _content);
-                var listing = listingObject.GetComponent<PlayerListing>();
-                if (listing != null)
-                {
-                    listing.SetPlayerInfo(player);
-                    _listings.Add(listing);
-
-                }
-                else
-                {
-                    Debug.LogError("There is not RoomListing Component in the gameobject "+listingObject.name);
-                }
-            }
-            
-
-        }
 
         public void OnClick_StartGame()
         {
+            if (CheckPlayerSelectDifferentCharacter()) return;
+
             if (PhotonNetwork.IsMasterClient)
             {
                 foreach (var playerListing in _listings)
@@ -163,6 +121,72 @@ namespace Rooms
                 SetReadyUp(!_ready);
                 photonView.RPC("RPC_ChangeReadyState", RpcTarget.MasterClient,PhotonNetwork.LocalPlayer, _ready);
             }
+        }
+
+        #endregion
+
+        #region Private method
+
+        private void GetCurrentRoomPlayers()
+        {
+            if (!PhotonNetwork.IsConnected)
+            {
+                return;
+            }
+
+            if (PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Players == null)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<int,Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
+            {
+                AddPlayerListing(playerInfo.Value);
+            }
+        }
+
+        private void AddPlayerListing(Player player)
+        {
+            int index = _listings.FindIndex(x => Equals(x.Player, player));
+            if (index != -1)
+            {
+                _listings[index].SetPlayerInfo(player);
+            }
+            else
+            {
+                GameObject listingObject = Instantiate(_playerListingPrefab, _content);
+                var listing = listingObject.GetComponent<PlayerListing>();
+                if (listing != null)
+                {
+                    listing.SetPlayerInfo(player);
+                    _listings.Add(listing);
+
+                }
+                else
+                {
+                    Debug.LogError("There is not RoomListing Component in the gameobject "+listingObject.name);
+                }
+            }
+            
+
+        }
+
+        private bool CheckPlayerSelectDifferentCharacter()
+        {
+            HashSet<string> redundantCharacterList = new HashSet<string>();
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                string playerCharacterDecision = (string) player.CustomProperties["RandomNumber"];
+                if (redundantCharacterList.Contains(playerCharacterDecision))
+                {
+                    Debug.Log("You need to choose a different character than your teammate to continue");
+                    return true;
+                }
+
+                redundantCharacterList.Add(playerCharacterDecision);
+            }
+
+            return false;
         }
 
         #endregion

@@ -43,10 +43,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c16228e36947be4fb36a55361cce7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1CharacterPrefab: {fileID: 9143336602372177196, guid: 78d3da1271f0cb54f98477033aab8ae5,
+  MariaPrefab: {fileID: 6337059489087431794, guid: 2e2edf1f4a8d16c429cfd0e994a3ef6f,
     type: 3}
-  p2CharacterPrefab: {fileID: 8060885742207913579, guid: 4d7a9351900448a4bb35a99c1a134c86,
+  SoapPrefab: {fileID: 9143336602372177196, guid: 78d3da1271f0cb54f98477033aab8ae5,
     type: 3}
+  players: []
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256

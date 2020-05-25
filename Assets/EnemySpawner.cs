@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Rooms;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -18,11 +19,10 @@ public class EnemySpawner : MonoBehaviour
             
         }
     }
-    
-    public void Spawn()
+
+    private void Spawn()
     {
-        print("Spawn enemy");
-        PhotonNetwork.Instantiate(enemyToSpawn.name, spawnTransform.position, Quaternion.identity);
+        MasterManager.NetworkInstantiate(enemyToSpawn, spawnTransform.position, Quaternion.identity);
     }
 }
 

@@ -15,8 +15,8 @@ namespace Rooms
         #region Private Field
 
         [SerializeField] private TextMeshProUGUI CharacterSelectionUI;
-        private Hashtable customProperties = new Hashtable();
-        private CharacterSelection currentCharacter = CharacterSelection.Maria;
+        private readonly Hashtable customProperties = new Hashtable();
+        private CharacterPick currentCharacter = CharacterPick.Maria;
         
 
         #endregion
@@ -34,26 +34,20 @@ namespace Rooms
             SwitchCharacter();
         }
 
-        public void SwitchCharacter()
+        #endregion
+
+        #region Private Method
+
+        private void SwitchCharacter()
         {
-            currentCharacter = currentCharacter == CharacterSelection.Maria ? CharacterSelection.Soap : CharacterSelection.Maria;
+            currentCharacter = currentCharacter == CharacterPick.Maria ? CharacterPick.Soap : CharacterPick.Maria;
 
             CharacterSelectionUI.text = currentCharacter.ToString();
             customProperties["RandomNumber"] = currentCharacter.ToString();
-
             PhotonNetwork.SetPlayerCustomProperties(customProperties);
 
         }
 
         #endregion
-
-        #region Private Method
-
-        #endregion
     }
-}
-
-public enum CharacterSelection{
-    Maria,
-    Soap
 }

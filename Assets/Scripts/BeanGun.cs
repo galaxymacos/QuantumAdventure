@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Rooms;
 using UnityEngine;
 
 public class BeanGun : GunPart
@@ -60,7 +61,7 @@ public class BeanGun : GunPart
         if (Camera.main != null)
         {
             Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f));
-            GameObject protectile = PhotonNetwork.Instantiate(projectilePrefab.name, projectileSpawnTransform.position,
+            GameObject protectile = MasterManager.NetworkInstantiate(projectilePrefab, projectileSpawnTransform.position,
                 Quaternion.identity);
             Vector3 bulletDirection = Vector3.zero;
             if (Physics.Raycast(ray,out RaycastHit hitinfo,400))
