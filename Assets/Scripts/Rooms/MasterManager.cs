@@ -11,8 +11,9 @@ namespace Rooms
     {
         [SerializeField] private GameSettings _gameSettings;
 
-        // public static GameSettings GameSettings => _gameSettings;
+        public static GameSettings GameSettings => Instance._gameSettings;
 
+        [SerializeField]
         private List<NetworkedPrefab> networkPrefabs = new List<NetworkedPrefab>();
         
         public static GameObject NetworkInstantiate(GameObject obj, Vector3 position, Quaternion rotation)
@@ -42,12 +43,10 @@ namespace Rooms
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void PopulateNetworkedPrefabs()
+        public static void PopulateNetworkedPrefabs()
         {
-            if (!Application.isEditor)
-            {
-                return;
-            }
+
+#if UNITY_EDITOR
             
             Instance.networkPrefabs.Clear();
 
@@ -60,11 +59,8 @@ namespace Rooms
                     Instance.networkPrefabs.Add(new NetworkedPrefab(results[i], path));
                 }
             }
-
-            foreach (NetworkedPrefab networkPrefab in Instance.networkPrefabs)
-            {
-                Debug.Log($"{networkPrefab.Prefab} at {networkPrefab.Path}");
-            }
+            
+#endif
         }
     }
     
