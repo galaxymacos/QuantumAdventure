@@ -37,9 +37,14 @@ namespace Rooms
             }
             // Create Room
             // Join or create room
-            
-            RoomOptions options = new RoomOptions {MaxPlayers = 2, BroadcastPropsChangeToAll = true};
-            
+
+            RoomOptions options = new RoomOptions
+            {
+                MaxPlayers = 2,
+                BroadcastPropsChangeToAll = true, 
+                PublishUserId = true
+            };
+
             PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
         }
 

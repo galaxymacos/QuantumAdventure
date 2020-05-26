@@ -47,7 +47,7 @@ namespace Rooms
         {
 
 #if UNITY_EDITOR
-            
+            Instance.networkPrefabs = new List<NetworkedPrefab>();
             Instance.networkPrefabs.Clear();
 
             GameObject[] results = Resources.LoadAll<GameObject>("");

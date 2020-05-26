@@ -16,6 +16,10 @@ namespace Rooms
         public void OnClick_Connect()
         {
             PhotonNetwork.NickName = nickName.text;
+            AuthenticationValues authValues = new AuthenticationValues("1");
+            PhotonNetwork.AuthValues = authValues;
+            PhotonNetwork.SendRate = 20;
+            PhotonNetwork.SerializationRate = 10;
             PhotonNetwork.GameVersion = "0.1";
             PhotonNetwork.AutomaticallySyncScene = true;
 

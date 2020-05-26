@@ -8,15 +8,13 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     
     #region Serialized Field
 
-    [SerializeField] private float camMaxHeight = 3f;
-    [SerializeField] private float camMinHeight = 0.5f;
+    [SerializeField] private GameObject freeLookCamera;
     [SerializeField] private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
     
     
     [SerializeField] public float mouseSentivity = 20;
     [SerializeField] public float runSpeed = 10f;
     [SerializeField] public float walkSpeed = 5f;
-    [SerializeField] private Transform camLookTarget;
     
     [SerializeField] public Animator anim;
     [SerializeField] public LayerMask whatIsGround;
@@ -57,6 +55,10 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        if (photonView.IsMine)
+        {
+            freeLookCamera.SetActive(true);
+        }
     }
 
     
@@ -79,7 +81,6 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            print("move");
             anim.SetFloat("Horizontal Input", horizontalInput);
             anim.SetFloat("Vertical Input", verticalInput);
 

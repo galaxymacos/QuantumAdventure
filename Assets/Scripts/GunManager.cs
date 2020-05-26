@@ -1,7 +1,8 @@
 ﻿using System;
+using Photon.Pun;
 using UnityEngine;
 
-public class GunManager: MonoBehaviour
+public class GunManager: MonoBehaviourPun
 {
     public GunPart[] gunParts;
 
@@ -25,7 +26,10 @@ public class GunManager: MonoBehaviour
 
     public void Shoot()
     {
-        currentGunPart.Shoot();
+        if (photonView.IsMine)
+        {
+            currentGunPart.Shoot();
+        }
     }
 
     public void MoveToNextGun()
