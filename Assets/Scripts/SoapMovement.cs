@@ -6,15 +6,19 @@ using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class CharacterMovement : MonoBehaviourPun, IPunObservable
+public class SoapMovement : MonoBehaviourPun, IPunObservable
 {
     
     #region Serialized Field
 
+    [SerializeField] private SoapData soapData;
+
     [SerializeField] private float camMaxHeight = 3f;
     [SerializeField] private float camMinHeight = 0.5f;
-    [SerializeField] private Transform camTransfrom;
+    private Transform camTransfrom;
     [SerializeField] private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
+
+    [SerializeField] private float diveSpeed = 9f;
     
     
     [SerializeField] public float mouseSentivity = 20;
@@ -32,6 +36,8 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
     #endregion
 
     #region Property
+
+    public float DiveRollSpeed => soapData.diveRollSpeed;
 
     public float moveSpeed;
     public bool isGrounded => Physics.OverlapSphere(groundCheck.position, 0.05f, whatIsGround).Length>0;
@@ -57,13 +63,13 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
+        camTransfrom = Camera.main.transform;
     }
 
     
 
     private void Update()
     {
-        RotateCharacter();
 
         if (!isGrounded)
         {
@@ -81,7 +87,24 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
         {
             anim.SetFloat("Horizontal Input", horizontalInput);
             anim.SetFloat("Vertical Input", verticalInput);
-            anim.SetFloat("Speed", 1);
+            Vector3 forwardVector = transform.position - camTransfrom.position;
+            forwardVector.y = 0;
+            forwardVector.Normalize();
+            Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
+            Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
+            movementVector.Normalize();
+            characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+            
+        }
+    }
+
+    /// <summary>
+    /// Move based on current rotation
+    /// </summary>
+    public void MoveForward(float horizontalInput, float verticalInput)
+    {
+        if (photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
             Vector3 forwardVector = transform.position - camTransfrom.position;
             forwardVector.y = 0;
             forwardVector.Normalize();
@@ -97,16 +120,49 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            transform.Rotate(Vector3.up, UserInput.cameraHorizontalMouseValue*Time.deltaTime*mouseSentivity);
-            float camTransfromY = camTransfrom.localPosition.y;
+            
+            Vector3 forwardVector = transform.position - camTransfrom.position;
+            forwardVector.y = 0;
+            forwardVector.Normalize();
 
-            if (camTransfromY +  -UserInput.cameraVerticalMouseValue * Time.deltaTime * 2 > camMaxHeight || camTransfromY +  -UserInput.cameraVerticalMouseValue * Time.deltaTime * 2 < camMinHeight)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(forwardVector), 0.1f);
+            
+            // transform.Rotate(Vector3.up, UserInput.cameraHorizontalMouseValue*Time.deltaTime*mouseSentivity);
+            // float camTransfromY = camTransfrom.localPosition.y;
+
+            
+            // camTransfrom.Translate(Vector3.up * -UserInput.cameraVerticalMouseValue*Time.deltaTime*2);
+            // camTransfromY = Mathf.Clamp(camTransfromY, camMinHeight, camMaxHeight);
+            // camTransfrom.localPosition.Set(camTransfrom.localPosition.x, camTransfromY, camTransfrom.localPosition.z);
+        }
+    }
+
+    public void RotateCharacterImmediately(float horizontalInput, float verticalInput)
+    {
+        if (photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
+            // anim.SetFloat("Horizontal Input", horizontalInput);
+            // anim.SetFloat("Vertical Input", verticalInput);
+
+            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+            if (direction.magnitude >= 0.1f)
             {
-                return;
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                    Camera.main.transform.eulerAngles.y;
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetAngle, 0f), 0.2f);
+
+                // Vector3 forwardVector = transform.position - camTransfrom.position;
+                // forwardVector.y = 0;
+                // forwardVector.Normalize();
+                // Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
+                // Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
+                // movementVector.Normalize();
+                // print("Move speed: "+moveSpeed);
+                // characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+
             }
-            camTransfrom.Translate(Vector3.up * -UserInput.cameraVerticalMouseValue*Time.deltaTime*2);
-            camTransfromY = Mathf.Clamp(camTransfromY, camMinHeight, camMaxHeight);
-            camTransfrom.localPosition.Set(camTransfrom.localPosition.x, camTransfromY, camTransfrom.localPosition.z);
+
         }
     }
 

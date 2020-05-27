@@ -19,6 +19,8 @@ public class UserInput : MonoBehaviour
     public static bool returnButtonPressed;
     public static bool mouseWheelScrollUp;
     public static bool mouseWheelScrollDown;
+    public static bool reloadPressed;
+    public static bool diveRollPressed;
 
     public static event Action onSkill1Pressed;
     public static event Action onSkill2Pressed;
@@ -29,6 +31,8 @@ public class UserInput : MonoBehaviour
     public static event Action onRunPressed;
     public static event Action onMouseWheelScrollUp;
     public static event Action onMouseWheelScrollDown;
+    public static event Action onReloadPressed;
+    public static event Action onDiveRollPressed;
 
     #region Serialized Field
 
@@ -69,6 +73,8 @@ public class UserInput : MonoBehaviour
         mouseWheelScrollUp = player.GetButton("Wheel Scroll Up");
         mouseWheelScrollDown = player.GetButton("Wheel Scroll Down");
         runPressed = player.GetButton("Run");
+        reloadPressed = player.GetButton("Reload");
+        diveRollPressed = player.GetButton("DiveRoll");
 
 
         if (player.GetButtonDown("Skill1"))
@@ -108,13 +114,28 @@ public class UserInput : MonoBehaviour
 
         if (player.GetButtonDown("Wheel Scroll Up"))
         {
+            print("wheel scroll up");
             onMouseWheelScrollUp?.Invoke();
         }
 
         if (player.GetButtonDown("Wheel Scroll Down"))
         {
+            print("wheel scroll down");
             onMouseWheelScrollDown?.Invoke();
         }
+
+        if (player.GetButtonDown("Reload"))
+        {
+            print("reload");
+            onReloadPressed?.Invoke();
+        }
+
+        if (player.GetButtonDown("DiveRoll"))
+        {
+            print("Player dives roll");
+            onDiveRollPressed?.Invoke();
+        }
+        
     }
 
     #endregion

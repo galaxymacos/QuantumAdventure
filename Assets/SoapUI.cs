@@ -13,6 +13,8 @@ public class SoapUI : MonoBehaviour
 
     [SerializeField] private Image crosshair;
     [SerializeField] private TMP_Text numOfBulletText;
+    [SerializeField] private TMP_Text gunNameText;
+    [SerializeField] private Image gunIcon;
 
     #endregion
 
@@ -25,6 +27,7 @@ public class SoapUI : MonoBehaviour
     #region Private Field
 
     private PlayerManager target;
+    private GunManager gunManager;
 
     #endregion
 
@@ -43,8 +46,10 @@ public class SoapUI : MonoBehaviour
             return;
         }
 
-
-
+        numOfBulletText.text = $"{gunManager.currentGunPart.bulletLeft.ToString()} / {gunManager.currentGunPart.catridge.ToString()}   {gunManager.currentGunPart.bulletTotal}";
+        gunNameText.text = gunManager.currentGunPart.gunName;
+        gunIcon.sprite = gunManager.currentGunPart.icon;
+        
     }
 
     #endregion
@@ -59,9 +64,10 @@ public class SoapUI : MonoBehaviour
             return;
         }
         target = _target;
+        gunManager = target.GetComponent<GunManager>();
+        
 
-        
-        
+
     }
 
     #endregion

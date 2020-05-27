@@ -5,11 +5,11 @@ namespace Event_Args
 {
     public class CharacterEventArgs : EventArgs
     {
-        public CharacterMovement characterMovement;
+        public SoapMovement SoapMovement;
 
-        public CharacterEventArgs(CharacterMovement characterMovement)
+        public CharacterEventArgs(SoapMovement soapMovement)
         {
-            this.characterMovement = characterMovement;
+            this.SoapMovement = soapMovement;
         }
     }
 }

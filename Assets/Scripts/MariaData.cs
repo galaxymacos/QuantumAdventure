@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/FatRat", fileName = "FatRatData")]
+[CreateAssetMenu(menuName = "Data/MariaData")]
 public class MariaData : ScriptableObject
 {
     public float kickDamage = 30f;

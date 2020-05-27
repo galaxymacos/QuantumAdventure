@@ -14,50 +14,20 @@ public class BeanGun : GunPart
 
     #endregion
 
-    #region Property
-
-
-
-    #endregion
-
-    #region Private Field
-
-
-
-    #endregion
-
-    #region MonoBehavior Callback
-
-    private void Awake()
-    {
-        if (photonView.IsMine || !PhotonNetwork.IsConnected)
-        {
-            UserInput.onLeftMouseButtonPressed += Shoot;
-        }
-    }
-
-
-    private void OnDestroy()
-    {
-        if (photonView.IsMine || !PhotonNetwork.IsConnected)
-        {
-            UserInput.onLeftMouseButtonPressed -= Shoot;
-        }
-
-    }
-
-    #endregion
-
-    #region Public Methods
-
-
-
-    #endregion
 
     #region Private Methods
 
-    public override void Shoot()
+    public override void Fire()
     {
+        if (bulletLeft == 0)
+        {
+            print("no bullet in catridge");
+            return;
+        }
+
+        bulletLeft--;
+        
+        print("Bean gun shoot");
         if (Camera.main != null)
         {
             Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f));
@@ -82,24 +52,4 @@ public class BeanGun : GunPart
     #endregion
 
 
-}
-
-public class HitscanGun: GunPart
-{
-    public float damage;
-    public float firingRange = 400f;
-    public override void Shoot()
-    {
-        if (Camera.main != null)
-        {
-            Ray ray = Camera.main.ViewportPointToRay (new Vector3(0.5f,0.5f));
-            if (Physics.Raycast(ray,out RaycastHit hitinfo,firingRange))
-            {
-                if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
-                {
-                    NetworkEventFirer.DealDamage(damage,hitinfo.collider.GetComponent<PhotonView>().ViewID);
-                }
-            }
-        }
-    }
 }

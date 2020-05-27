@@ -5,7 +5,7 @@ using UnityEngine.Animations;
 public class SMB_Soap: StateMachineBehaviour
 {
     protected Animator anim;
-    protected CharacterMovement characterMovement;
+    protected SoapMovement SoapMovement;
     protected PlayerManager playerManager;
 
 
@@ -13,7 +13,7 @@ public class SMB_Soap: StateMachineBehaviour
     {
         
         anim = animator;
-        characterMovement = animator.GetComponent<CharacterMovement>();
+        SoapMovement = animator.GetComponent<SoapMovement>();
         playerManager = animator.GetComponent<PlayerManager>();
         
         if (!playerManager.photonView.IsMine)
