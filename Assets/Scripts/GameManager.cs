@@ -74,10 +74,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     #region Public Methods
 
-    public void LeaveRoom()
-    {
-        PhotonNetwork.LeaveRoom();
-    }
+    
 
     #endregion
 
@@ -107,15 +104,25 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            LoadArena();
-        }
+        print($"Player {PhotonNetwork.LocalPlayer} leaves room because {otherPlayer.NickName} has left room");
+        PhotonNetwork.LoadLevel(0);
+        PhotonNetwork.LeaveRoom();
     }
 
-    public override void OnLeftRoom()
+    // public override void OnLeftRoom()
+    // {
+        // photonView.RPC("LeaveRoom", RpcTarget.All);
+        
+    // }
+
+    #endregion
+
+    #region RPC
+    
+    // [PunRPC]
+    public void LeaveRoom()
     {
-        SceneManager.LoadScene(0);
+        PhotonNetwork.LeaveRoom();
     }
 
     #endregion

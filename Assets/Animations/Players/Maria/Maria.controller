@@ -328,13 +328,7 @@ AnimatorController:
   m_Name: Maria
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Horizontal Input
-    m_Type: 1
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Vertical Input
+  - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -546,30 +540,6 @@ BlendTree:
     m_DirectBlendParameter: Movement Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ef7da88880515a14baac5b3dd292d9ec, type: 2}
-    m_Threshold: 0.2
-    m_Position: {x: 1, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Movement Horizontal
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: e65c21ce911e0fb41a30537ba08251b5, type: 2}
-    m_Threshold: 0.4
-    m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Movement Horizontal
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 0ca8598cb4d71384c8ed0ae81b22ce26, type: 2}
-    m_Threshold: 0.6
-    m_Position: {x: 0, y: -1}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: Movement Horizontal
-    m_Mirror: 0
-  - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: bfc520019e049f142ae6df817328b62f, type: 2}
     m_Threshold: 0.8
     m_Position: {x: 0, y: 1}
@@ -577,13 +547,13 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Movement Horizontal
     m_Mirror: 0
-  m_BlendParameter: Horizontal Input
+  m_BlendParameter: Speed
   m_BlendParameterY: Vertical Input
   m_MinThreshold: 0
   m_MaxThreshold: 0.8
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
-  m_BlendType: 1
+  m_BlendType: 0
 --- !u!1102 &8512783979353340478
 AnimatorState:
   serializedVersion: 5

@@ -41,6 +41,11 @@ public class DialogueTest : MonoBehaviourPun
 
     private void Update()
     {
+        if (target == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         target.isDialogueBoxOpen = dialogueObject.activeSelf;
 
     }

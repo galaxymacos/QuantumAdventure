@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -27,9 +28,10 @@ public class SMB_Run_Maria : SMB_Maria
             return;
         }
         
-        characterMovement.Move(0, UserInput.verticalValue);
-        
-        if (!UserInput.runPressed || UserInput.verticalValue<=0)
+        characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
+        characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
+
+        if (!UserInput.runPressed || (Math.Abs(Mathf.Abs(UserInput.verticalValue)) < Mathf.Epsilon && Math.Abs(Mathf.Abs(UserInput.horizontalValue)) < Mathf.Epsilon))
         {
             characterMovement.SetAnimationBool("Run", false);
         }

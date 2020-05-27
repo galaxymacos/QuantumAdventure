@@ -49,9 +49,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        DontDestroyOnLoad(gameObject);
         SceneManager.sceneLoaded += OnSceneLoaded;
-
+        DontDestroyOnLoad(gameObject);
         healthComponent = GetComponent<HealthComponent>();
     }
 
@@ -74,8 +73,12 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         this.CalledOnLevelWasLoaded(level);
     }
 
-    void CalledOnLevelWasLoaded(int level)
+    void CalledOnLevelWasLoaded(int sceneIndex)
     {
+        if (sceneIndex == 0)
+        {
+            Destroy(gameObject);
+        }
         if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
         {
             transform.position = Vector3.zero;

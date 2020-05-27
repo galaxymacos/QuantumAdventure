@@ -356,18 +356,18 @@ MonoBehaviour:
       _userAssignable: 1
       _categoryId: 0
     - _id: 12
-      _name: Switch Next Weapon
+      _name: Wheel Scroll Down
       _type: 1
-      _descriptiveName: Switch Next Weapon
+      _descriptiveName: Wheel Scroll Down
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
     - _id: 13
-      _name: Switch Prev Weapon
+      _name: Wheel Scroll Up
       _type: 1
-      _descriptiveName: Switch Prev Weapon
+      _descriptiveName: Wheel Scroll Up
       _positiveDescriptiveName: 
       _negativeDescriptiveName: 
       _behaviorId: 0

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine;
 
 namespace Rooms
 {
@@ -11,13 +13,16 @@ namespace Rooms
         private void Start()
         {
             OnClick_Connect();
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         public void OnClick_Connect()
         {
             PhotonNetwork.NickName = nickName.text;
-            AuthenticationValues authValues = new AuthenticationValues("1");
-            PhotonNetwork.AuthValues = authValues;
+            // AuthenticationValues authValues = new AuthenticationValues("0");
+            // PhotonNetwork.AuthValues = authValues;
             PhotonNetwork.SendRate = 20;
             PhotonNetwork.SerializationRate = 10;
             PhotonNetwork.GameVersion = "0.1";
@@ -46,8 +51,18 @@ namespace Rooms
 
         public override void OnJoinedLobby()
         {
-            base.OnJoinedLobby();
+            print($"joined lobby");
+
+            // PhotonNetwork.FindFriends(new[] {"1"});
             
+        }
+
+        public override void OnFriendListUpdate(List<FriendInfo> friendList)
+        {
+            foreach (FriendInfo friendInfo in friendList)
+            {
+                Debug.Log($"Friend info received " + friendInfo.UserId + " is online? " + friendInfo.IsOnline);
+            }
         }
     }
 }

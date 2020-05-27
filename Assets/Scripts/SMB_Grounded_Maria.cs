@@ -28,6 +28,7 @@ public class SMB_Grounded_Maria : SMB_Maria
             return;
         }
         characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
+        characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
         if (UserInput.Skill1Pressed)
         {
             characterMovement.SetTriggerAnimation("Kick");
@@ -38,9 +39,12 @@ public class SMB_Grounded_Maria : SMB_Maria
             characterMovement.SetTriggerAnimation("Slash");
         }
 
-        if (UserInput.runPressed && UserInput.verticalValue>0)
+        if (UserInput.runPressed)
         {
-            characterMovement.SetAnimationBool("Run", true);
+            if (Mathf.Abs(UserInput.horizontalValue) > 0 || Mathf.Abs(UserInput.verticalValue) > 0)
+            {
+                characterMovement.SetAnimationBool("Run", true);
+            }
         }
 
     }

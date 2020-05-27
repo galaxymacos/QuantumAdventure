@@ -81,19 +81,25 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            anim.SetFloat("Horizontal Input", horizontalInput);
-            anim.SetFloat("Vertical Input", verticalInput);
+            // anim.SetFloat("Horizontal Input", horizontalInput);
+            // anim.SetFloat("Vertical Input", verticalInput);
 
             Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
 
             if (direction.magnitude >= 0.1f)
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + Camera.main.transform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+                // transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
                 characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
+                
+                anim.SetFloat("Speed", 1, 0.3f, Time.deltaTime);
+            }
+            else
+            {
+                anim.SetFloat("Speed", 0,0.3f, Time.deltaTime);
             }
             // Vector3 forwardVector = transform.position - camTransfrom.position;
             // forwardVector.y = 0;
@@ -107,7 +113,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void RotateCharacter()
+    public void RotateCharacter(float horizontalInput, float verticalInput)
     {
         // if (photonView.IsMine || !PhotonNetwork.IsConnected)
         // {
@@ -122,6 +128,34 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
         //     camTransfromY = Mathf.Clamp(camTransfromY, camMinHeight, camMaxHeight);
         //     camTransfrom.localPosition.Set(camTransfrom.localPosition.x, camTransfromY, camTransfrom.localPosition.z);
         // }
+
+        if (photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
+            // anim.SetFloat("Horizontal Input", horizontalInput);
+            // anim.SetFloat("Vertical Input", verticalInput);
+
+            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+            if (direction.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                    Camera.main.transform.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                    turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                // Vector3 forwardVector = transform.position - camTransfrom.position;
+                // forwardVector.y = 0;
+                // forwardVector.Normalize();
+                // Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
+                // Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
+                // movementVector.Normalize();
+                // print("Move speed: "+moveSpeed);
+                // characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+
+            }
+
+        }
     }
 
     public void SetTriggerAnimation(string triggerName)

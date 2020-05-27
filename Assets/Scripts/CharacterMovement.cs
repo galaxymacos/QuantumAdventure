@@ -81,6 +81,7 @@ public class CharacterMovement : MonoBehaviourPun, IPunObservable
         {
             anim.SetFloat("Horizontal Input", horizontalInput);
             anim.SetFloat("Vertical Input", verticalInput);
+            anim.SetFloat("Speed", 1);
             Vector3 forwardVector = transform.position - camTransfrom.position;
             forwardVector.y = 0;
             forwardVector.Normalize();

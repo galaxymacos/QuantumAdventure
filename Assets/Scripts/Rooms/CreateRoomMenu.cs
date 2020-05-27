@@ -63,6 +63,11 @@ namespace Rooms
             print("Room creation failed");
         }
 
+        public override void OnConnectedToMaster()
+        {
+            
+        }
+
         #endregion
     }
 }
