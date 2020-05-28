@@ -29,6 +29,6 @@ public class TakedownComponent: MonoBehaviourPun
 
     public void DecreaseTakeDownGauge(int value)
     {
-        takeDownGauge = Mathf.Clamp(value, 0, takeDownGaugeMax);
+        takeDownGauge = Mathf.Clamp(takeDownGauge-value, 0, takeDownGaugeMax);
     }
 }

@@ -68,9 +68,11 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
             object[] data = (object[]) photonEvent.CustomData;
             float damage = (float) data[0];
             int targetID = (int) data[1];
+            int takeDownValue = (int) data[2];
             if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);
+                GetComponent<TakedownComponent>().DecreaseTakeDownGauge(takeDownValue);
             }
             else
             {

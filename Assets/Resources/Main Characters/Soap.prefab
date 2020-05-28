@@ -3518,4 +3518,5 @@ MonoBehaviour:
   gunName: M4A1
   icon: {fileID: 0}
   damage: 10
+  takeDownValuePerShoot: 20
   nextFiringTime: 0
