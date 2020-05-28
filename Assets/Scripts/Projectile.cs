@@ -84,7 +84,6 @@ public class Projectile : MonoBehaviourPun, IPunObservable
             var takeDamagePart = other.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                
                 NetworkEventFirer.DealDamage(damage, other.gameObject.GetComponent<PhotonView>().ViewID);
             }
         }

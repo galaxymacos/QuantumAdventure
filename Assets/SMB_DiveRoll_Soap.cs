@@ -22,9 +22,8 @@ public class SMB_DiveRoll_Soap : SMB_Soap
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SoapMovement.RotateCharacterImmediately(horizontalValue, verticalValue);
-
         base.OnStateUpdate(animator, stateInfo, layerIndex);
+        SoapMovement.RotateCharacterImmediately(horizontalValue, verticalValue);
         SoapMovement.MoveForward(horizontalValue, verticalValue);
     }
 

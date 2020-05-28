@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291d9e23ed3e4eb48afe5ad4c2d586d5, type: 3}
   m_Name: SoapData
   m_EditorClassIdentifier: 
-  diveRollSpeed: 10
+  diveRollSpeed: 5

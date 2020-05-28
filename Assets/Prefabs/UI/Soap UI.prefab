@@ -837,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2bfc48a9885d414d84a6b5fc9a0a187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crosshair: {fileID: 3700077629459904247}
+  crosshairGameObject: {fileID: 3700077629459904245}
   numOfBulletText: {fileID: 1999423772}
   gunNameText: {fileID: 3700077630171166477}
   gunIcon: {fileID: 7458718960699930759}

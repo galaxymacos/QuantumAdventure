@@ -11,7 +11,7 @@ public class SoapUI : MonoBehaviour
 
     #region Serialized Field
 
-    [SerializeField] private Image crosshair;
+    [SerializeField] private GameObject crosshairGameObject;
     [SerializeField] private TMP_Text numOfBulletText;
     [SerializeField] private TMP_Text gunNameText;
     [SerializeField] private Image gunIcon;
@@ -26,8 +26,11 @@ public class SoapUI : MonoBehaviour
 
     #region Private Field
 
+    private bool setup;
+    
     private PlayerManager target;
     private GunManager gunManager;
+    private SoapMovement soapMovement;
 
     #endregion
 
@@ -52,6 +55,15 @@ public class SoapUI : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        if (setup)
+        {
+            soapMovement.onAnimationEnter -= EnableCrossHairOnDiveRoll;
+            soapMovement.onAnimationExit -= DisableCrossHairOnDiveRollEnd;
+        }
+    }
+
     #endregion
 
     #region Public Methods
@@ -63,18 +75,53 @@ public class SoapUI : MonoBehaviour
             Debug.LogError("Missing PlayerManager target for CombatUI.SetTarget.", this);
             return;
         }
+        
         target = _target;
         gunManager = target.GetComponent<GunManager>();
-        
+        soapMovement = target.GetComponent<SoapMovement>();
+        soapMovement.onAnimationEnter += DisableCrossHairOnDiveRollEnd;
+        soapMovement.onAnimationExit += EnableCrossHairOnDiveRoll;
+
+        setup = true;
+
+    }
 
 
+    public void EnableCrossHair()
+    {
+        crosshairGameObject.SetActive(true);
+    }
+
+    public void DisableCrossHair()
+    {
+        crosshairGameObject.SetActive(false);
     }
 
     #endregion
 
     #region Private Methods
 
+    #region Bridges
 
+    private void DisableCrossHairOnDiveRollEnd(SMB_Soap animationClass)
+    {
+        if (animationClass is SMB_DiveRoll_Soap)
+        {
+            print("Disable cross hair");
+            DisableCrossHair();
+        }
+    }
+
+    private void EnableCrossHairOnDiveRoll(SMB_Soap animationClass)
+    {
+        if (animationClass is SMB_DiveRoll_Soap)
+        {
+            print("Enable cross hair");
+            EnableCrossHair();
+        }
+    }
+
+    #endregion
 
     #endregion
 

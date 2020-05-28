@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: fccd75d9007a2b04a84af7cfbbd5016b
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Plot_Fat_Edge_01a_snaps016
+    100004: Plot_Fat_Edge_01b_snaps016
+    100006: Plot_Fat_Edge_01c_snaps016
+    100008: Plot_Fat_Edge_01d_snaps016
+    100010: Plot_Fat_Edge_01e_snaps016
+    100012: Plot_Fat_Edge_01f_snaps016
+    100014: Plot_Fat_Edge_01g_snaps016
+    100016: Plot_Fat_Edge_01h_snaps016
+    100018: Plot_Fat_Edge_01i_snaps016
+    100020: Plot_Fat_Edge_01j_snaps016
+    100022: Plot_Fat_Edge_01k_snaps016
+    100024: Plot_Fat_Edge_01l_snaps016
+    100026: Plot_Fat_Edge_01m_snaps016
+    100028: Plot_Fat_Edge_01n_snaps016
+    100030: Plot_Fat_Edge_01o_snaps016
+    100032: Plot_Fat_Edge_01p_snaps016
+    100034: Plot_Fat_Edge_01h_snaps016_LOD0
+    100036: Plot_Fat_Edge_01h_snaps016_LOD1
+    100038: Plot_Fat_Edge_01h_snaps016_LOD2
+    100040: Plot_Fat_Edge_01h_snaps016_LOD3
+    400000: //RootNode
+    400002: Plot_Fat_Edge_01a_snaps016
+    400004: Plot_Fat_Edge_01b_snaps016
+    400006: Plot_Fat_Edge_01c_snaps016
+    400008: Plot_Fat_Edge_01d_snaps016
+    400010: Plot_Fat_Edge_01e_snaps016
+    400012: Plot_Fat_Edge_01f_snaps016
+    400014: Plot_Fat_Edge_01g_snaps016
+    400016: Plot_Fat_Edge_01h_snaps016
+    400018: Plot_Fat_Edge_01i_snaps016
+    400020: Plot_Fat_Edge_01j_snaps016
+    400022: Plot_Fat_Edge_01k_snaps016
+    400024: Plot_Fat_Edge_01l_snaps016
+    400026: Plot_Fat_Edge_01m_snaps016
+    400028: Plot_Fat_Edge_01n_snaps016
+    400030: Plot_Fat_Edge_01o_snaps016
+    400032: Plot_Fat_Edge_01p_snaps016
+    400034: Plot_Fat_Edge_01h_snaps016_LOD0
+    400036: Plot_Fat_Edge_01h_snaps016_LOD1
+    400038: Plot_Fat_Edge_01h_snaps016_LOD2
+    400040: Plot_Fat_Edge_01h_snaps016_LOD3
+    2100000: Mt_Plot_Fat_Edge_01_snaps016_Tiling
+    2100002: Mt_Plot_Fat_Edge_01_snaps016_Trim
+    2100004: Mt_Plot_Fat_Edge_01_snaps016_Unique
+    2100006: Mt_Plot_Fat_Edge_01_snaps016_Metal04_Unique
+    2100008: Mt_Plot_Fat_Edge_01_snaps016_Metal01_Tiling
+    2100010: Mt_Plot_Fat_Edge_01_snaps016_Metal02_Unique
+    2100012: Mt_Plot_Fat_Edge_01_snaps016_Metal03_Unique
+    2300000: //RootNode
+    2300002: Plot_Fat_Edge_01a_snaps016
+    2300004: Plot_Fat_Edge_01b_snaps016
+    2300006: Plot_Fat_Edge_01c_snaps016
+    2300008: Plot_Fat_Edge_01d_snaps016
+    2300010: Plot_Fat_Edge_01e_snaps016
+    2300012: Plot_Fat_Edge_01f_snaps016
+    2300014: Plot_Fat_Edge_01g_snaps016
+    2300016: Plot_Fat_Edge_01h_snaps016
+    2300018: Plot_Fat_Edge_01i_snaps016
+    2300020: Plot_Fat_Edge_01j_snaps016
+    2300022: Plot_Fat_Edge_01k_snaps016
+    2300024: Plot_Fat_Edge_01l_snaps016
+    2300026: Plot_Fat_Edge_01m_snaps016
+    2300028: Plot_Fat_Edge_01n_snaps016
+    2300030: Plot_Fat_Edge_01o_snaps016
+    2300032: Plot_Fat_Edge_01p_snaps016
+    2300034: Plot_Fat_Edge_01h_snaps016_LOD0
+    2300036: Plot_Fat_Edge_01h_snaps016_LOD1
+    2300038: Plot_Fat_Edge_01h_snaps016_LOD2
+    2300040: Plot_Fat_Edge_01h_snaps016_LOD3
+    3300000: //RootNode
+    3300002: Plot_Fat_Edge_01a_snaps016
+    3300004: Plot_Fat_Edge_01b_snaps016
+    3300006: Plot_Fat_Edge_01c_snaps016
+    3300008: Plot_Fat_Edge_01d_snaps016
+    3300010: Plot_Fat_Edge_01e_snaps016
+    3300012: Plot_Fat_Edge_01f_snaps016
+    3300014: Plot_Fat_Edge_01g_snaps016
+    3300016: Plot_Fat_Edge_01h_snaps016
+    3300018: Plot_Fat_Edge_01i_snaps016
+    3300020: Plot_Fat_Edge_01j_snaps016
+    3300022: Plot_Fat_Edge_01k_snaps016
+    3300024: Plot_Fat_Edge_01l_snaps016
+    3300026: Plot_Fat_Edge_01m_snaps016
+    3300028: Plot_Fat_Edge_01n_snaps016
+    3300030: Plot_Fat_Edge_01o_snaps016
+    3300032: Plot_Fat_Edge_01p_snaps016
+    3300034: Plot_Fat_Edge_01h_snaps016_LOD0
+    3300036: Plot_Fat_Edge_01h_snaps016_LOD1
+    3300038: Plot_Fat_Edge_01h_snaps016_LOD2
+    3300040: Plot_Fat_Edge_01h_snaps016_LOD3
+    4300000: Plot_Fat_Edge_01h_snaps016
+    4300002: Plot_Fat_Edge_01f_snaps016
+    4300004: Plot_Fat_Edge_01a_snaps016
+    4300006: Plot_Fat_Edge_01b_snaps016
+    4300008: Plot_Fat_Edge_01o_snaps016
+    4300010: Plot_Fat_Edge_01g_snaps016
+    4300012: Plot_Fat_Edge_01c_snaps016
+    4300014: Plot_Fat_Edge_01d_snaps016
+    4300016: Plot_Fat_Edge_01e_snaps016
+    4300018: Plot_Fat_Edge_01i_snaps016
+    4300020: Plot_Fat_Edge_01j_snaps016
+    4300022: Plot_Fat_Edge_01l_snaps016
+    4300024: Plot_Fat_Edge_01k_snaps016
+    4300026: Plot_Fat_Edge_01m_snaps016
+    4300028: Plot_Fat_Edge_01n_snaps016
+    4300030: Plot_Fat_Edge_01p_snaps016
+    4300032: Plot_Fat_Edge_01h_snaps016_LOD0
+    4300034: Plot_Fat_Edge_01h_snaps016_LOD2
+    4300036: Plot_Fat_Edge_01h_snaps016_LOD1
+    4300038: Plot_Fat_Edge_01h_snaps016_LOD3
+    20500000: //RootNode
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Plot_Fat_Edge_01_snaps016_Tiling
+    second: {fileID: 2100000, guid: 7f646e51bc9bd634e88ec746b47f6ea1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Plot_Fat_Edge_01_snaps016_Trim
+    second: {fileID: 2100000, guid: 6085e706cef224242bc9b0c7e9214c68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mt_Plot_Fat_Edge_01_snaps016_Unique
+    second: {fileID: 2100000, guid: 8424912fba1087d41b442943f3d7e0b3, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

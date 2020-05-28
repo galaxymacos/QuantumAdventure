@@ -55,6 +55,9 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     public event EventHandler<CharacterEventArgs> onPlayerGrounded;
     public event EventHandler<CharacterEventArgs> onPlayerJumped;
+    public Action<SMB_Soap> onAnimationEnter;
+    public Action<SMB_Soap> onAnimationUpdate;
+    public Action<SMB_Soap> onAnimationExit;
 
     #endregion
 
