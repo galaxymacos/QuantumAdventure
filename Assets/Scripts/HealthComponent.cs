@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,6 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
 {
     [SerializeField] private float hpMax = 150;
     
-
     #region Properties
 
     public float healthPercentage => HpCurrent / HpMax;

@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data/SkillDamage", fileName = "SkillDamage")]
+[CreateAssetMenu(menuName = "Data/SkillData")]
 public class SkillData: ScriptableObject
 {
     public string skillName;
-    public float damage;
+    public SkillDataRaw skillDataRaw;
+
 }

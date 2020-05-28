@@ -1945,50 +1945,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: skillsDamage
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Int32,
-        mscorlib]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
+    - Name: skillDataDictionary
+      Entry: 6
       Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Kick
-    - Name: $v
-      Entry: 3
-      Data: 25
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Slash
-    - Name: $v
-      Entry: 3
-      Data: 15
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+  skillDatas:
+  - {fileID: 11400000, guid: 8b6a79f15216b1d438c7b1a18b9689c6, type: 2}
+  - {fileID: 11400000, guid: af06de273a1d1ac47994f0a8f879753b, type: 2}
 --- !u!136 &3259929710782860989
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2023,7 +1985,7 @@ MonoBehaviour:
   anim: {fileID: 7787884224643679805}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   groundCheck: {fileID: 6499687275616239655}
   TriggerAnimationList:
   - 

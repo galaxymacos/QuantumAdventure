@@ -23,6 +23,8 @@ public class Vampire : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     private static readonly int Speed = Animator.StringToHash("Speed");
+    private static readonly int PUNCH_ANIM_NAME = Animator.StringToHash("Punch");
+    
 
     #endregion
 
@@ -55,7 +57,7 @@ public class Vampire : MonoBehaviour
 
     public void Punch()
     {
-        anim.SetTrigger("Punch");
+        anim.SetTrigger(PUNCH_ANIM_NAME);
     }
 
     public void Destroy()

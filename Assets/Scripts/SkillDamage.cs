@@ -5,27 +5,33 @@ using UnityEngine;
 
 public class SkillDamage: SerializedMonoBehaviour
 {
-    public static SkillDamage instance;
 
+    [SerializeField] private List<SkillData> skillDatas;
+    
     #region Properties
 
-    public Dictionary<string, int> skillsDamage = new Dictionary<string, int>();
+    public Dictionary<string, SkillDataRaw> skillDataDictionary;
 
     #endregion
-    
+
+    #region MonoBehaviour callback
+
     private void Awake()
     {
-        if (instance == null)
+        skillDataDictionary = new Dictionary<string, SkillDataRaw>();
+        foreach (var skillData in skillDatas)
         {
-            instance = this;
+            skillDataDictionary.Add(skillData.skillName, skillData.skillDataRaw);
         }
     }
 
+    #endregion
+
     public float GetSkillDamage(string skillName)
     {
-        if (skillsDamage.ContainsKey(skillName))
+        if (skillDataDictionary.ContainsKey(skillName))
         {
-            return skillsDamage[skillName];
+            return skillDataDictionary[skillName].damage;
         }
         else
         {
@@ -33,4 +39,19 @@ public class SkillDamage: SerializedMonoBehaviour
             return -1;
         }
     }
+    
+    public int GetSkillTakeDownValue(string skillName)
+    {
+        if (skillDataDictionary.ContainsKey(skillName))
+        {
+            return skillDataDictionary[skillName].takeDownValue;
+        }
+        else
+        {
+            Debug.LogError($"Can't find skill with the name: {skillName} under {gameObject.name}");
+            return -1;
+        }
+    }
+    
 }
+

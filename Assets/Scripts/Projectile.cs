@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviourPun, IPunObservable
 {
     #region Serialized Field
 
+    [SerializeField] private BulletData bulletData;
+
     #endregion
 
     #region Property
@@ -84,7 +86,7 @@ public class Projectile : MonoBehaviourPun, IPunObservable
             var takeDamagePart = other.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                NetworkEventFirer.DealDamage(damage, other.gameObject.GetComponent<PhotonView>().ViewID);
+                NetworkEventFirer.DealDamage(bulletData.damage, other.gameObject.GetComponent<PhotonView>().ViewID, bulletData.takeDownValue);
             }
         }
         PhotonNetwork.Destroy(gameObject);

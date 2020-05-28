@@ -4,6 +4,7 @@ using UnityEngine;
 public class HitscanGun : GunPart
 {
     public float damage;
+    public int takeDownValuePerShoot;
     public float nextFiringTime;
 
     public override void Fire()
@@ -17,7 +18,7 @@ public class HitscanGun : GunPart
                 if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
                 {
                     print($"Hitscan gun deals damage to {hitinfo.collider.gameObject}");
-                    NetworkEventFirer.DealDamage(damage, hitinfo.collider.GetComponent<PhotonView>().ViewID);
+                    NetworkEventFirer.DealDamage(damage, hitinfo.collider.GetComponent<PhotonView>().ViewID, takeDownValuePerShoot);
                 }
             }
         }

@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d263a15bc2a43b59c8ed8da4a6610a7, type: 3}
   m_Name: Kick
   m_EditorClassIdentifier: 
-  type: 2
-  damage: 30
+  skillName: Kick
+  skillDataRaw:
+    damage: 40
+    takeDownValue: 40
