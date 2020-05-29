@@ -8,9 +8,9 @@ public static class NetworkEventFirer
     public static byte EventCode_DealDamage = 1;
     public static byte EventCode_ShowMessage = 2;
     
-    public static void DealDamage(float damage, int targetViewID, int takeDownValue)
+    public static void DealDamage(float damage, int targetViewID, int takeDownValue, int damageOwnerViewID)
     {
-        object[] content = {damage, targetViewID, takeDownValue};
+        object[] content = {damage, targetViewID, takeDownValue, damageOwnerViewID};
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         SendOptions sendOptions = new SendOptions {Reliability = true};
         PhotonNetwork.RaiseEvent(1, content, raiseEventOptions, sendOptions);

@@ -12,13 +12,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviourPun, IOnEventCallback
 {
     public GameObject worldHealthBarPrefab;
-    public PlayerManager targetPlayer;
-    public int targetPlayerAnger => playerAngerValues[targetPlayer];
-    public Dictionary<PlayerManager, int> playerAngerValues = new Dictionary<PlayerManager, int>();
+    
 
     #region Event
 
-    public event Action<PlayerManager, PlayerManager> onTargetPlayerChanged;
 
     #endregion
     
@@ -53,10 +50,7 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
         worldHealthBar.SendMessage("SetTarget", this);
 
         
-        foreach (var player in GameManager.Instance.players)
-        {
-            playerAngerValues.Add(player,0);
-        }
+        
     }
     
 
@@ -69,10 +63,12 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
             float damage = (float) data[0];
             int targetID = (int) data[1];
             int takeDownValue = (int) data[2];
+            int damageOwnerID = (int) data[3];
             if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);
                 GetComponent<TakedownComponent>().DecreaseTakeDownGauge(takeDownValue);
+                GetComponent<EnemyAnger>().IncreaseAngerTowards(PhotonNetwork.GetPhotonView(damageOwnerID).GetComponent<PlayerManager>(), 10);
             }
             else
             {
@@ -81,19 +77,5 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
         }
     }
 
-    public void IncreaseAngerTowards(PlayerManager playerManager, int anger)
-    {
-        PlayerManager currentTargetPlayer = targetPlayer;
-        playerAngerValues[playerManager] += anger;
-        int largestAnger = targetPlayerAnger;
-        foreach (var player in playerAngerValues.Keys)
-        {
-            if (playerAngerValues[player] > largestAnger)
-            {
-                largestAnger = playerAngerValues[player];
-                targetPlayer = player;
-                onTargetPlayerChanged?.Invoke(currentTargetPlayer, player);
-            }
-        }
-    }
+    
 }

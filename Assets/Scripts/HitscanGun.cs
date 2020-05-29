@@ -18,7 +18,7 @@ public class HitscanGun : GunPart
                 if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
                 {
                     print($"Hitscan gun deals damage to {hitinfo.collider.gameObject}");
-                    NetworkEventFirer.DealDamage(damage, hitinfo.collider.GetComponent<PhotonView>().ViewID, takeDownValuePerShoot);
+                    NetworkEventFirer.DealDamage(damage, hitinfo.collider.GetComponent<PhotonView>().ViewID, takeDownValuePerShoot, GetComponent<PhotonView>().ViewID);
                 }
             }
         }
