@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
 using Rooms;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyToSpawn;
-    public Transform spawnTransform;
+    public static EnemySpawner instance;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (instance == null)
         {
-            Spawn();
-            
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    private void Spawn()
+    private void Spawn(string enemyType, string dungeonName)
     {
-        MasterManager.NetworkInstantiate(enemyToSpawn, spawnTransform.position, Quaternion.identity);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            DungeonInfo targetDungeonInfo = MapInfo.instance.GetDungeonInfo(dungeonName);
+            MasterManager.NetworkInstantiate(EnemyFetcher.instance.Fetch(enemyType), targetDungeonInfo.GetRandomSpawnLocations().position, Quaternion.identity);
+        }
     }
 }
-
-
-
-

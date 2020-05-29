@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
-public class CutScenePlayer : MonoBehaviour
+public class CutScenePlayer : MonoBehaviourPun
 {
     public static CutScenePlayer instance;
 
@@ -12,7 +14,9 @@ public class CutScenePlayer : MonoBehaviour
     
     public List<CutScene> cutScenes;
 
-    private Dictionary<string, PlayableDirector> cutScenesByName;
+    public PlayableDirector mainDirector;
+
+    private Dictionary<string, TimelineAsset> cutScenesByName;
 
     private void Awake()
     {
@@ -25,31 +29,30 @@ public class CutScenePlayer : MonoBehaviour
             Destroy(gameObject);
         }
 
-        cutScenesByName = new Dictionary<string, PlayableDirector>();
+        cutScenesByName = new Dictionary<string, TimelineAsset>();
         foreach (CutScene cutScene in cutScenes)
         {
-            cutScenesByName.Add(cutScene.ShotName, cutScene.director);
+            cutScenesByName.Add(cutScene.ShotName, cutScene.asset);
         }
 
-        foreach (string cutScene in cutScenesByName.Keys)
-        {
-            cutScenesByName[cutScene].played += HidePlayers;
-            cutScenesByName[cutScene].stopped += ShowPlayers;
-        }
+        mainDirector.played += HidePlayers;
+        mainDirector.stopped += ShowPlayers;
         playersGameObject = new List<GameObject>();
     }
 
     private void OnDestroy()
     {
-        foreach (string cutScene in cutScenesByName.Keys)
-        {
-            cutScenesByName[cutScene].played -= HidePlayers;
-            cutScenesByName[cutScene].stopped -= ShowPlayers;
-        }
+            mainDirector.played -= HidePlayers;
+            mainDirector.stopped -= ShowPlayers;
     }
 
-
-    public void Play(string cutSceneName)
+    public void PlayCutSceneInAllPlayers(string cutSceneName)
+    {
+        photonView.RPC("Play", RpcTarget.All, cutSceneName);
+    }
+    
+    [PunRPC]
+    private void Play(string cutSceneName)
     {
         if (!cutScenesByName.ContainsKey(cutSceneName))
         {
@@ -57,9 +60,18 @@ public class CutScenePlayer : MonoBehaviour
             return;
         }
         Debug.Log($"Play cut scene {cutSceneName}");
-        cutScenesByName[cutSceneName].Play();
-        
+        mainDirector.playableAsset = cutScenesByName[cutSceneName];
+        mainDirector.Play();
+
+        // StartCoroutine(StopPlayback(10));
     }
+
+    // private IEnumerator StopPlayback(float sec)
+    // {
+        // yield return new WaitForSeconds(sec); 
+        // mainDirector.Stop();
+
+    // }
 
     public void HidePlayers(PlayableDirector playableDirector)
     {
@@ -80,7 +92,7 @@ public class CutScenePlayer : MonoBehaviour
         }
         foreach (GameObject playerGameObject in playersGameObject)
         {
-            playerGameObject.SetActive(false);
+            playerGameObject.SetActive(true);
         }
 
     }

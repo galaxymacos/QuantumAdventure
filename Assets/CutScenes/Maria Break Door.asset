@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Maria Break Door
   m_EditorClassIdentifier: 
   ShotName: BreakDoor
-  director: {fileID: 0}
+  asset: {fileID: 11400000, guid: 785ab5fe6c3674244aa7c9b46684710b, type: 2}
