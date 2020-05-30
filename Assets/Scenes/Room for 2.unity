@@ -2011,7 +2011,9 @@ MonoBehaviour:
   - {fileID: 708749156}
   - {fileID: 1982876672}
   enemySpawnlocations:
-  - {fileID: 0}
+  - {fileID: 95880293}
+  - {fileID: 846932487}
+  - {fileID: 1428946567}
 --- !u!1001 &220796297
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -41,9 +41,18 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     private void Awake()
     {
+        if ((string) photonView.Owner.CustomProperties["RandomNumber"] == "Maria")
+        {
+            GameManager.Instance.MariaViewID = photonView.ViewID;
+        }
+        else if ((string) photonView.Owner.CustomProperties["RandomNumber"] == "Soap")
+        {
+            GameManager.Instance.SoapViewID = photonView.ViewID;
+        }
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
             LocalPlayerInstance = gameObject;
+            
             virtualCamera.SetActive(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

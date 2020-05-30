@@ -44,40 +44,45 @@ public class CollisionTrigger : MonoBehaviourPun
         {
             if (playerPhotonView.ViewID == GameManager.Instance.MariaViewID)
             {
-                mariaIsIn = true;
+                photonView.RPC("MariaIn", RpcTarget.All);
+
                 if (activationType == ColliderActivationType.MariaIn ||
                     activationType == ColliderActivationType.AnyPlayerIn)
                 {
-                    photonView.RPC("SetInvalid", RpcTarget.All);
                     if (!PhotonNetwork.IsMasterClient)
                     {
-                        photonView.RPC("TriggerEvent", RpcTarget.All);
+                        photonView.RPC("TriggerEvent", RpcTarget.Others);
                     }
                     else
                     {
                         TriggerEvent();
                     }
+                    photonView.RPC("SetInvalid", RpcTarget.All);
                 }
             }
             else if (playerPhotonView.ViewID == GameManager.Instance.SoapViewID)
             {
                 photonView.RPC("SoapIn", RpcTarget.All);
+                print("Trigger SoapIn RPC");
                 if (activationType == ColliderActivationType.SoapIn ||
                     activationType == ColliderActivationType.AnyPlayerIn)
                 {
+                    if (!PhotonNetwork.IsMasterClient)
+                    {
+                        photonView.RPC("TriggerEvent", RpcTarget.Others);
+                    }
+                    else
+                    {
+                        TriggerEvent();
+                    }
                     print("trigger event because Soap steps in");
-                    onTrigger?.Invoke();
                     photonView.RPC("SetInvalid", RpcTarget.All);
 
                 }
+
             }
 
-            if (mariaIsIn && soapIsIn && activationType == ColliderActivationType.BothPlayersIn)
-            {
-                print("trigger event because both players step in");
-                onTrigger?.Invoke();
-                photonView.RPC("SetInvalid", RpcTarget.All);
-            }
+            
         }
 
     }
@@ -91,19 +96,40 @@ public class CollisionTrigger : MonoBehaviourPun
     [PunRPC]
     public void MariaIn()
     {
+        print("MariaIn RPC Is Triggered");
         mariaIsIn = true;
+        if (mariaIsIn && soapIsIn && activationType == ColliderActivationType.BothPlayersIn)
+        {
+                
+            if (PhotonNetwork.IsMasterClient)
+            {
+                TriggerEvent();
+            }
+            photonView.RPC("SetInvalid", RpcTarget.All);
+        }
     }
 
     [PunRPC]
     public void SoapIn()
     {
+        print("SoapIn RPC Is Triggered");
         soapIsIn = true;
+        if (mariaIsIn && soapIsIn && activationType == ColliderActivationType.BothPlayersIn)
+        {
+            TriggerEvent();
+            photonView.RPC("SetInvalid", RpcTarget.All);
+        }
     }
 
     [PunRPC]
     public void TriggerEvent()
     {
-        onTrigger?.Invoke();
+        print("TriggerEvent");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            print("TriggerEvent successfully");
+            onTrigger?.Invoke();
+        }
     }
 
 

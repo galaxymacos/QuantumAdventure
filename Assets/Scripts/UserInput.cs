@@ -114,13 +114,11 @@ public class UserInput : MonoBehaviour
 
         if (player.GetButtonDown("Wheel Scroll Up"))
         {
-            print("wheel scroll up");
             onMouseWheelScrollUp?.Invoke();
         }
 
         if (player.GetButtonDown("Wheel Scroll Down"))
         {
-            print("wheel scroll down");
             onMouseWheelScrollDown?.Invoke();
         }
 

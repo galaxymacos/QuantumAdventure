@@ -39,6 +39,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     #region MonoBehavior Callback
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Destroy game manager because there are more than one GameManager");
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         if (MariaPrefab == null)
@@ -55,13 +68,11 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     newPlayer = MasterManager.NetworkInstantiate(MariaPrefab, new Vector3(2f, 5f, 2f),
                         Quaternion.identity);
-                    MariaViewID = newPlayer.GetComponent<PhotonView>().ViewID;
                     players.Add(newPlayer.GetComponent<PlayerManager>());
                 }
                 else if((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Soap"){
                     newPlayer = MasterManager.NetworkInstantiate(SoapPrefab, new Vector3(-2f, 5f, -2f),
                         Quaternion.identity);
-                    SoapViewID = newPlayer.GetComponent<PhotonView>().ViewID;
                     players.Add(newPlayer.GetComponent<PlayerManager>());
                 }
             }
@@ -69,7 +80,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             
         }
 
-        Instance = this;
     }
 
     #endregion
