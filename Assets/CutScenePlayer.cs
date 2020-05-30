@@ -42,8 +42,8 @@ public class CutScenePlayer : MonoBehaviourPun
 
     private void OnDestroy()
     {
-            mainDirector.played -= HidePlayers;
-            mainDirector.stopped -= ShowPlayers;
+        mainDirector.played -= HidePlayers;
+        mainDirector.stopped -= ShowPlayers;
     }
 
     public void PlayCutSceneInAllPlayers(string cutSceneName)
@@ -63,16 +63,9 @@ public class CutScenePlayer : MonoBehaviourPun
         mainDirector.playableAsset = cutScenesByName[cutSceneName];
         mainDirector.Play();
 
-        // StartCoroutine(StopPlayback(10));
     }
 
-    // private IEnumerator StopPlayback(float sec)
-    // {
-        // yield return new WaitForSeconds(sec); 
-        // mainDirector.Stop();
-
-    // }
-
+    [PunRPC]
     public void HidePlayers(PlayableDirector playableDirector)
     {
         var players = FindObjectsOfType<PlayerManager>();
@@ -83,6 +76,7 @@ public class CutScenePlayer : MonoBehaviourPun
         }
     }
 
+    [PunRPC]
     public void ShowPlayers(PlayableDirector playableDirector)
     {
         if (playersGameObject.Count == 0)

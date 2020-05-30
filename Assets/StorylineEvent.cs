@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
-public class StorylineEvent: MonoBehaviour
+public class StorylineEvent: MonoBehaviourPun
 {
     public static StorylineEvent instance;
 
@@ -20,5 +21,11 @@ public class StorylineEvent: MonoBehaviour
     public void Story_MariaBreakRoom()
     {
         CutScenePlayer.instance.PlayCutSceneInAllPlayers("BreakDoor");
+    }
+
+    public void Story_SpawnFirstEnemy()
+    {
+        print("Method call: Story_SpawnFirstEnemy");
+        EnemySpawner.instance.Spawn("Vampire","Room 1");
     }
 }

@@ -4,7 +4,7 @@ using Photon.Pun;
 using Rooms;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviourPun
 {
     public static EnemySpawner instance;
 
@@ -20,12 +20,10 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void Spawn(string enemyType, string dungeonName)
+    public void Spawn(string enemyType, string dungeonName)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            DungeonInfo targetDungeonInfo = MapInfo.instance.GetDungeonInfo(dungeonName);
-            MasterManager.NetworkInstantiate(EnemyFetcher.instance.Fetch(enemyType), targetDungeonInfo.GetRandomSpawnLocations().position, Quaternion.identity);
-        }
+        DungeonInfo targetDungeonInfo = MapInfo.instance.GetDungeonInfo(dungeonName);
+        MasterManager.NetworkInstantiate(EnemyFetcher.instance.Fetch(enemyType),
+            targetDungeonInfo.GetRandomSpawnLocations().position, Quaternion.identity);
     }
 }

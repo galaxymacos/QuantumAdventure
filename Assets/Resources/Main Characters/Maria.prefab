@@ -1647,7 +1647,6 @@ GameObject:
   - component: {fileID: 7238003180883753129}
   - component: {fileID: 6337059489087431780}
   - component: {fileID: 6337059489087431802}
-  - component: {fileID: 6337059489087431801}
   - component: {fileID: 6337059489087431800}
   - component: {fileID: 6425436911539602924}
   - component: {fileID: 5066885877801212872}
@@ -1655,6 +1654,7 @@ GameObject:
   - component: {fileID: 3259929710782860989}
   - component: {fileID: 6337059489087431797}
   - component: {fileID: 4259395575260367521}
+  - component: {fileID: -8685064943403033131}
   m_Layer: 0
   m_Name: Maria
   m_TagString: Player
@@ -1732,8 +1732,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 01010700000068006900740062006f00780073002f00000000016a000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e00440069006300740069006f006e00610072007900600032005b005b00530079007300740065006d002e0053007400720069006e0067002c0020006d00730063006f0072006c00690062005d002c005b0048006900740042006f00780050006100720074002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c00690062000000000001010800000063006f006d00700061007200650072002f010000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e00470065006e00650072006900630045007100750061006c0069007400790043006f006d0070006100720065007200600031005b005b00530079007300740065006d002e0053007400720069006e0067002c0020006d00730063006f0072006c00690062005d005d002c0020006d00730063006f0072006c00690062000100000005060200000000000000042e27010200000024006b0001090000005200690067006800740046006f006f0074000b0102000000240076000000000005042e27010200000024006b000105000000530077006f00720064000b01020000002400760001000000050705
     ReferencedUnityObjects:
     - {fileID: 6005082239299086234}
     - {fileID: 2645870421390544882}
@@ -1741,51 +1741,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: hitboxs
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[HitBoxPart,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
-        mscorlib]], mscorlib
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: RightFoot
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Sword
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   currentSkill: 
   skillDamage: {fileID: 5115935051880832052}
   controlByPlayer: 1
@@ -1834,27 +1790,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 6337059489087431801}
+  - {fileID: -8685064943403033131}
   - {fileID: 6425436911539602924}
   - {fileID: 6337059489087431780}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6337059489087431801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337059489087431794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
 --- !u!114 &6337059489087431800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1905,7 +1846,7 @@ MonoBehaviour:
     SynchronizeType: 0
     Name: Dead
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Speed
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -1937,17 +1878,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 2d011300000073006b0069006c006c004400610074006100440069006300740069006f006e00610072007900
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: skillDataDictionary
-      Entry: 6
-      Data: 
+    SerializationNodes: []
   skillDatas:
   - {fileID: 11400000, guid: 8b6a79f15216b1d438c7b1a18b9689c6, type: 2}
   - {fileID: 11400000, guid: af06de273a1d1ac47994f0a8f879753b, type: 2}
@@ -2005,6 +1943,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffBall: {fileID: 2077317985461712002, guid: db89ceeafe2c33e4a9514937febeaa12,
     type: 3}
+--- !u!114 &-8685064943403033131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337059489087431794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 2
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &6403096950402310054
 GameObject:
   m_ObjectHideFlags: 0

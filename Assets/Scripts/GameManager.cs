@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region Property
 
     public static GameManager Instance;
+    public int MariaViewID;
+    public int SoapViewID;
     
     #endregion
 
@@ -51,16 +53,16 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameObject newPlayer;
                 if ((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Maria")
                 {
-                    newPlayer = MasterManager.NetworkInstantiate(MariaPrefab, new Vector3(0f, 5f, 0f),
+                    newPlayer = MasterManager.NetworkInstantiate(MariaPrefab, new Vector3(2f, 5f, 2f),
                         Quaternion.identity);
-                    // newPlayer = PhotonNetwork.Instantiate(MariaPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity);
+                    MariaViewID = newPlayer.GetComponent<PhotonView>().ViewID;
                     players.Add(newPlayer.GetComponent<PlayerManager>());
                 }
                 else if((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Soap"){
-                    newPlayer = MasterManager.NetworkInstantiate(SoapPrefab, new Vector3(0f, 5f, 0f),
+                    newPlayer = MasterManager.NetworkInstantiate(SoapPrefab, new Vector3(-2f, 5f, -2f),
                         Quaternion.identity);
-                    // newPlayer = PhotonNetwork.Instantiate(SoapPrefab.name, new Vector3(-2f, 5f, 0f), Quaternion.identity, 0);
-                        // players.Add(newPlayer.GetComponent<PlayerManager>());
+                    SoapViewID = newPlayer.GetComponent<PhotonView>().ViewID;
+                    players.Add(newPlayer.GetComponent<PlayerManager>());
                 }
             }
             

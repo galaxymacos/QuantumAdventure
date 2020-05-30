@@ -50,4 +50,6 @@ MonoBehaviour:
   players: []
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
+  MariaViewID: 0
+  SoapViewID: 0
