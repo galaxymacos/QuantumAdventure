@@ -7,6 +7,11 @@ public class DungeonInfo: MonoBehaviour
     [SerializeField] private List<GameObject> enemyWaypoints;
     [SerializeField] private List<Transform> enemySpawnlocations;
 
+    #region Property
+    public string DungeonName => dungeonName;
+
+    #endregion
+    
     public Transform GetRandomSpawnLocations()
     {
         if (enemySpawnlocations.Count == 0)

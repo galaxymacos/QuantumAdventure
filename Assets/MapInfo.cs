@@ -20,7 +20,7 @@ public class MapInfo : MonoBehaviour
 
     public DungeonInfo GetDungeonInfo(string dungeonName)
     {
-        var targetDungeonInfo = dungeonsInfo.Find(x=>x.name == dungeonName);
+        var targetDungeonInfo = dungeonsInfo.Find(x=>x.DungeonName == dungeonName);
         if (targetDungeonInfo == null)
         {
             Debug.LogError($"Can't find the dungeon with the name {dungeonName}");

@@ -26,6 +26,8 @@ public class StorylineEvent: MonoBehaviourPun
     public void Story_SpawnFirstEnemy()
     {
         print("Method call: Story_SpawnFirstEnemy");
-        EnemySpawner.instance.Spawn("Vampire","Room 1");
+        EnemySpawner.instance.Spawn("Vampire","Room 2");
     }
+    
+    
 }

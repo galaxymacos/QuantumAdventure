@@ -36,20 +36,19 @@ MonoBehaviour:
   - DestroySpaceship
   - DisplayMessage
   - Fire
+  - HidePlayers
+  - MariaIn
+  - Play
   - RespawnSpaceship
   - RPC_ChangeReadyState
   - RPC_MasterClientGranted
   - RPC_ReceiveMyCustomSerialization
   - RPC_ReceivePing
   - RPC_RequestMasterClient
-  - Play
   - SetInvalid
-  - HidePlayers
   - ShowPlayers
-  - Spawn
-  - MariaIn
   - SoapIn
   - TriggerEvent
   DisableAutoOpenWizard: 1
   ShowSettings: 0
-  DevRegionSetOnce: 1
+  DevRegionSetOnce: 0
