@@ -16,3 +16,4 @@ MonoBehaviour:
   skillDataRaw:
     damage: 20
     takeDownValue: 20
+    angerValue: 30

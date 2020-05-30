@@ -15,3 +15,4 @@ MonoBehaviour:
   bulletName: 
   damage: 10
   takeDownValue: 20
+  angerValue: 20

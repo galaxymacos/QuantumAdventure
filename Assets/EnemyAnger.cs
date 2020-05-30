@@ -13,15 +13,13 @@ public class EnemyAnger : MonoBehaviour
 
     // Debug purpose
     public string targetPlayerName;
-    
-    
-    public PlayerManager targetPlayer;
-    
-    public GameObject targetGameObject => targetPlayer == null ? null : targetPlayer.gameObject;
 
+    public PlayerManager targetPlayer;
+
+    public GameObject targetGameObject => targetPlayer == null ? null : targetPlayer.gameObject;
     public event Action<PlayerManager, PlayerManager> onTargetPlayerChanged;
 
-    [SerializeField] private float angerDecreaseRate = 2f;
+    [SerializeField] private float angerDecreaseRate = 5f;
 
     public float targetPlayerAnger
     {
@@ -41,7 +39,6 @@ public class EnemyAnger : MonoBehaviour
     #endregion
 
     #region Private Field
-    
 
     #endregion
 
@@ -58,18 +55,20 @@ public class EnemyAnger : MonoBehaviour
         {
             targetPlayerName = targetPlayer.gameObject.name;
         }
-        
+
         // Decrease anger value gradually
-        List<PlayerManager> deletePlayers= new List<PlayerManager>();
-        
+        List<PlayerManager> deletePlayers = new List<PlayerManager>();
+
         List<PlayerManager> keys = new List<PlayerManager>();
         foreach (var key in playerAngerValues.Keys)
         {
             keys.Add(key);
         }
+
         foreach (PlayerManager player in keys)
         {
             playerAngerValues[player] -= angerDecreaseRate * Time.deltaTime;
+            print($"Anger to "+player.gameObject+" is "+playerAngerValues[player]);
             if (playerAngerValues[player] < 0)
             {
                 deletePlayers.Add(player);
@@ -79,13 +78,18 @@ public class EnemyAnger : MonoBehaviour
         foreach (PlayerManager player in deletePlayers)
         {
             playerAngerValues.Remove(player);
+            if (targetPlayer == player)
+            {
+                targetPlayer = null;
+            }
+
         }
     }
 
     #endregion
 
     #region Public Method
-    
+
     public void IncreaseAngerTowards(PlayerManager playerManager, int anger)
     {
         print($"Increase anger {anger} towards {playerManager.gameObject}");
@@ -102,7 +106,7 @@ public class EnemyAnger : MonoBehaviour
 
             return;
         }
-        
+
         PlayerManager currentTargetPlayer = targetPlayer;
         playerAngerValues[playerManager] += anger;
         float largestAnger = targetPlayerAnger;
@@ -115,15 +119,11 @@ public class EnemyAnger : MonoBehaviour
                 onTargetPlayerChanged?.Invoke(currentTargetPlayer, player);
             }
         }
-        
-
     }
 
     #endregion
 
     #region Private Method
-    
-    
-    
+
     #endregion
 }

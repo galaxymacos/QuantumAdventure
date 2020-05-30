@@ -2587,7 +2587,7 @@ GameObject:
   - component: {fileID: 267562141}
   - component: {fileID: 267562140}
   - component: {fileID: 267562139}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4405,7 +4405,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430181590}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8012,7 +8012,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 697124516}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8125,9 +8125,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 708749157}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Waypoint 2
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8800,7 +8800,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 788503789}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Waypoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9784,9 +9784,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 838530091}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Waypoint 1
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14026,6 +14026,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Plot_Fat_Edge_01q_snaps016
+      objectReference: {fileID: 0}
+    - target: {fileID: 1142932242986400202, guid: 6e7ce0dc8e8b84241961601bdad87027,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1142932242986493418, guid: 6e7ce0dc8e8b84241961601bdad87027,
         type: 3}
@@ -23841,9 +23846,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982876673}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Waypoint 3
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

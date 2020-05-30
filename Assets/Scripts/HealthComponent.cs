@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObservable
 {
@@ -15,6 +16,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
     public float HpCurrent => hpCurrent;
 
     public UnityEvent onHealthReachZero;
+    public event Action<float> onTakeDamage;
     
     #endregion
 
@@ -32,6 +34,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
     public void TakeDamage(float damage)
     {
         hpCurrent -= damage;
+        onTakeDamage?.Invoke(damage);
         print($"{gameObject.name} takes damage");
         if (hpCurrent <= 0)
         {

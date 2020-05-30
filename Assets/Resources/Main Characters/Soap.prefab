@@ -3402,14 +3402,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 2d011300000073006b0069006c006c004400610074006100440069006300740069006f006e00610072007900
+    SerializedFormat: 2
+    SerializedBytes: 
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
+    SerializationNodes:
+    - Name: skillDataDictionary
+      Entry: 6
+      Data: 
   skillDatas: []
 --- !u!114 &4036666278827928884
 MonoBehaviour:
