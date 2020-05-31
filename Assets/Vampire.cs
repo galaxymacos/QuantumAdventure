@@ -59,10 +59,13 @@ public class Vampire : MonoBehaviour
     {
         anim.SetTrigger(PUNCH_ANIM_NAME);
     }
-
+    
     public void Destroy()
     {
-        PhotonNetwork.Destroy(gameObject);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 
     #endregion

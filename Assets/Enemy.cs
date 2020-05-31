@@ -11,7 +11,7 @@ using UnityEngine;
 /// </summary>
 public class Enemy : MonoBehaviourPun, IOnEventCallback
 {
-    public GameObject worldHealthBarPrefab;
+    // public GameObject worldHealthBarPrefab;
     
 
     #region Event
@@ -46,8 +46,8 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
             return;
         }    
 
-        var worldHealthBar = Instantiate(worldHealthBarPrefab, transform.position, Quaternion.identity);
-        worldHealthBar.SendMessage("SetTarget", this);
+        // var worldHealthBar = Instantiate(worldHealthBarPrefab, transform.position, Quaternion.identity);
+        // worldHealthBar.SendMessage("SetTarget", this);
 
         
         

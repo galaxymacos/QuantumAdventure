@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
 [RequireComponent(typeof(HealthComponent))]
-public class FloatingDamageActivator: MonoBehaviour
+public class FloatingDamageActivator: MonoBehaviourPun
 {
     private HealthComponent _healthComponent;
     [SerializeField] private Transform damagePopupDisplayTransform;
@@ -14,12 +15,16 @@ public class FloatingDamageActivator: MonoBehaviour
 
     private void ShowFloatingText(float damage)
     {
-        if (damage < 1)
+        if (photonView.IsMine)
         {
-            Debug.LogWarning($"{damage} is lower than 1, ignoring");
-            return;
+            if (damage < 1)
+            {
+                Debug.LogWarning($"{damage} is lower than 1, ignoring");
+                return;
+            }
+            DamagePopup.Create(damagePopupDisplayTransform.position, (int)damage);
         }
-        DamagePopup.Create(damagePopupDisplayTransform.position, (int)damage);
+        
     }
 
     private void OnDestroy()

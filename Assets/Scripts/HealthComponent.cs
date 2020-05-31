@@ -17,6 +17,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
 
     public UnityEvent onHealthReachZero;
     public event Action<float> onTakeDamage;
+    public event EventHandler<HealthChangedChangeArgs> onHealthChange;
     
     #endregion
 
@@ -35,6 +36,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
     {
         hpCurrent -= damage;
         onTakeDamage?.Invoke(damage);
+        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{curHealth = hpCurrent, prevHealth = hpCurrent+damage, maxHealth = hpMax});
         print($"{gameObject.name} takes damage");
         if (hpCurrent <= 0)
         {
@@ -46,6 +48,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
     public void Heal(HealArgs args)
     {
         hpCurrent += args.healAmount;
+        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{curHealth = hpCurrent, prevHealth = hpCurrent-args.healAmount, maxHealth = hpMax});
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -58,5 +61,12 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
         {
             this.hpCurrent = (float) stream.ReceiveNext();
         }
+    }
+
+    public class HealthChangedChangeArgs: EventArgs
+    {
+        public float prevHealth;
+        public float curHealth;
+        public float maxHealth;
     }
 }

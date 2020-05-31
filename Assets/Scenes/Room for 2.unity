@@ -12474,7 +12474,7 @@ GameObject:
   - component: {fileID: 1000000395}
   - component: {fileID: 1000000394}
   - component: {fileID: 1000000396}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Trigger_PlayerEnterRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

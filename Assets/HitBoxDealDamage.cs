@@ -102,7 +102,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             if (takeDamagePart != null)
             {
                 NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill),
-                    e.hitCollider.GetComponent<PhotonView>().ViewID, skillDamage.GetSkillTakeDownValue(currentSkill), GetComponent<PhotonView>().ViewID);
+                    e.hitCollider.transform.root.GetComponent<PhotonView>().ViewID, skillDamage.GetSkillTakeDownValue(currentSkill), GetComponent<PhotonView>().ViewID);
             }
         }
     }
