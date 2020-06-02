@@ -2,40 +2,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(HealthComponent))]
 public class HealthBarCanvas : MonoBehaviour
 {
-    public HealthComponent healthComponent;
+    private HealthComponent _healthComponent;
     public Image greenBar;
     public Image yellowBar;
     public Image redBar;
-    
-    
+    private TweenerCore<float, float, FloatOptions> _tweener;
+
+
+    private void Awake()
+    {
+        _healthComponent = GetComponentInParent<HealthComponent>();
+        if (_healthComponent == null)
+        {
+            Debug.LogError("Can't find health component under game object: " + gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        healthComponent.onHealthChange += UpdateUi;
+        _healthComponent.onHealthChange += UpdateUi;
     }
 
     private void OnDestroy()
     {
-        healthComponent.onHealthChange -= UpdateUi;
+        _healthComponent.onHealthChange -= UpdateUi;
     }
 
     private void UpdateUi(object sender, HealthComponent.HealthChangedChangeArgs healthChangedChangeArgs)
     {
-        greenBar.fillAmount = healthChangedChangeArgs.curHealth / healthComponent.HpMax;
-        yellowBar.DOFillAmount(healthChangedChangeArgs.curHealth / healthComponent.HpMax, 0.6f);
+        greenBar.fillAmount = healthChangedChangeArgs.curHealth / _healthComponent.HpMax;
+        _tweener?.Kill();
+        _tweener = yellowBar.DOFillAmount(healthChangedChangeArgs.curHealth / _healthComponent.HpMax, 0.6f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 v = Camera.main.transform.position - transform.position;
-        v.x = v.z = 0.0f;
-        transform.LookAt( Camera.main.transform.position - v ); 
+        if (Camera.main != null)
+        {
+            var cameraPos = Camera.main.transform.position;
+            Vector3 v = cameraPos - transform.position;
+            v.x = v.z = 0.0f;
+            transform.LookAt( cameraPos - v );
+        }
+
         transform.Rotate(0,180,0);
     }
     

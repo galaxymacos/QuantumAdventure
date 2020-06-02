@@ -13,6 +13,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     
     
     [SerializeField] public float mouseSentivity = 20;
+    [SerializeField] public float slideAttackMoveSpeed = 6f;
     [SerializeField] public float runSpeed = 10f;
     [SerializeField] public float walkSpeed = 5f;
     
@@ -112,6 +113,23 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
         }
     }
+    
+    public Vector3 CalculateMoveDirection(float horizontalInput, float verticalInput)
+    {
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                Camera.main.transform.eulerAngles.y;
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            return moveDir.normalized;
+    }
+
+    public void MoveAlong(Vector3 directionVector)
+    {
+        characterController.Move(directionVector * moveSpeed* Time.deltaTime);
+
+    }
 
     public void RotateCharacter(float horizontalInput, float verticalInput)
     {
@@ -155,6 +173,23 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
             }
 
+        }
+    }
+    
+    public float InputToRotationAngle(float horizontalInput, float verticalInput)
+    {
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                            Camera.main.transform.eulerAngles.y;
+        return targetAngle;
+    }
+
+    public void RotateCharacterImmediately(float targetAngle)
+    {
+        if (photonView.IsMine || !PhotonNetwork.IsConnected)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetAngle, 0f), 0.2f);
         }
     }
 

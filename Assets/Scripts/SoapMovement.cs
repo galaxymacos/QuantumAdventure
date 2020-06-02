@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using Event_Args;
@@ -17,9 +18,6 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     [SerializeField] private float camMinHeight = 0.5f;
     private Transform camTransfrom;
     [SerializeField] private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
-
-    [SerializeField] private float diveSpeed = 9f;
-    
     
     [SerializeField] public float mouseSentivity = 20;
     [SerializeField] public float runSpeed = 10f;
@@ -119,6 +117,24 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
         }
     }
 
+    public Vector3 CalculateMoveDirection(float horizontalInput, float verticalInput)
+    {
+        Vector3 forwardVector = transform.position - camTransfrom.position;
+        forwardVector.y = 0;
+        forwardVector.Normalize();
+        Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
+        Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
+        movementVector.Normalize();
+        return movementVector;
+    }
+
+    public void MoveAlong(Vector3 directionVector)
+    {
+        print(moveSpeed);
+        characterController.Move(directionVector * moveSpeed* Time.deltaTime);
+
+    }
+
     public void RotateCharacter()
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
@@ -140,32 +156,20 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void RotateCharacterImmediately(float horizontalInput, float verticalInput)
+    public float InputToRotationAngle(float horizontalInput, float verticalInput)
+    {
+        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
+                                Camera.main.transform.eulerAngles.y;
+            return targetAngle;
+    }
+
+    public void RotateCharacterImmediately(float targetAngle)
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            // anim.SetFloat("Horizontal Input", horizontalInput);
-            // anim.SetFloat("Vertical Input", verticalInput);
-
-            Vector3 direction = new Vector3(horizontalInput, 0, verticalInput).normalized;
-
-            if (direction.magnitude >= 0.1f)
-            {
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
-                                    Camera.main.transform.eulerAngles.y;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, targetAngle, 0f), 0.2f);
-
-                // Vector3 forwardVector = transform.position - camTransfrom.position;
-                // forwardVector.y = 0;
-                // forwardVector.Normalize();
-                // Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
-                // Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
-                // movementVector.Normalize();
-                // print("Move speed: "+moveSpeed);
-                // characterController.Move(movementVector * moveSpeed* Time.deltaTime);
-
-            }
-
         }
     }
 

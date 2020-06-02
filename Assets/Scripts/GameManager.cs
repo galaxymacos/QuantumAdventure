@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Rooms;
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             Debug.LogError("Destroy game manager because there are more than one GameManager");
             Destroy(gameObject);
         }
+        
+        
+        NetworkEventFirer.RegisterCustomType();
     }
 
     private void Start()

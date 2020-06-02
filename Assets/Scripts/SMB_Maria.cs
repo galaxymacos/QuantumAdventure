@@ -7,6 +7,7 @@ public class SMB_Maria: StateMachineBehaviour
     protected MariaMovement characterMovement;
     protected PlayerManager playerManager;
     protected Maria maria;
+    protected PhotonView photonView;
     protected HitBoxDealDamage hitBoxDealDamage;
     [Tooltip("The skill name represented by this animation")]
     public string skillName;
@@ -15,6 +16,7 @@ public class SMB_Maria: StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         anim = animator;
+        photonView = anim.GetComponent<PhotonView>();
         characterMovement = animator.GetComponent<MariaMovement>();
         maria = animator.GetComponent<Maria>();
         hitBoxDealDamage = animator.GetComponent<HitBoxDealDamage>();
@@ -26,9 +28,5 @@ public class SMB_Maria: StateMachineBehaviour
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         
-        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
-        {
-            return;
-        }
     }
 }

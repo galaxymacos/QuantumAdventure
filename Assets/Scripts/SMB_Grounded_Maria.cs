@@ -29,17 +29,27 @@ public class SMB_Grounded_Maria : SMB_Maria
         }
         characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
         characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
-        if (UserInput.Skill1Pressed)
+        if (UserInput.skill1Pressing)
         {
             characterMovement.SetTriggerAnimation("Kick");
         }
 
-        if (UserInput.Skill2Pressed)
+        if (UserInput.skill2Pressing)
         {
             characterMovement.SetTriggerAnimation("Slash");
         }
 
-        if (UserInput.runPressed)
+        if (UserInput.rightMouseButtonPressing)
+        {
+            characterMovement.SetAnimationBool("Block",true);
+        }
+
+        if (UserInput.leftMouseButtonPressing)
+        {
+            characterMovement.SetTriggerAnimation("Attack 1");
+        }
+
+        if (UserInput.runPressing)
         {
             if (Mathf.Abs(UserInput.horizontalValue) > 0 || Mathf.Abs(UserInput.verticalValue) > 0)
             {

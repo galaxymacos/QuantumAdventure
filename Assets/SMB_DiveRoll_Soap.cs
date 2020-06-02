@@ -4,27 +4,39 @@ using UnityEngine;
 
 public class SMB_DiveRoll_Soap : SMB_Soap
 {
-    private float horizontalValue;
-
-    private float verticalValue;
+    private float _horizontalInput;
+    private float _verticalInput;
+    private Vector3 _moveVector;
+    private float _rotationAngle;
+    [SerializeField] private AnimationCurve diveRollSpeedCurve;
+    private float currentTime;
+    
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        SoapMovement.moveSpeed = SoapMovement.DiveRollSpeed;
-
-        horizontalValue = UserInput.horizontalValue;
-        verticalValue = UserInput.verticalValue;        ;
 
 
+        _moveVector = SoapMovement.CalculateMoveDirection(UserInput.horizontalValue, UserInput.verticalValue);
+        _horizontalInput = UserInput.horizontalValue;
+        _verticalInput = UserInput.verticalValue;
+        _rotationAngle = SoapMovement.InputToRotationAngle(_horizontalInput, _verticalInput);
+        currentTime = 0;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        SoapMovement.RotateCharacterImmediately(horizontalValue, verticalValue);
-        SoapMovement.MoveForward(horizontalValue, verticalValue);
+        currentTime += Time.deltaTime;
+        
+        
+        SoapMovement.moveSpeed =
+            SoapMovement.DiveRollSpeed * diveRollSpeedCurve.Evaluate(currentTime / stateInfo.length);
+        Debug.Log(SoapMovement.moveSpeed);
+        SoapMovement.RotateCharacterImmediately(_rotationAngle);
+        SoapMovement.MoveAlong(_moveVector);
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

@@ -15,6 +15,8 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
     public float HpMax => hpMax;
     public float HpCurrent => hpCurrent;
 
+    public GameObject healthBarCanvas;
+
     public UnityEvent onHealthReachZero;
     public event Action<float> onTakeDamage;
     public event EventHandler<HealthChangedChangeArgs> onHealthChange;

@@ -41,7 +41,7 @@ public class GunManager: MonoBehaviourPun
 
     private void Update()
     {
-        currentGunPart.holdingTrigger = UserInput.leftMouseButtonPressed;
+        currentGunPart.holdingTrigger = UserInput.leftMouseButtonPressing;
         currentGunPart.OnUpdate();
     }
 

@@ -93,7 +93,7 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
 
     #region Private Methods
 
-    private void DealDamage(object sender, HitEventArgs e)
+    private void DealDamage(object sender, ColliderHitEventArgs e)
     {
         if (!controlByPlayer || GetComponent<PlayerManager>().photonView.IsMine)
         {

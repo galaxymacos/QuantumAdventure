@@ -13,7 +13,7 @@ public class HitBoxPart : MonoBehaviour
 
     #region Property
 
-    public event EventHandler<HitEventArgs> onHit;
+    public event EventHandler<ColliderHitEventArgs> onHit;
 
     public bool IsHitBoxActive => isHitBoxActive;
 
@@ -38,7 +38,7 @@ public class HitBoxPart : MonoBehaviour
                 if (other.transform.root.gameObject != transform.root.gameObject)
                 {
                     print("Hit "+other.name);
-                    onHit?.Invoke(this, new HitEventArgs(other));
+                    onHit?.Invoke(this, new ColliderHitEventArgs(other));
                     hasSent = true;
                 }
                 
@@ -74,11 +74,11 @@ public class HitBoxPart : MonoBehaviour
 
 }
 
-public class HitEventArgs
+public class ColliderHitEventArgs
 {
     public Collider hitCollider;
 
-    public HitEventArgs(Collider hitCollider)
+    public ColliderHitEventArgs(Collider hitCollider)
     {
         this.hitCollider = hitCollider;
     }

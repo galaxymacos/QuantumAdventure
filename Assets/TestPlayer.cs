@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class TestPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
-        
+        GetComponent<LaunchComponent>().Launch(new Vector3(0,1,0),100 );
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("There are "+GameObject.FindGameObjectsWithTag("Player").Length+" game object with the tag Player");
     }
 }

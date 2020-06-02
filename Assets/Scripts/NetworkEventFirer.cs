@@ -7,6 +7,11 @@ public static class NetworkEventFirer
 {
     public static byte EventCode_DealDamage = 1;
     public static byte EventCode_ShowMessage = 2;
+
+    public static void RegisterCustomType()
+    {
+        PhotonPeer.RegisterType(typeof(DealDamageEventArgs), (byte)'M', DealDamageEventArgs.Serialize, DealDamageEventArgs.Deserialize);
+    }
     
     public static void DealDamage(float damage, int targetViewID, int takeDownValue, int damageOwnerViewID)
     {

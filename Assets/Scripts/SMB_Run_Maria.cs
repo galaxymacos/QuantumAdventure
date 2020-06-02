@@ -31,19 +31,24 @@ public class SMB_Run_Maria : SMB_Maria
         characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
         characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
 
-        if (!UserInput.runPressed || (Math.Abs(Mathf.Abs(UserInput.verticalValue)) < Mathf.Epsilon && Math.Abs(Mathf.Abs(UserInput.horizontalValue)) < Mathf.Epsilon))
+        if (!UserInput.runPressing || (Math.Abs(Mathf.Abs(UserInput.verticalValue)) < Mathf.Epsilon && Math.Abs(Mathf.Abs(UserInput.horizontalValue)) < Mathf.Epsilon))
         {
             characterMovement.SetAnimationBool("Run", false);
         }
         
-        if (UserInput.Skill1Pressed)
+        if (UserInput.skill1Pressing)
         {
             characterMovement.SetTriggerAnimation("Kick");
         }
 
-        if (UserInput.Skill2Pressed)
+        if (UserInput.skill2Pressing)
         {
             characterMovement.SetTriggerAnimation("Slash");
+        }
+
+        if (UserInput.skill1Pressing)
+        {
+            characterMovement.SetTriggerAnimation("Great Sword Slide");
         }
     }
     

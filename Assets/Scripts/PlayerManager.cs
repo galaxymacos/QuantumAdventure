@@ -13,8 +13,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     [HideInInspector] public HealthComponent healthComponent;
 
-    [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
-    public GameObject otherPlayerUI;
+    // [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
+    // public GameObject otherPlayerUI;
 
     [SerializeField] public GameObject hostUI;
     [SerializeField] public GameObject dialogueUIPrefab;
@@ -155,8 +155,9 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         else
         {
             print("Instantiate player UI");
-            GameObject _uiGo = Instantiate(otherPlayerUI);
-            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            // GameObject _uiGo = Instantiate(otherPlayerUI); 
+            GetComponent<HealthComponent>().healthBarCanvas.SetActive(true);
+            // _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
         }
         
 

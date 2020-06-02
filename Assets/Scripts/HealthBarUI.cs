@@ -106,8 +106,8 @@ public class HealthBarUI : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-
+    
+    
 
     #endregion
 
