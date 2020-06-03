@@ -1856,8 +1856,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 0}
-  otherPlayerUI: {fileID: 3802218675474385049, guid: a7451a54edee0984da28aad316fa2cce,
-    type: 3}
   hostUI: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b, type: 3}
   dialogueUIPrefab: {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722,
     type: 3}

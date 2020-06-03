@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class HitscanGun : GunPart
 {
-    public float damage;
+    public int damage;
     public int takeDownValuePerShoot;
     public float nextFiringTime;
 
@@ -18,7 +18,9 @@ public class HitscanGun : GunPart
                 if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
                 {
                     print($"Hitscan gun deals damage to {hitinfo.collider.gameObject}");
-                    NetworkEventFirer.DealDamage(damage, hitinfo.collider.GetComponent<PhotonView>().ViewID, takeDownValuePerShoot, GetComponent<PhotonView>().ViewID);
+                    DealDamageEventArgs dealDamageEventArgs = new DealDamageEventArgs{ damageOwnerPosition = transform.position, damageOwnerViewID = GetComponent<PhotonView>().ViewID, targetViewID = hitinfo.collider.GetComponent<PhotonView>().ViewID, damageAmount = damage, takeDownValue = takeDownValuePerShoot};
+                    NetworkEventFirer.DealDamage(dealDamageEventArgs,
+                        hitinfo.collider.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID);
                 }
             }
         }

@@ -27,30 +27,12 @@ public class SkillDamage: SerializedMonoBehaviour
 
     #endregion
 
-    public float GetSkillDamage(string skillName)
-    {
-        if (skillDataDictionary.ContainsKey(skillName))
-        {
-            return skillDataDictionary[skillName].damage;
-        }
-        else
-        {
-            Debug.LogError($"Can't find skill with the name: {skillName} under {gameObject.name}");
-            return -1;
-        }
-    }
+
+    public SkillData skillData;
     
-    public int GetSkillTakeDownValue(string skillName)
+    public SkillDataRaw GetSkillData(string skillName)
     {
-        if (skillDataDictionary.ContainsKey(skillName))
-        {
-            return skillDataDictionary[skillName].takeDownValue;
-        }
-        else
-        {
-            Debug.LogError($"Can't find skill with the name: {skillName} under {gameObject.name}");
-            return -1;
-        }
+        return skillDataDictionary.ContainsKey(skillName) ? skillDataDictionary[skillName] : null;
     }
     
 }

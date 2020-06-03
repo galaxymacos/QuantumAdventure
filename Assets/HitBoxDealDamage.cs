@@ -101,8 +101,9 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
             var takeDamagePart = e.hitCollider.transform.root.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                NetworkEventFirer.DealDamage(skillDamage.GetSkillDamage(currentSkill),
-                    e.hitCollider.transform.root.GetComponent<PhotonView>().ViewID, skillDamage.GetSkillTakeDownValue(currentSkill), GetComponent<PhotonView>().ViewID);
+                var skillData = skillDamage.GetSkillData(currentSkill);
+                DealDamageEventArgs eventArgs =new DealDamageEventArgs{damageAmount = skillData.damage, damageOwnerPosition = transform.position, damageOwnerViewID = GetComponent<PhotonView>().ViewID, verticalForce = skillData.launchVerticalForce, horizontalForce = skillData.launchHorizontalForce, takeDownValue = skillData.takeDownValue};
+                NetworkEventFirer.DealDamage(eventArgs, e.hitCollider.transform.root.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID);
             }
         }
     }

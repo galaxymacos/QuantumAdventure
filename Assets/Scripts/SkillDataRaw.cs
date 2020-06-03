@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class SkillDataRaw
 {
-    public float damage;
+    public int damage;
     public int takeDownValue;
     
     public float launchVerticalForce;

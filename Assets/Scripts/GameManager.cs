@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         
         
-        NetworkEventFirer.RegisterCustomType();
     }
 
     private void Start()
