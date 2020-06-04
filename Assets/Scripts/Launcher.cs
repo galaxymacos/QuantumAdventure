@@ -60,11 +60,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         progressLabel.SetActive(true);
         controlPanel.SetActive(false);
     }
-
-    public void JoinRoom()
-    {
-        PhotonNetwork.JoinRandomRoom();
-    }
+    
     
     #endregion
 

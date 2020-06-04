@@ -18,6 +18,10 @@ namespace BehaviorDesigners.Actions
                 Target.Value = wayPointsInScene.ToList();
                 return TaskStatus.Success;
             }
+            else
+            {
+                Debug.LogError("Waypoint has not been set up");
+            }
 
             return TaskStatus.Running;
         }

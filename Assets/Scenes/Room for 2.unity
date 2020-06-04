@@ -12507,7 +12507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4365dfa8d63c894aad81e0d4f84447d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationType: 0
+  activationType: 1
   onTrigger:
     m_PersistentCalls:
       m_Calls:

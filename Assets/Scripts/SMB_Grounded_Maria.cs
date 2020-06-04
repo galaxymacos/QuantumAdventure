@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class SmbGroundedMaria : SmbMaria
+public class SMB_Grounded_Maria : SmbMaria
 {
     private static readonly int HeavyPunch = Animator.StringToHash("Heavy Punch");
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

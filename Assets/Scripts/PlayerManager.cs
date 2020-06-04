@@ -16,9 +16,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
 
     // [Tooltip("The Player's UI GameObject Prefab")] [SerializeField]
     // public GameObject otherPlayerUI;
-
-    [FormerlySerializedAs("hostUI")] [SerializeField] public GameObject hostUi;
-    [FormerlySerializedAs("dialogueUIPrefab")] [SerializeField] public GameObject dialogueUiPrefab;
+    
+    public GameObject dialogueUiPrefab;
     [SerializeField] public GameObject[] playerUiPrefabs;
     [SerializeField] public GameObject virtualCamera;
     [SerializeField] public CharacterPick characterName;
@@ -143,8 +142,6 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IOnEventCallback
         if (photonView.IsMine)
         {
             print("Instantiate combat UI");
-            GameObject uiGo = Instantiate(hostUi);
-            uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             foreach (GameObject playerUiPrefab in playerUiPrefabs)
             {
                 var playerUi = Instantiate(playerUiPrefab);

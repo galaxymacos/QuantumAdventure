@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SmbBlockMaria : SmbMaria
+public class SMB_Block_Maria : SmbMaria
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

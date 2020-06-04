@@ -68,7 +68,6 @@ public class EnemyAnger : MonoBehaviour
         foreach (PlayerManager player in keys)
         {
             playerAngerValues[player] -= angerDecreaseRate * Time.deltaTime;
-            print($"Anger to "+player.gameObject+" is "+playerAngerValues[player]);
             if (playerAngerValues[player] < 0)
             {
                 deletePlayers.Add(player);

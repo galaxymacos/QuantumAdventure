@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-public class SmbSlashMaria : SmbMaria
+public class SMB_Slash_Maria : SmbMaria
 {
 }

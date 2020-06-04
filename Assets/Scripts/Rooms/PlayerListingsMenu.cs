@@ -111,7 +111,7 @@ namespace Rooms
                 }
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 PhotonNetwork.CurrentRoom.IsVisible = false;
-                PhotonNetwork.LoadLevel("Room for "+PhotonNetwork.CurrentRoom.PlayerCount);
+                PhotonNetwork.LoadLevel("Room for 2");
             }
         }
 

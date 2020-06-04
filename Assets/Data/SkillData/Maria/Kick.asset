@@ -16,6 +16,5 @@ MonoBehaviour:
   skillDataRaw:
     damage: 40
     takeDownValue: 40
-    launchVerticalForce: 0
-    launchHorizontalForce: 20
+    launchForce: {x: 20, y: 0}
     angerValue: 20

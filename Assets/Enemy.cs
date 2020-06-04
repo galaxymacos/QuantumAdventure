@@ -63,7 +63,9 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
             int targetID = (int) data[0];
             int damageOwnerID = (int) data[1];
             int damage = (int) data[2];
-            int angerValue = (int) data[3];
+            Vector2 pushForce = (Vector2) data[3];
+            int angerValue = (int) data[4];
+            print(pushForce);
             if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);

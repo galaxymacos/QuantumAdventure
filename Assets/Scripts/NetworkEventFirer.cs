@@ -15,7 +15,7 @@ public static class NetworkEventFirer
     
     public static void DealDamage(int targetViewId, int damageOwnerViewId, int damage, Vector2 pushForce, int angerValue)
     {
-        object[] content = {targetViewId, damageOwnerViewId, pushForce, angerValue };
+        object[] content = {targetViewId, damageOwnerViewId,damage, pushForce, angerValue };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         SendOptions sendOptions = new SendOptions {Reliability = true};
         PhotonNetwork.RaiseEvent(1, content, raiseEventOptions, sendOptions);
