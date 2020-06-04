@@ -42,7 +42,7 @@ public class CollisionTrigger : MonoBehaviourPun
         var playerPhotonView = other.GetComponent<PhotonView>();
         if (playerPhotonView != null)
         {
-            if (playerPhotonView.ViewID == GameManager.Instance.MariaViewID)
+            if (playerPhotonView.ViewID == GameManager.Instance.mariaViewId)
             {
                 photonView.RPC("MariaIn", RpcTarget.All);
 
@@ -60,7 +60,7 @@ public class CollisionTrigger : MonoBehaviourPun
                     photonView.RPC("SetInvalid", RpcTarget.All);
                 }
             }
-            else if (playerPhotonView.ViewID == GameManager.Instance.SoapViewID)
+            else if (playerPhotonView.ViewID == GameManager.Instance.soapViewId)
             {
                 photonView.RPC("SoapIn", RpcTarget.All);
                 print("Trigger SoapIn RPC");

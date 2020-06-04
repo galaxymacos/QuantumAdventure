@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBarUI : MonoBehaviour
+public class HealthBarUi : MonoBehaviour
 {
 
     #region Serialized Field
@@ -29,13 +29,13 @@ public class HealthBarUI : MonoBehaviour
 
     #region Private Field
 
-    private PlayerManager target;
+    private PlayerManager _target;
 
-    private float characterControllerHeight = 0f;
-    private Transform targetTransform;
-    private Renderer targetRenderer;
+    private float _characterControllerHeight = 0f;
+    private Transform _targetTransform;
+    private Renderer _targetRenderer;
     private CanvasGroup _canvasGroup;
-    private Vector3 targetPosition;
+    private Vector3 _targetPosition;
 
     #endregion
 
@@ -52,10 +52,10 @@ public class HealthBarUI : MonoBehaviour
     {
         if (playerHealthSlider != null)
         {
-            playerHealthSlider.value = target.healthComponent.healthPercentage;
+            playerHealthSlider.value = _target.healthComponent.healthPercentage;
         }
 
-        if (target == null)
+        if (_target == null)
         {
             Destroy(gameObject);
             return;
@@ -64,16 +64,16 @@ public class HealthBarUI : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (targetRenderer != null)
+        if (_targetRenderer != null)
         {
-            _canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
+            _canvasGroup.alpha = _targetRenderer.isVisible ? 1f : 0f;
         }
 
-        if (targetTransform != null)
+        if (_targetTransform != null)
         {
-            targetPosition = targetTransform.position;
-            targetPosition.y += characterControllerHeight;
-            transform.position = Camera.main.WorldToScreenPoint(targetPosition) + screenOffset;
+            _targetPosition = _targetTransform.position;
+            _targetPosition.y += _characterControllerHeight;
+            transform.position = Camera.main.WorldToScreenPoint(_targetPosition) + screenOffset;
         }
     }
 
@@ -81,25 +81,25 @@ public class HealthBarUI : MonoBehaviour
 
     #region Public Methods
 
-    public void SetTarget(PlayerManager _target)
+    public void SetTarget(PlayerManager target)
     {
-        if (_target == null)
+        if (target == null)
         {
             Debug.LogError("Missing PlayerManager target for PlayerUI.SetTarget.", this);
             return;
         }
 
-        target = _target;
-        targetTransform = target.GetComponent<Transform>();
-        targetRenderer = target.GetComponent<Renderer>();
-        CharacterController characterController = _target.GetComponent<CharacterController>();
+        this._target = target;
+        _targetTransform = this._target.GetComponent<Transform>();
+        _targetRenderer = this._target.GetComponent<Renderer>();
+        CharacterController characterController = target.GetComponent<CharacterController>();
         if (characterController != null)
         {
-            characterControllerHeight = characterController.height;
+            _characterControllerHeight = characterController.height;
         }
         if (playerNameText != null)
         {
-            playerNameText.text = target.photonView.Owner.NickName;
+            playerNameText.text = this._target.photonView.Owner.NickName;
         }
     }
 

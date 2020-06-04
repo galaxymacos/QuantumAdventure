@@ -2,22 +2,22 @@
 using UnityEngine;
 using UnityEngine.Animations;
 
-public class SMB_Soap: StateMachineBehaviour
+public class SmbSoap: StateMachineBehaviour
 {
-    protected Animator anim;
+    protected Animator Anim;
     protected SoapMovement SoapMovement;
-    protected PlayerManager playerManager;
+    protected PlayerManager PlayerManager;
 
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         
-        anim = animator;
+        Anim = animator;
         SoapMovement = animator.GetComponent<SoapMovement>();
-        playerManager = animator.GetComponent<PlayerManager>();
+        PlayerManager = animator.GetComponent<PlayerManager>();
         SoapMovement.onAnimationEnter?.Invoke(this);
 
-        if (!playerManager.photonView.IsMine)
+        if (!PlayerManager.photonView.IsMine)
         {
             return;
         }

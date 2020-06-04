@@ -44,7 +44,7 @@ public class BeanGun : GunPart
                 bulletDirection = (point - projectileSpawnTransform.position).normalized;
 
             }
-            protectile.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 50, firingRange = 400, damage = 10, owner = gameObject}, SendMessageOptions.RequireReceiver);
+            protectile.SendMessage("Setup", new ProjectileArgs {FlyDirection = bulletDirection, FlySpeed = 50, FiringRange = 400, Damage = 10, Owner = gameObject}, SendMessageOptions.RequireReceiver);
         }
         
     }

@@ -2,6 +2,6 @@
 
 public class SwitchGunArgs: EventArgs
 {
-    public GunPart oldGun;
-    public GunPart newGun;
+    public GunPart OldGun;
+    public GunPart NewGun;
 }

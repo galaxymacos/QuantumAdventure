@@ -5,7 +5,7 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 
-public class CombatUI : MonoBehaviour
+public class CombatUi : MonoBehaviour
 {
 
     #region Serialized Field
@@ -23,7 +23,7 @@ public class CombatUI : MonoBehaviour
 
     #region Private Field
 
-    private PlayerManager target;
+    private PlayerManager _target;
 
     #endregion
 
@@ -36,14 +36,14 @@ public class CombatUI : MonoBehaviour
 
     private void Update()
     {
-        if (target == null)
+        if (_target == null)
         {
             Destroy(gameObject);
             return;
         }
 
-        playerHealthText.text = target.healthComponent.HpCurrent.ToString(CultureInfo.InvariantCulture);
-        playerNicknameText.text = target.photonView.Owner.NickName;
+        playerHealthText.text = _target.healthComponent.HpCurrent.ToString(CultureInfo.InvariantCulture);
+        playerNicknameText.text = _target.photonView.Owner.NickName;
 
 
     }
@@ -52,14 +52,14 @@ public class CombatUI : MonoBehaviour
 
     #region Public Methods
 
-    public void SetTarget(PlayerManager _target)
+    public void SetTarget(PlayerManager target)
     {
-        if (_target == null)
+        if (target == null)
         {
             Debug.LogError("Missing PlayerManager target for CombatUI.SetTarget.", this);
             return;
         }
-        target = _target;
+        this._target = target;
 
         
         

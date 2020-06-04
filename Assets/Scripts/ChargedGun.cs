@@ -12,8 +12,8 @@ public class ChargedGun : GunPart
     public float chargeDecreaseRate;
 
 
-    public float CurrentCharge => currentCharge;
-    private float currentCharge = 0;
+    public float CurrentCharge => _currentCharge;
+    private float _currentCharge = 0;
 
     public float FirstChargeThreshold => firstChargeThreshold;
     [SerializeField] private float firstChargeThreshold = 50;
@@ -35,23 +35,23 @@ public class ChargedGun : GunPart
         {
             if (chargeBall.activeInHierarchy)
             {
-                if (Math.Abs(currentCharge - maxCharge) < Mathf.Epsilon)
+                if (Math.Abs(_currentCharge - maxCharge) < Mathf.Epsilon)
                 {
                     print("Shoot max charge projectile");
-                    currentCharge = 0;
+                    _currentCharge = 0;
                 }
-                else if (currentCharge >= secondChargeThreshold)
+                else if (_currentCharge >= secondChargeThreshold)
                 {
                     print("Shoot second charge projectile");
-                    currentCharge = 0;
+                    _currentCharge = 0;
                 }
-                else if (currentCharge >= firstChargeThreshold)
+                else if (_currentCharge >= firstChargeThreshold)
                 {
                     print("Shoot first charge projectile");
-                    currentCharge = 0;
+                    _currentCharge = 0;
                 }
 
-                currentCharge -= chargeDecreaseRate*Time.deltaTime;
+                _currentCharge -= chargeDecreaseRate*Time.deltaTime;
                 
             }
         }
@@ -82,7 +82,7 @@ public class ChargedGun : GunPart
                 bulletDirection = (point - transform.position).normalized;
 
             }
-            transform.SendMessage("Setup", new ProjectileArgs {flyDirection = bulletDirection, flySpeed = 50, firingRange = 400, damage = 10, owner = gameObject}, SendMessageOptions.RequireReceiver);
+            transform.SendMessage("Setup", new ProjectileArgs {FlyDirection = bulletDirection, FlySpeed = 50, FiringRange = 400, Damage = 10, Owner = gameObject}, SendMessageOptions.RequireReceiver);
         }
 
     }

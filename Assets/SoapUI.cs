@@ -103,7 +103,7 @@ public class SoapUI : MonoBehaviour
 
     #region Bridges
 
-    private void DisableCrossHairOnDiveRollEnd(SMB_Soap animationClass)
+    private void DisableCrossHairOnDiveRollEnd(SmbSoap animationClass)
     {
         if (animationClass is SMB_DiveRoll_Soap)
         {
@@ -112,7 +112,7 @@ public class SoapUI : MonoBehaviour
         }
     }
 
-    private void EnableCrossHairOnDiveRoll(SMB_Soap animationClass)
+    private void EnableCrossHairOnDiveRoll(SmbSoap animationClass)
     {
         if (animationClass is SMB_DiveRoll_Soap)
         {

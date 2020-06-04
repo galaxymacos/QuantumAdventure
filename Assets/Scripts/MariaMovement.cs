@@ -2,6 +2,7 @@
 using Event_Args;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MariaMovement : MonoBehaviourPun, IPunObservable
 {
@@ -22,7 +23,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     [SerializeField] public Transform groundCheck;
 
     
-    [SerializeField] public string[] TriggerAnimationList;
+    [FormerlySerializedAs("TriggerAnimationList")] [SerializeField] public string[] triggerAnimationList;
 
     [SerializeField] private float turnSmoothTime = 0.1f;
     
@@ -37,10 +38,10 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
     #region Private Field
 
-    private CharacterController characterController;
-    private int triggerAnimationRaisingFlag = -1;
+    private CharacterController _characterController;
+    private int _triggerAnimationRaisingFlag = -1;
 
-    private float turnSmoothVelocity;
+    private float _turnSmoothVelocity;
 
     #endregion
 
@@ -55,7 +56,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
         if (photonView.IsMine)
         {
             freeLookCamera.SetActive(true);
@@ -70,7 +71,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
         if (!isGrounded)
         {
-            characterController.Move(gravity*Time.deltaTime);
+            _characterController.Move(gravity*Time.deltaTime);
         }
     }
 
@@ -94,7 +95,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
                 // transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
                 Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
+                _characterController.Move(moveDir.normalized * moveSpeed * Time.deltaTime);
                 
                 anim.SetFloat("Speed", 1, 0.3f, Time.deltaTime);
             }
@@ -127,7 +128,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
     public void MoveAlong(Vector3 directionVector)
     {
-        characterController.Move(directionVector * moveSpeed* Time.deltaTime);
+        _characterController.Move(directionVector * moveSpeed* Time.deltaTime);
 
     }
 
@@ -158,7 +159,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
             {
                 float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg +
                                     Camera.main.transform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity,
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity,
                     turnSmoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
@@ -196,11 +197,11 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     public void SetTriggerAnimation(string triggerName)
     {
         anim.SetTrigger(triggerName);
-        for (int i = 0; i < TriggerAnimationList.Length; i++)
+        for (int i = 0; i < triggerAnimationList.Length; i++)
         {
-            if (TriggerAnimationList[i] == triggerName)
+            if (triggerAnimationList[i] == triggerName)
             {
-                triggerAnimationRaisingFlag = i;
+                _triggerAnimationRaisingFlag = i;
                 break;
             }
         }
@@ -213,7 +214,7 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
 
     public void SetTriggerAnimationRaisingFlag(int index)
     {
-        triggerAnimationRaisingFlag = index;
+        _triggerAnimationRaisingFlag = index;
     }
 
     #endregion
@@ -229,20 +230,20 @@ public class MariaMovement : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(triggerAnimationRaisingFlag);
+            stream.SendNext(_triggerAnimationRaisingFlag);
 
-            if (triggerAnimationRaisingFlag >= 0)
+            if (_triggerAnimationRaisingFlag >= 0)
             {
-                triggerAnimationRaisingFlag = -1;
+                _triggerAnimationRaisingFlag = -1;
             }
         }
         else
         {
-            triggerAnimationRaisingFlag = (int) stream.ReceiveNext();
-            if (triggerAnimationRaisingFlag >= 0)
+            _triggerAnimationRaisingFlag = (int) stream.ReceiveNext();
+            if (_triggerAnimationRaisingFlag >= 0)
             {
-                SetTriggerAnimation(TriggerAnimationList[triggerAnimationRaisingFlag]);
-                triggerAnimationRaisingFlag = -1;
+                SetTriggerAnimation(triggerAnimationList[_triggerAnimationRaisingFlag]);
+                _triggerAnimationRaisingFlag = -1;
             }
         }
     }

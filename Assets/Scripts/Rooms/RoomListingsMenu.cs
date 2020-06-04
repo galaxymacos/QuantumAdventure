@@ -3,6 +3,7 @@ using Helpers;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
@@ -10,7 +11,7 @@ namespace Rooms
     {
         #region Private field
 
-        [SerializeField] private Transform _content;
+        [FormerlySerializedAs("_content")] [SerializeField] private Transform content;
         [SerializeField] private GameObject roomListingPrefab;
         private RoomCanvases _roomCanvases;
 
@@ -19,7 +20,7 @@ namespace Rooms
         #region Property
 
         public RoomCanvases RoomCanvases => _roomCanvases;
-        public List<RoomListing> _listings = new List<RoomListing>();
+        [FormerlySerializedAs("_listings")] public List<RoomListing> listings = new List<RoomListing>();
 
         #endregion
 
@@ -37,8 +38,8 @@ namespace Rooms
         public override void OnJoinedRoom()
         {
             _roomCanvases.currentRoomCanvas.Show();
-            _content.DestroyChildren();
-            _listings.Clear();
+            content.DestroyChildren();
+            listings.Clear();
         }
 
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -48,24 +49,24 @@ namespace Rooms
                 // Remove from room list
                 if (info.RemovedFromList)
                 {
-                    int indexToRemove = _listings.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    int indexToRemove = listings.FindIndex(x => x.RoomInfo.Name == info.Name);
                     if (indexToRemove != -1)
                     {
-                        Destroy(_listings[indexToRemove].gameObject);
-                        _listings.RemoveAt(indexToRemove);
+                        Destroy(listings[indexToRemove].gameObject);
+                        listings.RemoveAt(indexToRemove);
                     }
                 }
                 else // Add to room list
                 {
-                    int index = _listings.FindIndex(x => x.RoomInfo.Name == info.Name);
+                    int index = listings.FindIndex(x => x.RoomInfo.Name == info.Name);
                     if (index == -1)
                     {
-                        GameObject listingObject = Instantiate(roomListingPrefab, _content);
+                        GameObject listingObject = Instantiate(roomListingPrefab, content);
                         var listing = listingObject.GetComponent<RoomListing>();
                         if (listing != null)
                         {
                             listing.SetRoomInfo(info);
-                            _listings.Add(listing);
+                            listings.Add(listing);
 
                         }
                         else

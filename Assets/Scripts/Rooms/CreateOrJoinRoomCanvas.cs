@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
@@ -7,11 +8,11 @@ namespace Rooms
         #region Private field
 
         // Ref to parent
-        private RoomCanvases roomCanavases;
+        private RoomCanvases _roomCanavases;
 
         // Ref to children
-        [SerializeField] private CreateRoomMenu _createRoomMenu;
-        [SerializeField] private RoomListingsMenu _roomListingsMenu;
+        [FormerlySerializedAs("_createRoomMenu")] [SerializeField] private CreateRoomMenu createRoomMenu;
+        [FormerlySerializedAs("_roomListingsMenu")] [SerializeField] private RoomListingsMenu roomListingsMenu;
 
         #endregion
 
@@ -20,9 +21,9 @@ namespace Rooms
 
         public void FirstInitialize(RoomCanvases roomCanvases)
         {
-            roomCanavases = roomCanvases;
-            _createRoomMenu.FirstInitialize(roomCanvases);
-            _roomListingsMenu.FirstInitialize(roomCanvases);
+            _roomCanavases = roomCanvases;
+            createRoomMenu.FirstInitialize(roomCanvases);
+            roomListingsMenu.FirstInitialize(roomCanvases);
         }
 
         #endregion

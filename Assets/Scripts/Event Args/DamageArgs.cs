@@ -1,9 +1,9 @@
 ﻿public class DamageArgs
 {
-    public float damageAmount;
+    public float DamageAmount;
 
     public DamageArgs(float damageAmount)
     {
-        this.damageAmount = damageAmount;
+        this.DamageAmount = damageAmount;
     }
 }

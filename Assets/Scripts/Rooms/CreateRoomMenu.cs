@@ -3,6 +3,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
@@ -11,22 +12,22 @@ namespace Rooms
 
         #region Private field
         
-        [SerializeField] private TextMeshProUGUI _roomName;
-        private RoomCanvases roomCanvases;
+        [FormerlySerializedAs("_roomName")] [SerializeField] private TextMeshProUGUI roomName;
+        private RoomCanvases _roomCanvases;
 
         #endregion
 
         #region Property
 
-        public RoomCanvases RoomCanvases => roomCanvases;
+        public RoomCanvases RoomCanvases => _roomCanvases;
 
         #endregion
 
         #region Public method
 
-        public void FirstInitialize(RoomCanvases _roomCanvases)
+        public void FirstInitialize(RoomCanvases roomCanvases)
         {
-            roomCanvases = _roomCanvases;
+            this._roomCanvases = roomCanvases;
         }
 
         public void OnClick_CreateRoom()
@@ -45,7 +46,7 @@ namespace Rooms
                 PublishUserId = true
             };
 
-            PhotonNetwork.JoinOrCreateRoom(_roomName.text, options, TypedLobby.Default);
+            PhotonNetwork.JoinOrCreateRoom(roomName.text, options, TypedLobby.Default);
         }
 
         #endregion
@@ -55,7 +56,7 @@ namespace Rooms
         public override void OnCreatedRoom()
         {
             print("Create room successfully");
-            roomCanvases.currentRoomCanvas.Show();
+            _roomCanvases.currentRoomCanvas.Show();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class SMB_Grounded_Maria : SMB_Maria
+public class SmbGroundedMaria : SmbMaria
 {
     private static readonly int HeavyPunch = Animator.StringToHash("Heavy Punch");
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        characterMovement.moveSpeed = characterMovement.walkSpeed;
+        CharacterMovement.moveSpeed = CharacterMovement.walkSpeed;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,42 +18,42 @@ public class SMB_Grounded_Maria : SMB_Maria
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        if (!PlayerManager.photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
         }
 
-        if (playerManager.isDialogueBoxOpen)
+        if (PlayerManager.isDialogueBoxOpen)
         {
             return;
         }
-        characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
-        characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
-        if (UserInput.skill1Pressing)
+        CharacterMovement.Move(UserInput.HorizontalValue, UserInput.VerticalValue);
+        CharacterMovement.RotateCharacter(UserInput.HorizontalValue, UserInput.VerticalValue);
+        if (UserInput.Skill1Pressing)
         {
-            characterMovement.SetTriggerAnimation("Kick");
+            CharacterMovement.SetTriggerAnimation("Kick");
         }
 
-        if (UserInput.skill2Pressing)
+        if (UserInput.Skill2Pressing)
         {
-            characterMovement.SetTriggerAnimation("Slash");
+            CharacterMovement.SetTriggerAnimation("Slash");
         }
 
-        if (UserInput.rightMouseButtonPressing)
+        if (UserInput.RightMouseButtonPressing)
         {
-            characterMovement.SetAnimationBool("Block",true);
+            CharacterMovement.SetAnimationBool("Block",true);
         }
 
-        if (UserInput.leftMouseButtonPressing)
+        if (UserInput.LeftMouseButtonPressing)
         {
-            characterMovement.SetTriggerAnimation("Attack 1");
+            CharacterMovement.SetTriggerAnimation("Attack 1");
         }
 
-        if (UserInput.runPressing)
+        if (UserInput.RunPressing)
         {
-            if (Mathf.Abs(UserInput.horizontalValue) > 0 || Mathf.Abs(UserInput.verticalValue) > 0)
+            if (Mathf.Abs(UserInput.HorizontalValue) > 0 || Mathf.Abs(UserInput.VerticalValue) > 0)
             {
-                characterMovement.SetAnimationBool("Run", true);
+                CharacterMovement.SetAnimationBool("Run", true);
             }
         }
 

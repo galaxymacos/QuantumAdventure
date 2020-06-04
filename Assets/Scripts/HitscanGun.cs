@@ -1,10 +1,11 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HitscanGun : GunPart
 {
-    public int damage;
-    public int takeDownValuePerShoot;
+    public int damagePerShoot;
+    public int angerPerShoot;
     public float nextFiringTime;
 
     public override void Fire()
@@ -18,9 +19,8 @@ public class HitscanGun : GunPart
                 if (hitinfo.collider.GetComponent<ITakeDamage>() != null)
                 {
                     print($"Hitscan gun deals damage to {hitinfo.collider.gameObject}");
-                    DealDamageEventArgs dealDamageEventArgs = new DealDamageEventArgs{ damageOwnerPosition = transform.position, damageOwnerViewID = GetComponent<PhotonView>().ViewID, targetViewID = hitinfo.collider.GetComponent<PhotonView>().ViewID, damageAmount = damage, takeDownValue = takeDownValuePerShoot};
-                    NetworkEventFirer.DealDamage(dealDamageEventArgs,
-                        hitinfo.collider.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID);
+                    NetworkEventFirer.DealDamage(
+                        hitinfo.collider.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID, damagePerShoot,Vector2.zero, angerPerShoot);
                 }
             }
         }

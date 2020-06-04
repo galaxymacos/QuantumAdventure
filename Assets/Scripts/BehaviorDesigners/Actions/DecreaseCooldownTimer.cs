@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class DecreaseCooldownTimer : Action
 {
-    private BehaviorTree behaviorTree;
-    private SharedFloat cooldownCounter;
+    private BehaviorTree _behaviorTree;
+    private SharedFloat _cooldownCounter;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,14 +17,14 @@ public class DecreaseCooldownTimer : Action
     public override void OnStart()
     {
         base.OnStart();
-        behaviorTree = GetComponent<BehaviorTree>();
-        cooldownCounter = (SharedFloat)behaviorTree.GetVariable("CooldownCounter");
+        _behaviorTree = GetComponent<BehaviorTree>();
+        _cooldownCounter = (SharedFloat)_behaviorTree.GetVariable("CooldownCounter");
     }
 
     public override TaskStatus OnUpdate()
     {
-        cooldownCounter.Value -= Time.deltaTime;
-        behaviorTree.SetVariableValue("CooldownCounter", cooldownCounter);
+        _cooldownCounter.Value -= Time.deltaTime;
+        _behaviorTree.SetVariableValue("CooldownCounter", _cooldownCounter);
         return TaskStatus.Success;
     }
 }

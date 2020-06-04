@@ -13,7 +13,7 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
 
     public float healthPercentage => HpCurrent / HpMax;
     public float HpMax => hpMax;
-    public float HpCurrent => hpCurrent;
+    public float HpCurrent => _hpCurrent;
 
     public GameObject healthBarCanvas;
 
@@ -25,22 +25,22 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
 
     #region Private Fields
 
-    private float hpCurrent;
+    private float _hpCurrent;
 
     #endregion
 
     private void Awake()
     {
-        hpCurrent = hpMax;
+        _hpCurrent = hpMax;
     }
 
     public void TakeDamage(float damage)
     {
-        hpCurrent -= damage;
+        _hpCurrent -= damage;
         onTakeDamage?.Invoke(damage);
-        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{curHealth = hpCurrent, prevHealth = hpCurrent+damage, maxHealth = hpMax});
+        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{CurHealth = _hpCurrent, PrevHealth = _hpCurrent+damage, MaxHealth = hpMax});
         print($"{gameObject.name} takes damage");
-        if (hpCurrent <= 0)
+        if (_hpCurrent <= 0)
         {
             print($"{gameObject.name} is dead");
             onHealthReachZero?.Invoke();
@@ -49,26 +49,26 @@ public class HealthComponent : MonoBehaviourPun, ITakeDamage, IHealable, IPunObs
 
     public void Heal(HealArgs args)
     {
-        hpCurrent += args.healAmount;
-        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{curHealth = hpCurrent, prevHealth = hpCurrent-args.healAmount, maxHealth = hpMax});
+        _hpCurrent += args.HealAmount;
+        onHealthChange?.Invoke(this, new HealthChangedChangeArgs{CurHealth = _hpCurrent, PrevHealth = _hpCurrent-args.HealAmount, MaxHealth = hpMax});
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(hpCurrent);
+            stream.SendNext(_hpCurrent);
         }
         else
         {
-            this.hpCurrent = (float) stream.ReceiveNext();
+            this._hpCurrent = (float) stream.ReceiveNext();
         }
     }
 
     public class HealthChangedChangeArgs: EventArgs
     {
-        public float prevHealth;
-        public float curHealth;
-        public float maxHealth;
+        public float PrevHealth;
+        public float CurHealth;
+        public float MaxHealth;
     }
 }

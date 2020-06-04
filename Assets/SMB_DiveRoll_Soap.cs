@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SMB_DiveRoll_Soap : SMB_Soap
+public class SMB_DiveRoll_Soap : SmbSoap
 {
     private float _horizontalInput;
     private float _verticalInput;
@@ -18,9 +18,9 @@ public class SMB_DiveRoll_Soap : SMB_Soap
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
 
-        _moveVector = SoapMovement.CalculateMoveDirection(UserInput.horizontalValue, UserInput.verticalValue);
-        _horizontalInput = UserInput.horizontalValue;
-        _verticalInput = UserInput.verticalValue;
+        _moveVector = SoapMovement.CalculateMoveDirection(UserInput.HorizontalValue, UserInput.VerticalValue);
+        _horizontalInput = UserInput.HorizontalValue;
+        _verticalInput = UserInput.VerticalValue;
         _rotationAngle = SoapMovement.InputToRotationAngle(_horizontalInput, _verticalInput);
         currentTime = 0;
     }

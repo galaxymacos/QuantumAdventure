@@ -39,9 +39,9 @@ public class HealthBarCanvas : MonoBehaviour
 
     private void UpdateUi(object sender, HealthComponent.HealthChangedChangeArgs healthChangedChangeArgs)
     {
-        greenBar.fillAmount = healthChangedChangeArgs.curHealth / _healthComponent.HpMax;
+        greenBar.fillAmount = healthChangedChangeArgs.CurHealth / _healthComponent.HpMax;
         _tweener?.Kill();
-        _tweener = yellowBar.DOFillAmount(healthChangedChangeArgs.curHealth / _healthComponent.HpMax, 0.6f);
+        _tweener = yellowBar.DOFillAmount(healthChangedChangeArgs.CurHealth / _healthComponent.HpMax, 0.6f);
     }
 
     // Update is called once per frame

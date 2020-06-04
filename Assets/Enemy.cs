@@ -57,18 +57,18 @@ public class Enemy : MonoBehaviourPun, IOnEventCallback
     public void OnEvent(EventData photonEvent)
     {
         Debug.LogWarning("Enemy takes damage");
-        if (photonEvent.Code == NetworkEventFirer.EventCode_DealDamage)
+        if (photonEvent.Code == NetworkEventFirer.EventCodeDealDamage)
         {
             object[] data = (object[]) photonEvent.CustomData;
-            float damage = (float) data[0];
-            int targetID = (int) data[1];
-            int takeDownValue = (int) data[2];
-            int damageOwnerID = (int) data[3];
+            int targetID = (int) data[0];
+            int damageOwnerID = (int) data[1];
+            int damage = (int) data[2];
+            int angerValue = (int) data[3];
             if (targetID == photonView.ViewID)
             {
                 GetComponent<HealthComponent>().TakeDamage(damage);
-                GetComponent<TakedownComponent>().DecreaseTakeDownGauge(takeDownValue);
-                GetComponent<EnemyAnger>().IncreaseAngerTowards(PhotonNetwork.GetPhotonView(damageOwnerID).GetComponent<PlayerManager>(), 10);
+                GetComponent<TakedownComponent>().DecreaseTakeDownGauge(damage);
+                GetComponent<EnemyAnger>().IncreaseAngerTowards(PhotonNetwork.GetPhotonView(damageOwnerID).GetComponent<PlayerManager>(), angerValue);
             }
             else
             {

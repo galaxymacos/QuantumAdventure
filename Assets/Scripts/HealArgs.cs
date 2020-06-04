@@ -1,9 +1,9 @@
 ﻿public class HealArgs
 {
-    public int healAmount;
+    public int HealAmount;
 
     public HealArgs(int healAmount)
     {
-        this.healAmount = healAmount;
+        this.HealAmount = healAmount;
     }
 }

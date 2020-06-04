@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class SMB_Grounded_Soap : SMB_Soap
+public class SmbGroundedSoap : SmbSoap
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        if (!PlayerManager.photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
         }
@@ -21,19 +21,19 @@ public class SMB_Grounded_Soap : SMB_Soap
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        if (playerManager.isDialogueBoxOpen)
+        if (PlayerManager.isDialogueBoxOpen)
         {
             return;
         }
-        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        if (!PlayerManager.photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
         }
-        SoapMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
+        SoapMovement.Move(UserInput.HorizontalValue, UserInput.VerticalValue);
 
         SoapMovement.RotateCharacter();
 
-        if (UserInput.diveRollPressed)
+        if (UserInput.DiveRollPressed)
         {
             SoapMovement.SetTriggerAnimation("DiveRoll");
         }

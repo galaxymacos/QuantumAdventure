@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Event_Args;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class SoapMovement : MonoBehaviourPun, IPunObservable
@@ -16,7 +17,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     [SerializeField] private float camMaxHeight = 3f;
     [SerializeField] private float camMinHeight = 0.5f;
-    private Transform camTransfrom;
+    private Transform _camTransfrom;
     [SerializeField] private Vector3 gravity = new Vector3(0.0f, -9.8f, 0.0f);
     
     [SerializeField] public float mouseSentivity = 20;
@@ -29,7 +30,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     [SerializeField] public Transform groundCheck;
 
     
-    [SerializeField] public string[] TriggerAnimationList;
+    [FormerlySerializedAs("TriggerAnimationList")] [SerializeField] public string[] triggerAnimationList;
 
     #endregion
 
@@ -44,8 +45,8 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     #region Private Field
 
-    private CharacterController characterController;
-    private int triggerAnimationRaisingFlag = -1;
+    private CharacterController _characterController;
+    private int _triggerAnimationRaisingFlag = -1;
 
     #endregion
 
@@ -53,9 +54,9 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     public event EventHandler<CharacterEventArgs> onPlayerGrounded;
     public event EventHandler<CharacterEventArgs> onPlayerJumped;
-    public Action<SMB_Soap> onAnimationEnter;
-    public Action<SMB_Soap> onAnimationUpdate;
-    public Action<SMB_Soap> onAnimationExit;
+    public Action<SmbSoap> onAnimationEnter;
+    public Action<SmbSoap> onAnimationUpdate;
+    public Action<SmbSoap> onAnimationExit;
 
     #endregion
 
@@ -63,8 +64,8 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
-        camTransfrom = Camera.main.transform;
+        _characterController = GetComponent<CharacterController>();
+        _camTransfrom = Camera.main.transform;
     }
 
     
@@ -74,7 +75,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
         if (!isGrounded)
         {
-            characterController.Move(gravity*Time.deltaTime);
+            _characterController.Move(gravity*Time.deltaTime);
         }
     }
 
@@ -88,13 +89,13 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
         {
             anim.SetFloat("Horizontal Input", horizontalInput);
             anim.SetFloat("Vertical Input", verticalInput);
-            Vector3 forwardVector = transform.position - camTransfrom.position;
+            Vector3 forwardVector = transform.position - _camTransfrom.position;
             forwardVector.y = 0;
             forwardVector.Normalize();
             Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
             Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
             movementVector.Normalize();
-            characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+            _characterController.Move(movementVector * moveSpeed* Time.deltaTime);
             
         }
     }
@@ -106,20 +107,20 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
-            Vector3 forwardVector = transform.position - camTransfrom.position;
+            Vector3 forwardVector = transform.position - _camTransfrom.position;
             forwardVector.y = 0;
             forwardVector.Normalize();
             Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
             Vector3 movementVector = forwardVector * verticalInput + -rightVector * horizontalInput;
             movementVector.Normalize();
-            characterController.Move(movementVector * moveSpeed* Time.deltaTime);
+            _characterController.Move(movementVector * moveSpeed* Time.deltaTime);
             
         }
     }
 
     public Vector3 CalculateMoveDirection(float horizontalInput, float verticalInput)
     {
-        Vector3 forwardVector = transform.position - camTransfrom.position;
+        Vector3 forwardVector = transform.position - _camTransfrom.position;
         forwardVector.y = 0;
         forwardVector.Normalize();
         Vector3 rightVector = Vector3.Cross(forwardVector, Vector3.up).normalized;
@@ -131,7 +132,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     public void MoveAlong(Vector3 directionVector)
     {
         print(moveSpeed);
-        characterController.Move(directionVector * moveSpeed* Time.deltaTime);
+        _characterController.Move(directionVector * moveSpeed* Time.deltaTime);
 
     }
 
@@ -140,7 +141,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
         if (photonView.IsMine || !PhotonNetwork.IsConnected)
         {
             
-            Vector3 forwardVector = transform.position - camTransfrom.position;
+            Vector3 forwardVector = transform.position - _camTransfrom.position;
             forwardVector.y = 0;
             forwardVector.Normalize();
 
@@ -176,11 +177,11 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     public void SetTriggerAnimation(string triggerName)
     {
         anim.SetTrigger(triggerName);
-        for (int i = 0; i < TriggerAnimationList.Length; i++)
+        for (int i = 0; i < triggerAnimationList.Length; i++)
         {
-            if (TriggerAnimationList[i] == triggerName)
+            if (triggerAnimationList[i] == triggerName)
             {
-                triggerAnimationRaisingFlag = i;
+                _triggerAnimationRaisingFlag = i;
                 break;
             }
         }
@@ -193,7 +194,7 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
 
     public void SetTriggerAnimationRaisingFlag(int index)
     {
-        triggerAnimationRaisingFlag = index;
+        _triggerAnimationRaisingFlag = index;
     }
 
     #endregion
@@ -209,20 +210,20 @@ public class SoapMovement : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(triggerAnimationRaisingFlag);
+            stream.SendNext(_triggerAnimationRaisingFlag);
 
-            if (triggerAnimationRaisingFlag >= 0)
+            if (_triggerAnimationRaisingFlag >= 0)
             {
-                triggerAnimationRaisingFlag = -1;
+                _triggerAnimationRaisingFlag = -1;
             }
         }
         else
         {
-            triggerAnimationRaisingFlag = (int) stream.ReceiveNext();
-            if (triggerAnimationRaisingFlag >= 0)
+            _triggerAnimationRaisingFlag = (int) stream.ReceiveNext();
+            if (_triggerAnimationRaisingFlag >= 0)
             {
-                SetTriggerAnimation(TriggerAnimationList[triggerAnimationRaisingFlag]);
-                triggerAnimationRaisingFlag = -1;
+                SetTriggerAnimation(triggerAnimationList[_triggerAnimationRaisingFlag]);
+                _triggerAnimationRaisingFlag = -1;
             }
         }
     }

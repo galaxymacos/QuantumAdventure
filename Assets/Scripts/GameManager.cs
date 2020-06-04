@@ -7,15 +7,16 @@ using Photon.Realtime;
 using Rooms;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
 
     #region Serialized Field
 
-    [Tooltip("The prefab to use for representing the player")]
-    public GameObject MariaPrefab;
-    public GameObject SoapPrefab;
+    [FormerlySerializedAs("MariaPrefab")] [Tooltip("The prefab to use for representing the player")]
+    public GameObject mariaPrefab;
+    [FormerlySerializedAs("SoapPrefab")] public GameObject soapPrefab;
     public List<PlayerManager> players;
     
     
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     #region Property
 
     public static GameManager Instance;
-    public int MariaViewID;
-    public int SoapViewID;
+    [FormerlySerializedAs("MariaViewID")] public int mariaViewId;
+    [FormerlySerializedAs("SoapViewID")] public int soapViewId;
     
     #endregion
 
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (MariaPrefab == null)
+        if (mariaPrefab == null)
         {
             Debug.LogError("player prefab reference. Please set it up in GameObject 'Game Manager'");
         }
@@ -69,12 +70,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 GameObject newPlayer;
                 if ((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Maria")
                 {
-                    newPlayer = MasterManager.NetworkInstantiate(MariaPrefab, new Vector3(2f, 5f, 2f),
+                    newPlayer = MasterManager.NetworkInstantiate(mariaPrefab, new Vector3(2f, 5f, 2f),
                         Quaternion.identity);
                     players.Add(newPlayer.GetComponent<PlayerManager>());
                 }
                 else if((string) PhotonNetwork.LocalPlayer.CustomProperties["RandomNumber"] == "Soap"){
-                    newPlayer = MasterManager.NetworkInstantiate(SoapPrefab, new Vector3(-2f, 5f, -2f),
+                    newPlayer = MasterManager.NetworkInstantiate(soapPrefab, new Vector3(-2f, 5f, -2f),
                         Quaternion.identity);
                     players.Add(newPlayer.GetComponent<PlayerManager>());
                 }

@@ -3,15 +3,16 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
     public class PlayerListing: MonoBehaviourPunCallbacks
     {
-        public TextMeshProUGUI _text;
+        [FormerlySerializedAs("_text")] public TextMeshProUGUI text;
 
         private Player _player;
-        public bool Ready;
+        [FormerlySerializedAs("Ready")] public bool ready;
         
 
         public Player Player => _player;
@@ -42,7 +43,7 @@ namespace Rooms
             {
                 result = (string)player.CustomProperties["RandomNumber"];
             }
-            _text.text = result+", "+player.NickName;
+            text.text = result+", "+player.NickName;
         }
     }
 }

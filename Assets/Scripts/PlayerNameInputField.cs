@@ -21,7 +21,7 @@ public class PlayerNameInputField : MonoBehaviourPun
 
     #region Private Field
 
-    private const string playerNamePrefKey = "PlayerName";
+    private const string PlayerNamePrefKey = "PlayerName";
 
     #endregion
 
@@ -30,13 +30,13 @@ public class PlayerNameInputField : MonoBehaviourPun
     private void Start()
     {
         string defaultName = string.Empty;
-        TMP_InputField _inputField = GetComponent<TMP_InputField>();
-        if (_inputField != null)
+        TMP_InputField inputField = GetComponent<TMP_InputField>();
+        if (inputField != null)
         {
-            if (PlayerPrefs.HasKey(playerNamePrefKey))
+            if (PlayerPrefs.HasKey(PlayerNamePrefKey))
             {
-                defaultName = PlayerPrefs.GetString(playerNamePrefKey);
-                _inputField.text = defaultName;
+                defaultName = PlayerPrefs.GetString(PlayerNamePrefKey);
+                inputField.text = defaultName;
             }
         }
 
@@ -57,7 +57,7 @@ public class PlayerNameInputField : MonoBehaviourPun
 
         PhotonNetwork.NickName = value;
         
-        PlayerPrefs.SetString(playerNamePrefKey, value);
+        PlayerPrefs.SetString(PlayerNamePrefKey, value);
     }
     
     #endregion

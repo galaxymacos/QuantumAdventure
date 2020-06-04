@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
     [CreateAssetMenu(menuName = "ScriptableObject/MasterManager", fileName = "MasterManager")]
     public class MasterManager: SingletonScriptableObject<MasterManager>
     {
-        [SerializeField] private GameSettings _gameSettings;
+        [FormerlySerializedAs("_gameSettings")] [SerializeField] private GameSettings gameSettings;
 
-        public static GameSettings GameSettings => Instance._gameSettings;
+        public static GameSettings GameSettings => Instance.gameSettings;
 
         [SerializeField]
         private List<NetworkedPrefab> networkPrefabs = new List<NetworkedPrefab>();
@@ -20,18 +21,18 @@ namespace Rooms
         {
             foreach (var networkedPrefab in Instance.networkPrefabs)
             {
-                if (networkedPrefab.Prefab == obj)
+                if (networkedPrefab.prefab == obj)
                 {
                     
-                    if (networkedPrefab.Path != string.Empty)
+                    if (networkedPrefab.path != string.Empty)
                     {
-                        Debug.Log("Try to instantiate gameobject from "+networkedPrefab.Path);
-                        GameObject result = PhotonNetwork.Instantiate(networkedPrefab.Path, position, rotation);
+                        Debug.Log("Try to instantiate gameobject from "+networkedPrefab.path);
+                        GameObject result = PhotonNetwork.Instantiate(networkedPrefab.path, position, rotation);
                         return result;
                     }
                     else
                     {
-                        Debug.LogError("Path is empty for gameobject name "+networkedPrefab.Prefab);
+                        Debug.LogError("Path is empty for gameobject name "+networkedPrefab.prefab);
                         return null;
                     }
                 }

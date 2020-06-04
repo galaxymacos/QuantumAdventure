@@ -5,6 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
@@ -13,9 +14,9 @@ namespace Rooms
         #region Private field
 
         private RoomCanvases _roomCanvases;
-        [SerializeField] private Transform _content;
-        [SerializeField] private GameObject _playerListingPrefab;
-        [SerializeField] private List<PlayerListing> _listings;
+        [FormerlySerializedAs("_content")] [SerializeField] private Transform content;
+        [FormerlySerializedAs("_playerListingPrefab")] [SerializeField] private GameObject playerListingPrefab;
+        [FormerlySerializedAs("_listings")] [SerializeField] private List<PlayerListing> listings;
         [SerializeField] private TextMeshProUGUI readyText;
 
         private bool _ready = false;
@@ -42,11 +43,11 @@ namespace Rooms
         public override void OnDisable()
         {
             base.OnDisable();
-            foreach (var playerListing in _listings)
+            foreach (var playerListing in listings)
             {
                 Destroy(playerListing.gameObject);
             }
-            _listings.Clear();
+            listings.Clear();
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -56,11 +57,11 @@ namespace Rooms
 
         public override void OnPlayerLeftRoom(Player otherPlayer)
         {
-            int indexToRemove = _listings.FindIndex(x => Equals(x.Player, otherPlayer));
+            int indexToRemove = listings.FindIndex(x => Equals(x.Player, otherPlayer));
             if (indexToRemove != -1)
             {
-                Destroy(_listings[indexToRemove].gameObject);
-                _listings.RemoveAt(indexToRemove);
+                Destroy(listings[indexToRemove].gameObject);
+                listings.RemoveAt(indexToRemove);
             }
         }
 
@@ -98,11 +99,11 @@ namespace Rooms
 
             if (PhotonNetwork.IsMasterClient)
             {
-                foreach (var playerListing in _listings)
+                foreach (var playerListing in listings)
                 {
                     if (!Equals(playerListing.Player, PhotonNetwork.LocalPlayer))
                     {
-                        if (!playerListing.Ready)
+                        if (!playerListing.ready)
                         {
                             return;
                         }
@@ -147,19 +148,19 @@ namespace Rooms
 
         private void AddPlayerListing(Player player)
         {
-            int index = _listings.FindIndex(x => Equals(x.Player, player));
+            int index = listings.FindIndex(x => Equals(x.Player, player));
             if (index != -1)
             {
-                _listings[index].SetPlayerInfo(player);
+                listings[index].SetPlayerInfo(player);
             }
             else
             {
-                GameObject listingObject = Instantiate(_playerListingPrefab, _content);
+                GameObject listingObject = Instantiate(playerListingPrefab, content);
                 var listing = listingObject.GetComponent<PlayerListing>();
                 if (listing != null)
                 {
                     listing.SetPlayerInfo(player);
-                    _listings.Add(listing);
+                    listings.Add(listing);
 
                 }
                 else
@@ -196,10 +197,10 @@ namespace Rooms
         [PunRPC]
         private void RPC_ChangeReadyState(Player player, bool ready)
         {
-            int index = _listings.FindIndex(x => Equals(x.Player, player));
+            int index = listings.FindIndex(x => Equals(x.Player, player));
             if (index != -1)
             {
-                _listings[index].Ready = ready;
+                listings[index].ready = ready;
             }
         }
 

@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SMB_Kick_Maria : SMB_Maria
+public class SmbKickMaria : SmbMaria
 {
 }

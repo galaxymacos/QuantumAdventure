@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Rooms
 {
     [CreateAssetMenu(menuName = "ScriptableObject/GameSettings", fileName = "GameSettings")]
     public class GameSettings: ScriptableObject
     {
-        public string GameVersion;
+        [FormerlySerializedAs("GameVersion")] public string gameVersion;
     }
 }

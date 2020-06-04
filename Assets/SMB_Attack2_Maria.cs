@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 
-public class SMB_Attack2_Maria : SMB_Maria
+public class SMB_Attack2_Maria : SmbMaria
 {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
-        if (!photonView.IsMine) return;
+        if (!PhotonView.IsMine) return;
         
-        UserInput.leftMouseButtonPressing = false;
+        UserInput.LeftMouseButtonPressing = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
-        if (!photonView.IsMine) return;
+        if (!PhotonView.IsMine) return;
         
-        if (UserInput.leftMouseButtonPressing)
+        if (UserInput.LeftMouseButtonPressing)
         {
-            characterMovement.SetTriggerAnimation("Attack 3");
+            CharacterMovement.SetTriggerAnimation("Attack 3");
         }
     }
 

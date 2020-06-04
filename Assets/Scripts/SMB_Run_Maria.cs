@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class SMB_Run_Maria : SMB_Maria
+public class SmbRunMaria : SmbMaria
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
-        characterMovement.moveSpeed = characterMovement.runSpeed;
+        CharacterMovement.moveSpeed = CharacterMovement.runSpeed;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -18,37 +18,37 @@ public class SMB_Run_Maria : SMB_Maria
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         
-        if (!playerManager.photonView.IsMine && PhotonNetwork.IsConnected)
+        if (!PlayerManager.photonView.IsMine && PhotonNetwork.IsConnected)
         {
             return;
         }
 
-        if (playerManager.isDialogueBoxOpen)
+        if (PlayerManager.isDialogueBoxOpen)
         {
             return;
         }
         
-        characterMovement.Move(UserInput.horizontalValue, UserInput.verticalValue);
-        characterMovement.RotateCharacter(UserInput.horizontalValue, UserInput.verticalValue);
+        CharacterMovement.Move(UserInput.HorizontalValue, UserInput.VerticalValue);
+        CharacterMovement.RotateCharacter(UserInput.HorizontalValue, UserInput.VerticalValue);
 
-        if (!UserInput.runPressing || (Math.Abs(Mathf.Abs(UserInput.verticalValue)) < Mathf.Epsilon && Math.Abs(Mathf.Abs(UserInput.horizontalValue)) < Mathf.Epsilon))
+        if (!UserInput.RunPressing || (Math.Abs(Mathf.Abs(UserInput.VerticalValue)) < Mathf.Epsilon && Math.Abs(Mathf.Abs(UserInput.HorizontalValue)) < Mathf.Epsilon))
         {
-            characterMovement.SetAnimationBool("Run", false);
+            CharacterMovement.SetAnimationBool("Run", false);
         }
         
-        if (UserInput.skill1Pressing)
+        if (UserInput.Skill1Pressing)
         {
-            characterMovement.SetTriggerAnimation("Kick");
+            CharacterMovement.SetTriggerAnimation("Kick");
         }
 
-        if (UserInput.skill2Pressing)
+        if (UserInput.Skill2Pressing)
         {
-            characterMovement.SetTriggerAnimation("Slash");
+            CharacterMovement.SetTriggerAnimation("Slash");
         }
 
-        if (UserInput.skill1Pressing)
+        if (UserInput.Skill1Pressing)
         {
-            characterMovement.SetTriggerAnimation("Great Sword Slide");
+            CharacterMovement.SetTriggerAnimation("Great Sword Slide");
         }
     }
     

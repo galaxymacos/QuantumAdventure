@@ -7,21 +7,21 @@ namespace BehaviorDesigners
     
     public class Punch : Action
     {
-        public SharedFloat waitTime;
-        private float waitTimeCounter;
+        public SharedFloat WaitTime;
+        private float _waitTimeCounter;
         
         public override void OnStart()
         {
             GetComponent<Vampire>().Punch();
-            waitTimeCounter = waitTime.Value;
+            _waitTimeCounter = WaitTime.Value;
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (waitTimeCounter > 0)
+            if (_waitTimeCounter > 0)
             {
-                waitTimeCounter -= Time.deltaTime;
-                if (waitTimeCounter <= 0)
+                _waitTimeCounter -= Time.deltaTime;
+                if (_waitTimeCounter <= 0)
                 {
                     return TaskStatus.Success;
                 }

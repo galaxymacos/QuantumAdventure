@@ -11,7 +11,7 @@ namespace BehaviorDesigners.Conditions
 
         #region Private Field
 
-        private TakedownComponent takeDownComponent;
+        private TakedownComponent _takeDownComponent;
 
         #endregion
 
@@ -19,12 +19,12 @@ namespace BehaviorDesigners.Conditions
 
         public override void OnAwake()
         {
-            takeDownComponent = gameObject.GetComponent<TakedownComponent>();
+            _takeDownComponent = gameObject.GetComponent<TakedownComponent>();
         }
 
         public override TaskStatus OnUpdate()
         {
-            if (takeDownComponent.TakeDownGauge <= 0)
+            if (_takeDownComponent.TakeDownGauge <= 0)
             {
                 return TaskStatus.Success;
             }

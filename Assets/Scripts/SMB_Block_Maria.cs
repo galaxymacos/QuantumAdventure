@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-public class SMB_Block_Maria : SMB_Maria
+public class SmbBlockMaria : SmbMaria
 {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-        if (!UserInput.rightMouseButtonPressing)
+        if (!UserInput.RightMouseButtonPressing)
         {
-            characterMovement.SetAnimationBool("Block",false);
+            CharacterMovement.SetAnimationBool("Block",false);
         }
     }
 }

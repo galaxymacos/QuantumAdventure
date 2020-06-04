@@ -35,7 +35,7 @@ namespace Utilities
             /// <summary>
             /// Maximum number of ping history to allow.
             /// </summary>
-            private const int MAXIMUM_RECORDED_PINGS = 6;
+            private const int MaximumRecordedPings = 6;
 
             /// <summary>
             /// Returns the average ping for this player. Returns -1f if recorded ping quantity is not at maximum recorded pings.
@@ -44,7 +44,7 @@ namespace Utilities
             public int ReturnAveragePing()
             {
                 //Not enough pings to consider an average yet.
-                if (_pings.Count < MAXIMUM_RECORDED_PINGS)
+                if (_pings.Count < MaximumRecordedPings)
                 {
                     return -1;
                 }
@@ -63,7 +63,7 @@ namespace Utilities
             public void AddPing(int value)
             {
                 //If at max pings remove the first entry.
-                if (_pings.Count >= MAXIMUM_RECORDED_PINGS)
+                if (_pings.Count >= MaximumRecordedPings)
                     _pings.RemoveAt(0);
 
                 _pings.Add(value);
@@ -103,23 +103,23 @@ namespace Utilities
         /// <summary>
         /// How many times in a row the current masters ping must be significantly higher than others to forfeit master client.
         /// </summary>
-        private const int HIGH_PING_TURNOVER_REQUIREMENT = 3;
+        private const int HighPingTurnoverRequirement = 3;
         /// <summary>
         /// Mimimum current master client pings must be higher than lowest pinging player to be considered significantly higher.
         /// </summary>
-        private const int MINIMUM_PING_DIFFERENCE = 50;
+        private const int MinimumPingDifference = 50;
         /// <summary>
         /// How often to check for lowest pings. Masterclient must have a high ping after HIGH_PING_TURNOVER_REQUIREMENT times.
         /// </summary>
-        private const float PING_CHECK_INTERVAL = 5f;
+        private const float PingCheckInterval = 5f;
         /// <summary>
         /// Time master client has to grant a takeover request before it's taken forcefully. It's preferred that the master grants the request to prevent multiple takeovers in a short duration, but when master client is laggy or broken this may not be possible.
         /// </summary>
-        private const float TAKEOVER_REQUEST_TIMEOUT = 3f;
+        private const float TakeoverRequestTimeout = 3f;
         /// <summary>
         /// How frequently to send this clients ping.
         /// </summary>
-        private const float SEND_PING_INTERVAL = 5f;
+        private const float SendPingInterval = 5f;
         #endregion
 
         private void Update()
@@ -157,7 +157,7 @@ namespace Utilities
                 return;
 
             //Master client request timed out. Takeover forcefully.
-            if ((Time.unscaledTime - _takeoverRequestTime) > TAKEOVER_REQUEST_TIMEOUT)
+            if ((Time.unscaledTime - _takeoverRequestTime) > TakeoverRequestTimeout)
             {
                 _takeoverRequestTime = -1f;
                 SetNewMaster(PhotonNetwork.LocalPlayer);
@@ -194,7 +194,7 @@ namespace Utilities
                 return;
 
             //Next time to check pings.
-            _nextCheckChangeMaster = Time.time + PING_CHECK_INTERVAL;
+            _nextCheckChangeMaster = Time.time + PingCheckInterval;
 
             /* Players should already be removed when leaving the room.
              * This is just an extra precautionary. */
@@ -222,7 +222,7 @@ namespace Utilities
                 if (player == PhotonNetwork.LocalPlayer)
                 {
                     //If this client hasn't sent a ping in awhile don't even try to takeover.
-                    if ((Time.unscaledTime - _playerPings[pingsIndex].LastUpdatedTime) >= (SEND_PING_INTERVAL * 2))
+                    if ((Time.unscaledTime - _playerPings[pingsIndex].LastUpdatedTime) >= (SendPingInterval * 2))
                         return;
                 }
 
@@ -247,7 +247,7 @@ namespace Utilities
                         /* If master client hasn't send a ping within a reasonable time then
                          * set the master clients ping unrealistically high to force a high
                          * consequtive ping count. */
-                        if ((Time.unscaledTime - _playerPings[masterIndex].LastUpdatedTime) >= (SEND_PING_INTERVAL * 2))
+                        if ((Time.unscaledTime - _playerPings[masterIndex].LastUpdatedTime) >= (SendPingInterval * 2))
                             masterPing = 999999999;
                         //Otherwise set to average ping.
                         else
@@ -272,7 +272,7 @@ namespace Utilities
 
             float masterPingDifference = (masterPing - lowestAveragePing);
             //If master ping is difference is high enough to change master client.
-            if (masterPingDifference > MINIMUM_PING_DIFFERENCE)
+            if (masterPingDifference > MinimumPingDifference)
                 _consequtiveHighPingCount++;
             //master ping not too much higher.
             else
@@ -294,7 +294,7 @@ namespace Utilities
             if (Time.unscaledTime < _nextSendPingTime)
                 return;
 
-            _nextSendPingTime = Time.unscaledTime + SEND_PING_INTERVAL;
+            _nextSendPingTime = Time.unscaledTime + SendPingInterval;
 
             base.photonView.RPC("RPC_ReceivePing", RpcTarget.All, PhotonNetwork.GetPing());
         }

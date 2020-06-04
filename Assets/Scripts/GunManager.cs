@@ -41,7 +41,7 @@ public class GunManager: MonoBehaviourPun
 
     private void Update()
     {
-        currentGunPart.holdingTrigger = UserInput.leftMouseButtonPressing;
+        currentGunPart.holdingTrigger = UserInput.LeftMouseButtonPressing;
         currentGunPart.OnUpdate();
     }
 
@@ -71,7 +71,7 @@ public class GunManager: MonoBehaviourPun
             print("2");
             currentGunPartIndex++;
         }
-        onGunSwitch?.Invoke(this, new SwitchGunArgs{oldGun = gunParts[oldGunIndex], newGun = gunParts[currentGunPartIndex]});
+        onGunSwitch?.Invoke(this, new SwitchGunArgs{OldGun = gunParts[oldGunIndex], NewGun = gunParts[currentGunPartIndex]});
 
     }
 
@@ -88,7 +88,7 @@ public class GunManager: MonoBehaviourPun
             print("4");
             currentGunPartIndex--;
         }
-        onGunSwitch?.Invoke(this, new SwitchGunArgs { oldGun = gunParts[oldGunIndex], newGun = gunParts[currentGunPartIndex]});
+        onGunSwitch?.Invoke(this, new SwitchGunArgs { OldGun = gunParts[oldGunIndex], NewGun = gunParts[currentGunPartIndex]});
 
     }
 
@@ -96,7 +96,7 @@ public class GunManager: MonoBehaviourPun
 
     private void GunSwitchAction(object sender, SwitchGunArgs switchGunArgs)
     {
-        switchGunArgs.oldGun.holdingTrigger = false;
+        switchGunArgs.OldGun.holdingTrigger = false;
     }
 
     #endregion

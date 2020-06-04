@@ -5,17 +5,17 @@ using UnityEngine;
 
 public static class NetworkEventFirer
 {
-    public static byte EventCode_DealDamage = 1;
-    public static byte EventCode_ShowMessage = 2;
+    public static byte EventCodeDealDamage = 1;
+    public static byte EventCodeShowMessage = 2;
 
     // public static void RegisterCustomType()
     // {
         // PhotonPeer.RegisterType(typeof(DealDamageEventArgs), (byte)'M', DealDamageEventArgs.Serialize, DealDamageEventArgs.Deserialize);
     // }
     
-    public static void DealDamage(DealDamageEventArgs dealDamageEventArgs, int targetViewId, int damageOwnerViewId )
+    public static void DealDamage(int targetViewId, int damageOwnerViewId, int damage, Vector2 pushForce, int angerValue)
     {
-        object[] content = {dealDamageEventArgs, targetViewId, damageOwnerViewId };
+        object[] content = {targetViewId, damageOwnerViewId, pushForce, angerValue };
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions {Receivers = ReceiverGroup.All};
         SendOptions sendOptions = new SendOptions {Reliability = true};
         PhotonNetwork.RaiseEvent(1, content, raiseEventOptions, sendOptions);

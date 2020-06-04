@@ -14,10 +14,10 @@ namespace Rooms
 
         #region Public method
 
-        public void SetRoomInfo(RoomInfo _roomInfo)
+        public void SetRoomInfo(RoomInfo roomInfo)
         {
-            RoomInfo = _roomInfo;
-            listText.text = $"{_roomInfo.MaxPlayers}, {_roomInfo.Name}";
+            RoomInfo = roomInfo;
+            listText.text = $"{roomInfo.MaxPlayers}, {roomInfo.Name}";
         }
 
         public void OnClick_Button()

@@ -8,14 +8,14 @@ namespace BehaviorDesigners.Actions
     public class SetUpWaypoints : Action
     {
         // The transform that the object is moving towards
-        public SharedGameObjectList target;
+        public SharedGameObjectList Target;
 
         public override TaskStatus OnUpdate()
         {
             var wayPointsInScene = GameObject.FindGameObjectsWithTag("Waypoint");
             if (wayPointsInScene.Length > 0)
             {
-                target.Value = wayPointsInScene.ToList();
+                Target.Value = wayPointsInScene.ToList();
                 return TaskStatus.Success;
             }
 

@@ -6,23 +6,23 @@ using UnityEngine;
 
 public class UserInput : MonoBehaviour
 {
-    public static float horizontalValue;
-    public static float verticalValue;
-    public static float cameraHorizontalMouseValue;
-    public static float cameraVerticalMouseValue;
-    public static bool skill1Pressing;
-    public static bool skill2Pressing;
-    public static bool runPressing;
-    public static bool leftMouseButtonPressing;
-    public static bool rightMouseButtonPressing;
-    public static bool interactKeyPressing;
-    public static bool returnButtonPressed;
-    public static bool mouseWheelScrollUp;
-    public static bool mouseWheelScrollDown;
-    public static bool reloadPressed;
-    public static bool diveRollPressed;
+    public static float HorizontalValue;
+    public static float VerticalValue;
+    public static float CameraHorizontalMouseValue;
+    public static float CameraVerticalMouseValue;
+    public static bool Skill1Pressing;
+    public static bool Skill2Pressing;
+    public static bool RunPressing;
+    public static bool LeftMouseButtonPressing;
+    public static bool RightMouseButtonPressing;
+    public static bool InteractKeyPressing;
+    public static bool ReturnButtonPressed;
+    public static bool MouseWheelScrollUp;
+    public static bool MouseWheelScrollDown;
+    public static bool ReloadPressed;
+    public static bool DiveRollPressed;
 
-    public static bool leftMouseButtonPressed;
+    public static bool LeftMouseButtonPressed;
 
     public static event Action onSkill1Pressed;
     public static event Action onSkill2Pressed;
@@ -50,7 +50,7 @@ public class UserInput : MonoBehaviour
 
     #region Private Field
 
-    private static Player player;
+    private static Player _player;
 
     #endregion
 
@@ -58,79 +58,79 @@ public class UserInput : MonoBehaviour
 
     private void Start()
     {
-        player = ReInput.players.GetPlayer(0);
+        _player = ReInput.players.GetPlayer(0);
     }
 
     private void Update()
     {
-        horizontalValue = player.GetAxis("Move Horizontal");
-        verticalValue = player.GetAxis("Move Vertical");
-        cameraHorizontalMouseValue = player.GetAxis("Camera Rotate Horizontal");
-        cameraVerticalMouseValue = player.GetAxis("Camera Rotate Vertical");
-        skill1Pressing = player.GetButton("Skill1");
-        skill2Pressing = player.GetButton("Skill2");
-        interactKeyPressing = player.GetButton("Interact"); 
-        leftMouseButtonPressing = player.GetButton("Left Mouse Button");
-        rightMouseButtonPressing = player.GetButton("Right Mouse Button");
-        mouseWheelScrollUp = player.GetButton("Wheel Scroll Up");
-        mouseWheelScrollDown = player.GetButton("Wheel Scroll Down");
-        runPressing = player.GetButton("Run");
-        reloadPressed = player.GetButton("Reload");
-        diveRollPressed = player.GetButton("DiveRoll");
+        HorizontalValue = _player.GetAxis("Move Horizontal");
+        VerticalValue = _player.GetAxis("Move Vertical");
+        CameraHorizontalMouseValue = _player.GetAxis("Camera Rotate Horizontal");
+        CameraVerticalMouseValue = _player.GetAxis("Camera Rotate Vertical");
+        Skill1Pressing = _player.GetButton("Skill1");
+        Skill2Pressing = _player.GetButton("Skill2");
+        InteractKeyPressing = _player.GetButton("Interact"); 
+        LeftMouseButtonPressing = _player.GetButton("Left Mouse Button");
+        RightMouseButtonPressing = _player.GetButton("Right Mouse Button");
+        MouseWheelScrollUp = _player.GetButton("Wheel Scroll Up");
+        MouseWheelScrollDown = _player.GetButton("Wheel Scroll Down");
+        RunPressing = _player.GetButton("Run");
+        ReloadPressed = _player.GetButton("Reload");
+        DiveRollPressed = _player.GetButton("DiveRoll");
 
 
-        if (player.GetButtonDown("Skill1"))
+        if (_player.GetButtonDown("Skill1"))
         {
             onSkill1Pressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Skill2"))
+        if (_player.GetButtonDown("Skill2"))
         {
             onSkill2Pressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Left Mouse Button"))
+        if (_player.GetButtonDown("Left Mouse Button"))
         {
             onLeftMouseButtonPressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Right Mouse Button"))
+        if (_player.GetButtonDown("Right Mouse Button"))
         {
             onRightMouseButtonPressed?.Invoke();
         }
         
-        if (player.GetButtonDown("Interact"))
+        if (_player.GetButtonDown("Interact"))
         {
             onInteractButtonPressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Run"))
+        if (_player.GetButtonDown("Run"))
         {
             onRunPressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Confirm"))
+        if (_player.GetButtonDown("Confirm"))
         {
             onReturnButtonPressed?.Invoke();
         }
 
-        if (player.GetButtonDown("Wheel Scroll Up"))
+        if (_player.GetButtonDown("Wheel Scroll Up"))
         {
             onMouseWheelScrollUp?.Invoke();
         }
 
-        if (player.GetButtonDown("Wheel Scroll Down"))
+        if (_player.GetButtonDown("Wheel Scroll Down"))
         {
             onMouseWheelScrollDown?.Invoke();
         }
 
-        if (player.GetButtonDown("Reload"))
+        if (_player.GetButtonDown("Reload"))
         {
             print("reload");
             onReloadPressed?.Invoke();
         }
 
-        if (player.GetButtonDown("DiveRoll"))
+        if (_player.GetButtonDown("DiveRoll"))
         {
             print("Player dives roll");
             onDiveRollPressed?.Invoke();

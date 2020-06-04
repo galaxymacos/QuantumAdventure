@@ -2,6 +2,7 @@
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = System.Random;
 
 namespace Rooms
@@ -14,9 +15,9 @@ namespace Rooms
 
         #region Private Field
 
-        [SerializeField] private TextMeshProUGUI CharacterSelectionUI;
-        private readonly Hashtable customProperties = new Hashtable();
-        private CharacterPick currentCharacter = CharacterPick.Maria;
+        [FormerlySerializedAs("CharacterSelectionUI")] [SerializeField] private TextMeshProUGUI characterSelectionUi;
+        private readonly Hashtable _customProperties = new Hashtable();
+        private CharacterPick _currentCharacter = CharacterPick.Maria;
         
 
         #endregion
@@ -40,11 +41,11 @@ namespace Rooms
 
         private void SwitchCharacter()
         {
-            currentCharacter = currentCharacter == CharacterPick.Maria ? CharacterPick.Soap : CharacterPick.Maria;
+            _currentCharacter = _currentCharacter == CharacterPick.Maria ? CharacterPick.Soap : CharacterPick.Maria;
 
-            CharacterSelectionUI.text = currentCharacter.ToString();
-            customProperties["RandomNumber"] = currentCharacter.ToString();
-            PhotonNetwork.SetPlayerCustomProperties(customProperties);
+            characterSelectionUi.text = _currentCharacter.ToString();
+            _customProperties["RandomNumber"] = _currentCharacter.ToString();
+            PhotonNetwork.SetPlayerCustomProperties(_customProperties);
 
         }
 

@@ -1,16 +1,17 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class NetworkedPrefab
 {
-    public GameObject Prefab;
-    public string Path;
+    [FormerlySerializedAs("Prefab")] public GameObject prefab;
+    [FormerlySerializedAs("Path")] public string path;
 
     public NetworkedPrefab(GameObject prefab, string path)
     {
-        Prefab = prefab;
-        Path = ReturnPrefabPathModified(path);
+        this.prefab = prefab;
+        this.path = ReturnPrefabPathModified(path);
     }
 
     #region Private method

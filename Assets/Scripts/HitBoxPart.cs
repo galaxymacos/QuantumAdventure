@@ -15,14 +15,14 @@ public class HitBoxPart : MonoBehaviour
 
     public event EventHandler<ColliderHitEventArgs> onHit;
 
-    public bool IsHitBoxActive => isHitBoxActive;
+    public bool IsHitBoxActive => _isHitBoxActive;
 
     #endregion
 
     #region Private Field
 
-    private bool isHitBoxActive;
-    private bool hasSent;
+    private bool _isHitBoxActive;
+    private bool _hasSent;
 
     #endregion
 
@@ -31,15 +31,15 @@ public class HitBoxPart : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         
-        if (isHitBoxActive)
+        if (_isHitBoxActive)
         {
-            if (!hasSent)
+            if (!_hasSent)
             {
                 if (other.transform.root.gameObject != transform.root.gameObject)
                 {
                     print("Hit "+other.name);
                     onHit?.Invoke(this, new ColliderHitEventArgs(other));
-                    hasSent = true;
+                    _hasSent = true;
                 }
                 
             }
@@ -52,14 +52,14 @@ public class HitBoxPart : MonoBehaviour
 
     public void ActiveHitbox()
     {
-        isHitBoxActive = true;
+        _isHitBoxActive = true;
         print("activate sword hitbox");
     }
 
     public void DeactivateHitbox()
     {
-        isHitBoxActive = false;
-        hasSent = false;
+        _isHitBoxActive = false;
+        _hasSent = false;
         print("Deactivate sword hitbox");
     }
 
@@ -76,10 +76,10 @@ public class HitBoxPart : MonoBehaviour
 
 public class ColliderHitEventArgs
 {
-    public Collider hitCollider;
+    public Collider HitCollider;
 
     public ColliderHitEventArgs(Collider hitCollider)
     {
-        this.hitCollider = hitCollider;
+        this.HitCollider = hitCollider;
     }
 }

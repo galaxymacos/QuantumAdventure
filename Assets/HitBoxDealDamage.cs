@@ -97,13 +97,12 @@ public class HitBoxDealDamage : SerializedMonoBehaviour
     {
         if (!controlByPlayer || GetComponent<PlayerManager>().photonView.IsMine)
         {
-            print($"{gameObject.name} try to deal damage to {e.hitCollider.gameObject.name}");
-            var takeDamagePart = e.hitCollider.transform.root.GetComponent<ITakeDamage>();
+            print($"{gameObject.name} try to deal damage to {e.HitCollider.gameObject.name}");
+            var takeDamagePart = e.HitCollider.transform.root.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                var skillData = skillDamage.GetSkillData(currentSkill);
-                DealDamageEventArgs eventArgs =new DealDamageEventArgs{damageAmount = skillData.damage, damageOwnerPosition = transform.position, damageOwnerViewID = GetComponent<PhotonView>().ViewID, verticalForce = skillData.launchVerticalForce, horizontalForce = skillData.launchHorizontalForce, takeDownValue = skillData.takeDownValue};
-                NetworkEventFirer.DealDamage(eventArgs, e.hitCollider.transform.root.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID);
+                SkillDataRaw skillData = skillDamage.GetSkillData(currentSkill);
+                NetworkEventFirer.DealDamage( e.HitCollider.transform.root.GetComponent<PhotonView>().ViewID, GetComponent<PhotonView>().ViewID, skillData.damage, skillData.launchForce, skillData.angerValue);
             }
         }
     }

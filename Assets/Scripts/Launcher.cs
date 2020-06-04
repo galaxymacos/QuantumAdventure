@@ -23,8 +23,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     #region Private Field
 
-    private string gameVersion = "0.1";
-    private bool isConnecting;
+    private string _gameVersion = "0.1";
+    private bool _isConnecting;
 
     #endregion
 
@@ -53,8 +53,8 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
         else
         {
-            isConnecting = PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = gameVersion;
+            _isConnecting = PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.GameVersion = _gameVersion;
         }
         
         progressLabel.SetActive(true);
@@ -79,10 +79,10 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         print("Connected to master");
-        if (isConnecting)
+        if (_isConnecting)
         {
             PhotonNetwork.JoinRandomRoom();
-            isConnecting = false;
+            _isConnecting = false;
         }
     }
 

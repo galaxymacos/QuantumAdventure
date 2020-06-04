@@ -22,16 +22,16 @@ public class Projectile : MonoBehaviourPun, IPunObservable
 
     #region Private Field
 
-    private float flySpeed;
-    private Vector3 flyDirection;
-    private float firingRange;
-    private bool hasSetup;
-    private float damage;
+    private float _flySpeed;
+    private Vector3 _flyDirection;
+    private float _firingRange;
+    private bool _hasSetup;
+    private int _damage;
 
-    private Rigidbody rb;
-    private GameObject owner;
+    private Rigidbody _rb;
+    private GameObject _owner;
 
-    private Vector3 originalLocation;
+    private Vector3 _originalLocation;
 
     #endregion
 
@@ -39,12 +39,12 @@ public class Projectile : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if ((transform.position - originalLocation).magnitude > firingRange)
+        if ((transform.position - _originalLocation).magnitude > _firingRange)
         {
             if (isMine)
             {
@@ -59,18 +59,18 @@ public class Projectile : MonoBehaviourPun, IPunObservable
 
     public void Setup(ProjectileArgs args)
     {
-        flySpeed = args.flySpeed;
-        flyDirection = args.flyDirection;
-        damage = args.damage;
-        firingRange = args.firingRange;
-        owner = args.owner;
+        _flySpeed = args.FlySpeed;
+        _flyDirection = args.FlyDirection;
+        _damage = args.Damage;
+        _firingRange = args.FiringRange;
+        _owner = args.Owner;
         isMine = true;
 
-        hasSetup = true;
+        _hasSetup = true;
 
-        rb.velocity = flyDirection * flySpeed;
+        _rb.velocity = _flyDirection * _flySpeed;
 
-        originalLocation = transform.position;
+        _originalLocation = transform.position;
     }
 
     #endregion
@@ -80,15 +80,13 @@ public class Projectile : MonoBehaviourPun, IPunObservable
     private void OnTriggerEnter(Collider other)
     {
         if (!isMine) return;
-        if (other.transform.root.gameObject == owner || other.CompareTag("Bullet")) return;
-        if (owner.GetComponent<PlayerManager>().photonView.IsMine)
+        if (other.transform.root.gameObject == _owner || other.CompareTag("Bullet")) return;
+        if (_owner.GetComponent<PlayerManager>().photonView.IsMine)
         {
             var takeDamagePart = other.GetComponent<ITakeDamage>();
             if (takeDamagePart != null)
             {
-                var dealDamageEventArgs = new DealDamageEventArgs
-                    {damageAmount = bulletData.damage, damageOwnerPosition = owner.transform.position, takeDownValue = bulletData.takeDownValue}; 
-                NetworkEventFirer.DealDamage(dealDamageEventArgs, other.gameObject.GetComponent<PhotonView>().ViewID, owner.GetComponent<PhotonView>().ViewID);
+                NetworkEventFirer.DealDamage( other.gameObject.GetComponent<PhotonView>().ViewID, _owner.GetComponent<PhotonView>().ViewID, _damage,Vector2.zero, bulletData.angerValue);
             }
         }
         PhotonNetwork.Destroy(gameObject);
@@ -100,27 +98,27 @@ public class Projectile : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(rb.position);
-            stream.SendNext(rb.rotation);
-            stream.SendNext(rb.velocity);
+            stream.SendNext(_rb.position);
+            stream.SendNext(_rb.rotation);
+            stream.SendNext(_rb.velocity);
         }
         else
         {
-            rb.position = (Vector3) stream.ReceiveNext();
-            rb.rotation = (Quaternion) stream.ReceiveNext();
-            rb.velocity =(Vector3) stream.ReceiveNext();
+            _rb.position = (Vector3) stream.ReceiveNext();
+            _rb.rotation = (Quaternion) stream.ReceiveNext();
+            _rb.velocity =(Vector3) stream.ReceiveNext();
             
             float lag = Mathf.Abs((float) (PhotonNetwork.Time - info.SentServerTime));
-            rb.position += rb.velocity * lag;
+            _rb.position += _rb.velocity * lag;
         }
     }
 }
 
 public class ProjectileArgs
 {
-    public GameObject owner;
-    public Vector3 flyDirection;
-    public float flySpeed;
-    public float firingRange;
-    public float damage;
+    public GameObject Owner;
+    public Vector3 FlyDirection;
+    public float FlySpeed;
+    public float FiringRange;
+    public int Damage;
 }
