@@ -3154,7 +3154,7 @@ GameObject:
   - component: {fileID: 5869548396009838614}
   - component: {fileID: 8613685484332350964}
   - component: {fileID: 428655327702808530}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Soap
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -3245,7 +3245,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   groundCheck: {fileID: 991430889716656471}
-  TriggerAnimationList: []
+  triggerAnimationList: []
   moveSpeed: 10
 --- !u!114 &8296172668371274436
 MonoBehaviour:
@@ -3341,9 +3341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthComponent: {fileID: 4012463380183923321}
-  hostUI: {fileID: 1651867880489566018, guid: 6805d5bd12fa5b44c802cafa939cfd1b, type: 3}
-  dialogueUIPrefab: {fileID: 1709442086624729634, guid: f6b64eb3b3e14524cb9b72c478a95722,
-    type: 3}
+  dialogueUiPrefab: {fileID: 0}
   playerUiPrefabs:
   - {fileID: 3700077630826408245, guid: 67204533ac79a5f4aaa4dee617afec69, type: 3}
   virtualCamera: {fileID: 2926434334501395574}
@@ -3415,6 +3413,7 @@ MonoBehaviour:
       Entry: 6
       Data: 
   skillDatas: []
+  skillData: {fileID: 0}
 --- !u!114 &4036666278827928884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3490,8 +3489,8 @@ MonoBehaviour:
   firingRange: 400
   gunName: M4A1
   icon: {fileID: 0}
-  damage: 10
-  takeDownValuePerShoot: 20
+  damagePerShoot: 0
+  angerPerShoot: 0
   nextFiringTime: 0
 --- !u!114 &8613685484332350964
 MonoBehaviour:

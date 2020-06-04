@@ -7,8 +7,9 @@ public class SMB_Attack2_Maria : SmbMaria
         base.OnStateEnter(animator, stateInfo, layerIndex);
 
         if (!PhotonView.IsMine) return;
-        
-        UserInput.LeftMouseButtonPressing = false;
+        animator.SetBool("Attack 2", false);
+        UserInput.LeftMouseButtonPressState = UserInput.PressState.DownButCancel;
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -16,9 +17,10 @@ public class SMB_Attack2_Maria : SmbMaria
     {
         base.OnStateUpdate(animator, stateInfo, layerIndex);
         if (!PhotonView.IsMine) return;
-        
-        if (UserInput.LeftMouseButtonPressing)
+
+        if (UserInput.LeftMouseButtonPressState == UserInput.PressState.Down)
         {
+            UserInput.LeftMouseButtonPressState = UserInput.PressState.DownButCancel;
             CharacterMovement.SetTriggerAnimation("Attack 3");
         }
     }

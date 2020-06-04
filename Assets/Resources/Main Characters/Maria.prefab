@@ -1656,7 +1656,7 @@ GameObject:
   - component: {fileID: 4259395575260367521}
   - component: {fileID: -8685064943403033131}
   - component: {fileID: 4028835343680446982}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Maria
   m_TagString: Player
   m_Icon: {fileID: 0}

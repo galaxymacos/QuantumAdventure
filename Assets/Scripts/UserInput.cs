@@ -22,7 +22,7 @@ public class UserInput : MonoBehaviour
     public static bool ReloadPressed;
     public static bool DiveRollPressed;
 
-    public static bool LeftMouseButtonPressed;
+    public static PressState LeftMouseButtonPressState;
 
     public static event Action onSkill1Pressed;
     public static event Action onSkill2Pressed;
@@ -92,6 +92,11 @@ public class UserInput : MonoBehaviour
         if (_player.GetButtonDown("Left Mouse Button"))
         {
             onLeftMouseButtonPressed?.Invoke();
+            LeftMouseButtonPressState = PressState.Down;
+        }
+        else if (_player.GetButtonUp("Left Mouse Button"))
+        {
+            LeftMouseButtonPressState = PressState.Up;
         }
 
         if (_player.GetButtonDown("Right Mouse Button"))
@@ -137,20 +142,13 @@ public class UserInput : MonoBehaviour
         }
         
     }
-
-    #endregion
-
-    #region Public Methods
-
-
-
-    #endregion
-
-    #region Private Methods
-
-
-
-    #endregion
     
 
+    #endregion
+
+
+    public enum PressState
+    {
+        Up, DownButCancel, Down
+    }
 }
